@@ -10,7 +10,9 @@
 #import <CoreLocation/CoreLocation.h>
 
 typedef void (^SMArrayBlock)(NSArray *array);
+typedef void (^VWWStringBlock)(NSString *string);
 
 @interface SMGooglePlacesController : NSObject
 +(void)queryGooglePlacesWithLatitude:(double)latitude longitude:(double)longitude radius:(NSInteger)radius completion:(SMArrayBlock)completion;
++(void)stringLocalityFromLatitude:(double)latitude longitude:(double)longitude completionBlock:(VWWStringBlock)completionBlock;
 @end

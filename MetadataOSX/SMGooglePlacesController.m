@@ -69,4 +69,50 @@ static NSString *SMGoogleAPIKey = @"AIzaSyCc6Ab9CdriC-IT53S_2qszNtrsCj2fSpQ";
     });
 }
 
+
+
++(void)stringLocalityFromLatitude:(double)latitude longitude:(double)longitude completionBlock:(VWWStringBlock)completionBlock{
+    
+    CLLocation *location = [[CLLocation alloc]initWithLatitude:latitude
+                                                     longitude:longitude];
+    CLGeocoder *geocoder = [[CLGeocoder alloc]init];
+    [geocoder reverseGeocodeLocation:location
+                   completionHandler:^(NSArray *placemarks, NSError *error) {
+                       if(placemarks.count){
+                           CLPlacemark *placemark = placemarks[0];
+
+                           
+                           if(placemark.thoroughfare && placemark.subThoroughfare)
+                               return completionBlock([NSString stringWithFormat:@"%@ %@", placemark.subThoroughfare, placemark.thoroughfare]);
+//                           if(placemark.locality)
+//                               return completionBlock(placemark.locality);
+                           if(placemark.subAdministrativeArea)
+                               return completionBlock(placemark.subAdministrativeArea);
+                           if(placemark.name)
+                               return completionBlock(placemark.name);
+                           if(placemark.thoroughfare)
+                               return completionBlock(placemark.thoroughfare);
+                           if(placemark.subThoroughfare)
+                               return completionBlock(placemark.subThoroughfare);
+                           if(placemark.subLocality)
+                               return completionBlock(placemark.subLocality);
+                           if(placemark.administrativeArea)
+                               return completionBlock(placemark.administrativeArea);
+                           if(placemark.postalCode)
+                               return completionBlock(placemark.postalCode);
+                           if(placemark.ISOcountryCode)
+                               return completionBlock(placemark.ISOcountryCode);
+                           if(placemark.country)
+                               return completionBlock(placemark.country);
+                           if(placemark.inlandWater)
+                               return completionBlock(placemark.inlandWater);
+                           if(placemark.ocean)
+                               return completionBlock(placemark.ocean);
+                           if(placemark.areasOfInterest.count){
+                               return completionBlock(placemark.areasOfInterest[0]);
+                           }
+                       }
+                   }];
+}
+
 @end

@@ -15,10 +15,12 @@
 
 typedef void (^VWWEmptyBlock)(void);
 typedef void (^VWWCLLocationCoordinate2DBlock)(CLLocationCoordinate2D coordinate);
+typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
 
 @interface ViewController ()
 @property (strong) NSMutableArray *contents;
-@property NSUInteger selectedIndex;
+//@property NSUInteger selectedIndex;
+@property (strong) NSIndexSet *selectedIndexes;
 @property (weak) IBOutlet NSTextField *pathLabel;
 
 @property (weak) IBOutlet NSTableView *tableView;
@@ -28,6 +30,9 @@ typedef void (^VWWCLLocationCoordinate2DBlock)(CLLocationCoordinate2D coordinate
 @property (weak) IBOutlet NSPopUpButton *metadataPopup;
 @property (weak) IBOutlet NSImageView *imageView;
 @property (strong) VWWEmptyBlock completionBlock;
+@property (weak) IBOutlet NSButton *writeGPSButton;
+@property (weak) IBOutlet NSButton *removeGPSButton;
+
 @end
 
 @implementation ViewController
@@ -154,56 +159,44 @@ typedef void (^VWWCLLocationCoordinate2DBlock)(CLLocationCoordinate2D coordinate
     return metadata;
 }
 
--(BOOL)writeMetadata:(NSDictionary*)metadata toURL:(NSURL*)url{
-    
+-(void)writeMetadata:(NSDictionary*)metadata toURL:(NSURL*)url completionBlock:(VWWBoolDictionaryBlock)completionBlock{
+
+    // Create source
     CGImageSourceRef imageSource = CGImageSourceCreateWithURL((__bridge CFURLRef)url, NULL);
     if (imageSource == NULL) {
         NSLog(@"%s Could not create image source for %@", __PRETTY_FUNCTION__, url.path);
-        return NO;
+        return completionBlock(NO, nil);
     }
-
     
-    NSURL *destURL = [NSURL URLWithString:@"file:///Users/zakkhoyt/__test.jpg"];
-    CGImageDestinationRef imageDestination = CGImageDestinationCreateWithURL((__bridge CFURLRef)destURL, kUTTypeJPEG, 1, NULL);
+    // Create destination
+//    NSURL *destURL = [NSURL URLWithString:@"file:///Users/zakkhoyt/__test.jpg"];
+//    CGImageDestinationRef imageDestination = CGImageDestinationCreateWithURL((__bridge CFURLRef)destURL, kUTTypeJPEG, 1, NULL);
+
+    CGImageDestinationRef imageDestination = CGImageDestinationCreateWithURL((__bridge CFURLRef)url, kUTTypeJPEG, 1, NULL);
+
     if(imageDestination == NULL){
         NSLog(@"%s Could not create image destination for %@", __PRETTY_FUNCTION__, url.path);
-        return NO;
-        
+        return completionBlock(NO, nil);
     }
     
-    // Get metadata from source then create a mutable copy
-    CGImageMetadataRef metadataRef = CGImageSourceCopyMetadataAtIndex(imageSource, 0, NULL);
-    CGMutableImageMetadataRef mutableMetadataRef = CGImageMetadataCreateMutableCopy(metadataRef);
+    // Configure destination and set properties
+    CGImageDestinationSetProperties(imageDestination, (__bridge CFDictionaryRef)(metadata));
+    CGImageDestinationAddImageFromSource(imageDestination, imageSource, 0, (__bridge CFDictionaryRef)(metadata));
+
+    // Write the file to disk
+    bool success = CGImageDestinationFinalize(imageDestination);
     
-    // Modify the metadata
-    CFStringRef path = CFStringCreateWithFormat(NULL, NULL, CFSTR("{TIFF}.%@"), @"Orientation");
-    
-    CFTypeRef value = (CFTypeRef)3;
-    CGImageMetadataSetValueWithPath(mutableMetadataRef, NULL, path, value);
-    NSLog(@"mutableMetadataRef: \n%@", (__bridge NSString*)mutableMetadataRef);
-    
-    // Write the metadata to imageDestination
-    const void *keys[] =   {kCGImageDestinationMetadata};
-    const void *values[] = {mutableMetadataRef};
-    CFDictionaryRef options = CFDictionaryCreate(NULL, keys, values, 1, NULL, NULL);
-    CFErrorRef error;
-    bool success = CGImageDestinationCopyImageSource(imageDestination, imageSource, options, &error);
-    if(error){
-        NSLog(@"An error occurred when copying the file: %@", (__bridge NSString*)error);
-    }
-    
-    
+    // Clean up
     CFRelease(imageSource);
     CFRelease(imageDestination);
-
+    
     if(!success){
         NSLog(@"%s Failed to create new image for %@", __PRETTY_FUNCTION__, url.path);
-        return NO;
     }
-    
-
     NSLog(@"%s Success", __PRETTY_FUNCTION__);
-    return YES;
+    
+    // TODO: read back the dictionary from the actual file
+    return completionBlock(success, metadata);
 }
 
 
@@ -270,16 +263,25 @@ typedef void (^VWWCLLocationCoordinate2DBlock)(CLLocationCoordinate2D coordinate
         NSDictionary *gpsDictionary = [item.metaData valueForKeyPath:@"{GPS}"];
         if(gpsDictionary){
             [self extractLocationFromGPSDictionary:gpsDictionary completionBlock:^(CLLocationCoordinate2D coordinate) {
-                [SMGooglePlacesController queryGooglePlacesWithLatitude:coordinate.latitude longitude:coordinate.longitude radius:10 completion:^(NSArray *places) {
-                    NSLog(@"Places: %@", places);
-                    if(places.count){
-                        NSDictionary *place = places[0];
-                        NSString *name = [place valueForKeyPath:@"name"];
-                        cellView.textField.stringValue = name;
-                    } else {
-                        cellView.textField.stringValue = @"n/a";
-                    }
-                    //cellView.textField.stringValue = [NSString stringWithFormat:@"%f,%f", coordinate.latitude, coordinate.longitude];
+//                [SMGooglePlacesController queryGooglePlacesWithLatitude:coordinate.latitude longitude:coordinate.longitude radius:10 completion:^(NSArray *places) {
+//                    NSLog(@"Places: %@", places);
+//                    if(places.count){
+//                        NSDictionary *place = places[0];
+//                        NSString *name = [place valueForKeyPath:@"name"];
+//                        cellView.textField.stringValue = name;
+//                    } else {
+//                        cellView.textField.stringValue = @"n/a";
+//                    }
+//                    //cellView.textField.stringValue = [NSString stringWithFormat:@"%f,%f", coordinate.latitude, coordinate.longitude];
+//                }];
+                [SMGooglePlacesController stringLocalityFromLatitude:coordinate.latitude longitude:coordinate.longitude completionBlock:^(NSString *name) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if(name){
+                            cellView.textField.stringValue = name;
+                        } else {
+                            cellView.textField.stringValue = @"n/a";
+                        }
+                    });
                 }];
             }];
         } else {
@@ -305,32 +307,27 @@ typedef void (^VWWCLLocationCoordinate2DBlock)(CLLocationCoordinate2D coordinate
     NSInteger selectedRow = [self.tableView selectedRow];
     if (selectedRow != -1) {
         // Self
-        self.selectedIndex = selectedRow;
-        VWWContentItem  *item = self.contents[self.selectedIndex];
+//        NSUInteger index = self.selectedIndexes.firstIndex;
+        self.selectedIndexes = self.tableView.selectedRowIndexes;
+        VWWContentItem  *item = self.contents[self.selectedIndexes.firstIndex];
         
         
         if(item.isDirectory){
             self.imageView.image = nil;
             self.metadataTextView.string = @"";
             [self.metadataPopup removeAllItems];
-        
-            [ViewController animateWithDuration:0.5 animation:^{
-                self.mapView.alphaValue = 0.0;
-                self.imageView.alphaValue = 0.0;
-            } completion:^{
-                self.mapView.hidden = YES;
-            }];
-            
-//            [self seachForFilesInDirectory:item.path];
-        } else {
-            
-            self.mapView.hidden = NO;
-            [ViewController animateWithDuration:0.5 animation:^{
-                self.mapView.alphaValue = 1.0;
-                self.imageView.alphaValue = 1.0;
-            } completion:^{
-            }];
 
+            self.removeGPSButton.hidden = YES;
+            self.writeGPSButton.hidden = YES;
+            self.mapView.hidden = YES;
+            self.imageView.hidden = YES;
+            
+
+        } else {
+            self.removeGPSButton.hidden = NO;
+            self.writeGPSButton.hidden = NO;
+            self.mapView.hidden = NO;
+            self.imageView.hidden = NO;
             
             // Image
             self.imageView.image = [[NSImage alloc]initWithContentsOfURL:item.url];
@@ -464,7 +461,8 @@ typedef void (^VWWCLLocationCoordinate2DBlock)(CLLocationCoordinate2D coordinate
                     lon = longitude.floatValue;
                 }
                 
-                [self.mapView setCenterCoordinate:CLLocationCoordinate2DMake(lat, lon) animated:YES];
+//                [self.mapView setCenterCoordinate:CLLocationCoordinate2DMake(lat, lon) animated:YES];
+                [self.mapView setRegion:MKCoordinateRegionMake(CLLocationCoordinate2DMake(lat, lon), MKCoordinateSpanMake(0.01, 0.01)) animated:YES];
             }
         }
     }
@@ -492,17 +490,123 @@ typedef void (^VWWCLLocationCoordinate2DBlock)(CLLocationCoordinate2D coordinate
 }
 
 - (IBAction)writeButtonAction:(id)sender {
-    VWWContentItem *item = self.contents[self.selectedIndex];
-    item.metaData[(NSString*)kCGImagePropertyOrientation] = @(3);
     
-    [self writeMetadata:item.metaData toURL:item.url];
+    [self.selectedIndexes enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop) {
+        VWWContentItem *item = self.contents[index];
+        
+        if(item.isDirectory) return;
+        
+//        // Root
+//        item.metaData[(NSString*)kCGImagePropertyOrientation] = @(5);
+//        item.metaData[(NSString*)kCGImagePropertyDPIHeight] = @(88);
+//        item.metaData[(NSString*)kCGImagePropertyDPIWidth] = @(88);
+        
+        //    // Testing stuff
+        //    item.metaData[@"Test"] = @"testing";
+        //    NSMutableDictionary *testDictionary = [@{}mutableCopy];
+        //    testDictionary[@"test1"] = @"one";
+        //    testDictionary[@"test2"] = @"two";
+        //    item.metaData[@"{TEST}"] = testDictionary;
+        
+        // {Exif}
+        NSProcessInfo *pi = [NSProcessInfo processInfo];
+        NSString *appName = [pi processName];
+        NSMutableDictionary *exifDictionary = item.metaData[(NSString*)kCGImagePropertyExifDictionary];
+        exifDictionary[(NSString*)kCGImagePropertyExifMakerNote] = [NSString stringWithFormat:@"Modified by %@", appName];
+        
+        // {GPS}
+        NSMutableDictionary *gpsDictionary = [@{}mutableCopy];
+        [self applyCoordinate:self.mapView.centerCoordinate toGPSDictionary:gpsDictionary];
+        item.metaData[(NSString*)kCGImagePropertyGPSDictionary] = gpsDictionary;
+        
+        [self writeMetadata:item.metaData toURL:item.url completionBlock:^(BOOL success, NSDictionary *dictionary) {
+            if(success){
+                item.metaData = [dictionary mutableCopy];
+
+            } else {
+                
+            }
+        }];
+        
+        
+
+    }];
+
+    [self.tableView reloadDataForRowIndexes:self.selectedIndexes columnIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.tableView.numberOfColumns - 1)]];
+    
 }
+
+- (IBAction)eraseGPSButtonAction:(NSButton *)sender {
+    
+    [self.selectedIndexes enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop) {
+        VWWContentItem *item = self.contents[index];
+        
+        if(item.isDirectory) return;
+        
+        
+        
+        // {GPS}
+        [item.metaData removeObjectForKey:(NSString*)kCGImagePropertyGPSDictionary];
+        
+        [self writeMetadata:item.metaData toURL:item.url completionBlock:^(BOOL success, NSDictionary *dictionary) {
+            if(success){
+                item.metaData = [dictionary mutableCopy];
+            } else {
+                
+            }
+        }];
+        
+        
+        
+    }];
+    
+    [self.tableView reloadDataForRowIndexes:self.selectedIndexes columnIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.tableView.numberOfColumns - 1)]];
+    
+}
+
+- (IBAction)centerMapButtonAction:(NSButton *)sender {
+    [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate animated:YES];
+}
+
+
+-(void)applyCoordinate:(CLLocationCoordinate2D)coordinate toGPSDictionary:(NSMutableDictionary*)gpsDictionary{
+    if(coordinate.latitude == 0 && coordinate.longitude == 0) return;
+    
+    NSNumber *latitudeNumber = nil;
+    NSString *latitudeRefString = nil;
+    if(coordinate.latitude < 0){
+        latitudeNumber = @(-coordinate.latitude);
+        latitudeRefString = @"S";
+    } else {
+        latitudeNumber = @(coordinate.latitude);
+        latitudeRefString = @"N";
+    }
+    
+    NSNumber *longitudeNumber = nil;
+    NSString *longitudeRefString = nil;
+    if(coordinate.longitude < 0){
+        longitudeNumber = @(-coordinate.longitude);
+        longitudeRefString = @"W";
+    } else {
+        longitudeNumber = @(coordinate.longitude);
+        longitudeRefString = @"E";
+    }
+    
+    
+    gpsDictionary[(NSString*)kCGImagePropertyGPSLatitude] = latitudeNumber;
+    gpsDictionary[(NSString*)kCGImagePropertyGPSLatitudeRef] = latitudeRefString;
+    gpsDictionary[(NSString*)kCGImagePropertyGPSLongitude] = longitudeNumber;
+    gpsDictionary[(NSString*)kCGImagePropertyGPSLongitudeRef] = longitudeRefString;
+}
+
+
 
 - (IBAction)metadataPopupAction:(NSPopUpButton *)sender {
     NSString *key = sender.selectedItem.title;
     NSLog(@"Key: %@", key);
     
-    VWWContentItem *item = self.contents[self.selectedIndex];
+    
+    VWWContentItem *item = self.contents[self.selectedIndexes.firstIndex];
     NSDictionary *dictionary = item.metaData[key];
     
     if([key rangeOfString:@"{"].location == 0){
@@ -523,7 +627,7 @@ typedef void (^VWWCLLocationCoordinate2DBlock)(CLLocationCoordinate2D coordinate
 
 -(void)tableViewDoubleAction:(NSTableView*)sender{
     NSLog(@"%s", __FUNCTION__);
-    VWWContentItem  *item = self.contents[self.selectedIndex];
+    VWWContentItem  *item = self.contents[self.selectedIndexes.firstIndex];
     if(item.isDirectory){
         [self seachForFilesInDirectory:item.path];
     } else {
