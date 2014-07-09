@@ -656,7 +656,7 @@
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="142" y="975" width="480" height="302"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <value key="minSize" type="size" width="1600" height="600"/>
                         <view key="contentView" id="O92-4t-NeX">
                             <rect key="frame" x="0.0" y="0.0" width="480" height="302"/>
@@ -680,7 +680,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lSK-eM-Mg2">
-                                <rect key="frame" x="20" y="20" width="851" height="723"/>
+                                <rect key="frame" x="20" y="20" width="851" height="698"/>
                                 <clipView key="contentView" id="0sz-lB-CU6">
                                     <rect key="frame" x="1" y="17" width="238" height="117"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -872,7 +872,7 @@
                                 </constraints>
                             </mapView>
                             <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pO4-lc-5hy">
-                                <rect key="frame" x="879" y="20" width="320" height="366"/>
+                                <rect key="frame" x="879" y="20" width="320" height="272"/>
                                 <clipView key="contentView" id="V7c-9t-gGn">
                                     <rect key="frame" x="1" y="1" width="223" height="133"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -881,10 +881,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="223" height="393"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="303" height="364"/>
+                                            <size key="minSize" width="303" height="270"/>
                                             <size key="maxSize" width="463" height="10000000"/>
                                             <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="303" height="364"/>
+                                            <size key="minSize" width="303" height="270"/>
                                             <size key="maxSize" width="463" height="10000000"/>
                                         </textView>
                                     </subviews>
@@ -900,7 +900,7 @@
                                 </scroller>
                             </scrollView>
                             <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FuB-hY-1AH">
-                                <rect key="frame" x="877" y="392" width="324" height="24"/>
+                                <rect key="frame" x="877" y="339" width="324" height="24"/>
                                 <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="PxQ-dP-BOa">
                                     <font key="font" metaFont="system"/>
                                     <segments>
@@ -915,30 +915,88 @@
                                     <action selector="metadataSegmentAction:" target="XfG-lQ-9wD" id="4c3-W6-8cU"/>
                                 </connections>
                             </segmentedControl>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UUO-LF-bmU">
+                                <rect key="frame" x="1133" y="375" width="72" height="32"/>
+                                <buttonCell key="cell" type="push" title="Write" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UKI-94-wTd">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="writeButtonAction:" target="XfG-lQ-9wD" id="Qj5-Pf-aho"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1nc-Xp-XDR">
+                                <rect key="frame" x="20" y="726" width="775" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="23N-8V-NwH">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SIK-tH-q4U">
+                                <rect key="frame" x="795" y="715" width="82" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="2yX-0J-EFl"/>
+                                    <constraint firstAttribute="width" constant="70" id="bGf-8y-4Qc"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Pnb-qE-pOs">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xBo-6Y-keF">
+                                <rect key="frame" x="877" y="309" width="325" height="26"/>
+                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="P70-Wh-f7m" id="0Nh-8Z-59d">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="menu"/>
+                                    <menu key="menu" id="UGm-IA-UOp">
+                                        <items>
+                                            <menuItem title="Item 1" state="on" id="P70-Wh-f7m"/>
+                                            <menuItem title="Item 2" id="TxL-Uf-bkk"/>
+                                            <menuItem title="Item 3" id="vtF-7X-sre"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <action selector="metadataPopupAction:" target="XfG-lQ-9wD" id="Eg6-jW-ygd"/>
+                                </connections>
+                            </popUpButton>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="pO4-lc-5hy" secondAttribute="trailing" constant="20" id="1yP-rF-5Fq"/>
-                            <constraint firstItem="pO4-lc-5hy" firstAttribute="top" secondItem="FuB-hY-1AH" secondAttribute="bottom" constant="8" id="7Ay-pc-bG0"/>
-                            <constraint firstItem="lSK-eM-Mg2" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="BW9-vD-pK4"/>
-                            <constraint firstItem="FuB-hY-1AH" firstAttribute="top" secondItem="bp7-Uk-N4i" secondAttribute="bottom" constant="8" id="Eo2-kB-D22"/>
-                            <constraint firstItem="lSK-eM-Mg2" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="N43-A6-N4D"/>
-                            <constraint firstItem="FuB-hY-1AH" firstAttribute="leading" secondItem="lSK-eM-Mg2" secondAttribute="trailing" constant="8" id="OMW-MI-FKK"/>
-                            <constraint firstItem="bp7-Uk-N4i" firstAttribute="leading" secondItem="lSK-eM-Mg2" secondAttribute="trailing" constant="8" id="QGG-su-EPe"/>
+                            <constraint firstItem="lSK-eM-Mg2" firstAttribute="top" secondItem="1nc-Xp-XDR" secondAttribute="bottom" constant="8" symbolic="YES" id="4Ha-65-iVo"/>
+                            <constraint firstItem="lSK-eM-Mg2" firstAttribute="bottom" secondItem="pO4-lc-5hy" secondAttribute="bottom" id="5I1-vb-4Ii"/>
+                            <constraint firstItem="pO4-lc-5hy" firstAttribute="top" secondItem="FuB-hY-1AH" secondAttribute="bottom" constant="49" id="7Ay-pc-bG0"/>
+                            <constraint firstItem="pO4-lc-5hy" firstAttribute="leading" secondItem="lSK-eM-Mg2" secondAttribute="trailing" constant="8" symbolic="YES" id="EVb-ND-Wqe"/>
+                            <constraint firstItem="FuB-hY-1AH" firstAttribute="top" secondItem="bp7-Uk-N4i" secondAttribute="bottom" constant="61" id="Eo2-kB-D22"/>
+                            <constraint firstItem="lSK-eM-Mg2" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="HBk-eT-cIY"/>
+                            <constraint firstItem="SIK-tH-q4U" firstAttribute="leading" secondItem="1nc-Xp-XDR" secondAttribute="trailing" constant="8" id="I1V-I0-3Rt"/>
+                            <constraint firstItem="bp7-Uk-N4i" firstAttribute="leading" secondItem="SIK-tH-q4U" secondAttribute="trailing" constant="8" id="Iy6-F5-kT9"/>
+                            <constraint firstItem="SIK-tH-q4U" firstAttribute="leading" secondItem="1nc-Xp-XDR" secondAttribute="trailing" constant="8" id="Lhm-Cb-PNg"/>
+                            <constraint firstAttribute="trailing" secondItem="xBo-6Y-keF" secondAttribute="trailing" constant="20" id="Lkn-FC-Z65"/>
+                            <constraint firstItem="xBo-6Y-keF" firstAttribute="top" secondItem="FuB-hY-1AH" secondAttribute="bottom" constant="8" id="Nhb-HU-k9C"/>
+                            <constraint firstAttribute="trailing" secondItem="UUO-LF-bmU" secondAttribute="trailing" constant="20" id="OKy-Eq-Gnk"/>
                             <constraint firstAttribute="trailing" secondItem="bp7-Uk-N4i" secondAttribute="trailing" constant="20" id="Qqq-sQ-Wnu"/>
-                            <constraint firstItem="pO4-lc-5hy" firstAttribute="leading" secondItem="lSK-eM-Mg2" secondAttribute="trailing" constant="8" id="RHa-B0-F7y"/>
-                            <constraint firstItem="pO4-lc-5hy" firstAttribute="top" secondItem="FuB-hY-1AH" secondAttribute="bottom" constant="8" id="V9d-TV-vmf"/>
+                            <constraint firstItem="1nc-Xp-XDR" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="22" id="RDK-Pq-1ty"/>
+                            <constraint firstItem="SIK-tH-q4U" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="Sk9-fH-sAo"/>
+                            <constraint firstItem="pO4-lc-5hy" firstAttribute="top" secondItem="FuB-hY-1AH" secondAttribute="bottom" constant="49" id="V9d-TV-vmf"/>
+                            <constraint firstItem="bp7-Uk-N4i" firstAttribute="leading" secondItem="lSK-eM-Mg2" secondAttribute="trailing" constant="8" symbolic="YES" id="WVT-oo-ztN"/>
                             <constraint firstAttribute="trailing" secondItem="FuB-hY-1AH" secondAttribute="trailing" constant="20" id="XaC-s6-GRv"/>
-                            <constraint firstItem="FuB-hY-1AH" firstAttribute="top" secondItem="bp7-Uk-N4i" secondAttribute="bottom" constant="8" id="Xau-NY-sbv"/>
+                            <constraint firstItem="FuB-hY-1AH" firstAttribute="top" secondItem="bp7-Uk-N4i" secondAttribute="bottom" constant="61" id="Xau-NY-sbv"/>
+                            <constraint firstItem="1nc-Xp-XDR" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="e0v-Xo-ljU"/>
                             <constraint firstItem="bp7-Uk-N4i" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="e9M-4o-Wwa"/>
-                            <constraint firstItem="FuB-hY-1AH" firstAttribute="leading" secondItem="lSK-eM-Mg2" secondAttribute="trailing" constant="8" id="iFv-HD-yYJ"/>
+                            <constraint firstItem="xBo-6Y-keF" firstAttribute="leading" secondItem="lSK-eM-Mg2" secondAttribute="trailing" constant="8" symbolic="YES" id="guW-Md-dRN"/>
                             <constraint firstAttribute="bottom" secondItem="pO4-lc-5hy" secondAttribute="bottom" constant="20" id="l44-tM-S7j"/>
-                            <constraint firstAttribute="bottom" secondItem="lSK-eM-Mg2" secondAttribute="bottom" constant="20" id="vXv-zp-wQp"/>
+                            <constraint firstItem="UUO-LF-bmU" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="360" id="whv-Ej-QSv"/>
+                            <constraint firstItem="pO4-lc-5hy" firstAttribute="top" secondItem="xBo-6Y-keF" secondAttribute="bottom" constant="20" id="yYC-Tw-Uzt"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="mapView" destination="bp7-Uk-N4i" id="jD8-cI-TlJ"/>
+                        <outlet property="metadataPopup" destination="xBo-6Y-keF" id="Q7O-hj-NQv"/>
                         <outlet property="metadataSegment" destination="FuB-hY-1AH" id="1zO-rp-YhI"/>
                         <outlet property="metadataTextView" destination="6cR-IB-w8U" id="xi3-UT-M3U"/>
+                        <outlet property="pathLabel" destination="1nc-Xp-XDR" id="TCs-zl-tAf"/>
                         <outlet property="tableView" destination="If0-Na-jpb" id="uL3-zx-7xZ"/>
                     </connections>
                 </viewController>

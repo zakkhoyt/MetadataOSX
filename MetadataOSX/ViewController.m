@@ -17,11 +17,13 @@ typedef void (^VWWEmptyBlock)(void);
 @interface ViewController ()
 @property (strong) NSMutableArray *contents;
 @property NSUInteger selectedIndex;
+@property (weak) IBOutlet NSTextField *pathLabel;
 
 @property (weak) IBOutlet NSTableView *tableView;
 @property (unsafe_unretained) IBOutlet NSTextView *metadataTextView;
 @property (weak) IBOutlet MKMapView *mapView;
 @property (weak) IBOutlet NSSegmentedControl *metadataSegment;
+@property (weak) IBOutlet NSPopUpButton *metadataPopup;
 
 @end
 
@@ -53,6 +55,7 @@ typedef void (^VWWEmptyBlock)(void);
     
 
     self.contents = [@[]mutableCopy];
+    self.pathLabel.stringValue = path;
     [self getDirectoryAtPath:path completion:^{
 //        [self.delegate fileViewController:self setWindowTitle:path];
         [self.tableView reloadData];
@@ -183,7 +186,13 @@ typedef void (^VWWEmptyBlock)(void);
 
 
 
-
+-(BOOL)writeMetadata:(NSDictionary*)metadata toURL:(NSURL*)url{
+    // See this thread: http://stackoverflow.com/questions/5125323/problem-setting-exif-data-for-an-image
+    
+    
+    
+    return YES;
+}
 -(NSDictionary*)readMetadataFromURL:(NSURL*)url{
     CGImageSourceRef imageSource = CGImageSourceCreateWithURL((__bridge CFURLRef)url, NULL);
     if (imageSource == NULL) {
@@ -287,9 +296,111 @@ typedef void (^VWWEmptyBlock)(void);
         [self.metadataSegment setLabel:@"all" forSegment:0];
         [self.metadataSegment setLabel:@"gps" forSegment:1];
 
+        [self.metadataPopup removeAllItems];
+        [self.metadataPopup addItemWithTitle:@"All"];
+
+        NSDictionary *tiffDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyTIFFDictionary];
+        if(tiffDictionary){
+            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyTIFFDictionary];
+        }
+        
+        NSDictionary *gifDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyGIFDictionary];
+        if(gifDictionary){
+            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyGIFDictionary];
+        }
+
+        NSDictionary *jfifDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyJFIFDictionary];
+        if(jfifDictionary){
+            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyJFIFDictionary];
+        }
+
+        NSDictionary *exifDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyExifDictionary];
+        if(exifDictionary){
+            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyExifDictionary];
+        }
+
+        NSDictionary *pngDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyPNGDictionary];
+        if(pngDictionary){
+            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyPNGDictionary];
+        }
+
+        NSDictionary *iptcDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyIPTCDictionary];
+        if(iptcDictionary){
+            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyIPTCDictionary];
+        }
+
+        NSDictionary *gpsDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyGPSDictionary];
+        if(gpsDictionary){
+            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyGPSDictionary];
+        }
+
+        NSDictionary *rawDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyRawDictionary];
+        if(rawDictionary){
+            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyRawDictionary];
+        }
+
+        NSDictionary *ciffDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyCIFFDictionary];
+        if(ciffDictionary){
+            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyCIFFDictionary];
+        }
+
+        NSDictionary *canonDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyMakerCanonDictionary];
+        if(canonDictionary){
+            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyMakerCanonDictionary];
+        }
+
+        NSDictionary *nikonDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyMakerNikonDictionary];
+        if(nikonDictionary){
+            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyMakerNikonDictionary];
+        }
+
+        NSDictionary *minoltaDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyMakerMinoltaDictionary];
+        if(minoltaDictionary){
+            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyMakerMinoltaDictionary];
+        }
+
+        NSDictionary *fujiDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyMakerFujiDictionary];
+        if(fujiDictionary){
+            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyMakerFujiDictionary];
+        }
+
+        NSDictionary *olumpusDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyMakerOlympusDictionary];
+        if(olumpusDictionary){
+            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyMakerOlympusDictionary];
+        }
+
+        NSDictionary *pentaxDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyMakerPentaxDictionary];
+        if(pentaxDictionary){
+            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyMakerPentaxDictionary];
+        }
+
+        NSDictionary *bim8Dictionary = [item.metaData valueForKey:(NSString*)kCGImageProperty8BIMDictionary];
+        if(bim8Dictionary){
+            [self.metadataPopup addItemWithTitle:(NSString*)kCGImageProperty8BIMDictionary];
+        }
+
+        NSDictionary *dngDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyDNGDictionary];
+        if(dngDictionary){
+            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyDNGDictionary];
+        }
+
+        NSDictionary *exifAuxDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyExifAuxDictionary];
+        if(exifAuxDictionary){
+            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyExifAuxDictionary];
+        }
+
+        NSDictionary *openEXRDDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyOpenEXRDictionary];
+        if(openEXRDDictionary){
+            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyOpenEXRDictionary];
+        }
+
+        NSDictionary *appleDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyMakerAppleDictionary];
+        if(appleDictionary){
+            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyMakerAppleDictionary];
+        }
+        [self.metadataPopup selectItemAtIndex:0];
         
         // Coords
-        NSDictionary *gpsDictionary = [item.metaData valueForKeyPath:@"{GPS}"];
         if(gpsDictionary){
             NSNumber *latitude = [gpsDictionary valueForKeyPath:@"Latitude"];
             NSNumber *longitude = [gpsDictionary valueForKeyPath:@"Longitude"];
@@ -317,6 +428,37 @@ typedef void (^VWWEmptyBlock)(void);
 
 
 #pragma mark IBActions
+
+- (IBAction)writeButtonAction:(id)sender {
+    VWWContentItem *item = self.contents[self.selectedIndex];
+    item.metaData[(NSString*)kCGImagePropertyOrientation] = @(3);
+    
+//    NSMutableDictionary *gpsDictionary = [item.metaData valueForKeyPath:@"{GPS}"];
+//    if(gpsDictionary){
+//        gpsDictionary[@"Latitude"] = @(self.mapView.centerCoordinate.latitude);
+//        gpsDictionary[@"Longitude"] = @(self.mapView.centerCoordinate.longitude);
+//    }
+}
+
+- (IBAction)metadataPopupAction:(NSPopUpButton *)sender {
+    NSString *key = sender.selectedItem.title;
+    NSLog(@"Key: %@", key);
+
+    VWWContentItem *item = self.contents[self.selectedIndex];
+    NSDictionary *dictionary = item.metaData[key];
+
+    if([key rangeOfString:@"{"].location == 0){
+        if(dictionary){
+            self.metadataTextView.string = dictionary.description;
+        } else {
+            self.metadataTextView.string = @"Error";
+        }
+    } else if([key isEqualToString:@"All"]){
+        self.metadataTextView.string = item.metaData.description;
+    }
+}
+
+
 - (IBAction)metadataSegmentAction:(NSSegmentedControl*)sender {
     VWWContentItem *item = self.contents[self.selectedIndex];
     if(sender.selectedSegment == 0){
