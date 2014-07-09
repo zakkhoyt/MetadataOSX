@@ -17,7 +17,7 @@ typedef void (^VWWEmptyBlock)(void);
 typedef void (^VWWCLLocationCoordinate2DBlock)(CLLocationCoordinate2D coordinate);
 typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
 
-@interface ViewController ()
+@interface ViewController () <NSViewControllerPresentationAnimator, MKMapViewDelegate>
 @property (strong) NSMutableArray *contents;
 //@property NSUInteger selectedIndex;
 @property (strong) NSIndexSet *selectedIndexes;
@@ -441,6 +441,13 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
             [self.metadataPopup selectItemAtIndex:0];
             
             // Coords
+            for(id<MKAnnotation> annotation in self.mapView.annotations){
+//                if([annotation isKindOfClass:[MKUserLocation class]] == NO){
+                    [self.mapView removeAnnotation:annotation];
+//                }
+            }
+            
+            [self.mapView removeAnnotations:self.mapView.annotations];
             if(gpsDictionary){
                 NSNumber *latitude = [gpsDictionary valueForKeyPath:@"Latitude"];
                 NSNumber *longitude = [gpsDictionary valueForKeyPath:@"Longitude"];
@@ -460,9 +467,17 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
                 } else {
                     lon = longitude.floatValue;
                 }
+
                 
-//                [self.mapView setCenterCoordinate:CLLocationCoordinate2DMake(lat, lon) animated:YES];
-                [self.mapView setRegion:MKCoordinateRegionMake(CLLocationCoordinate2DMake(lat, lon), MKCoordinateSpanMake(0.01, 0.01)) animated:YES];
+                CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(lat, lon);
+                //                [self.mapView setCenterCoordinate:CLLocationCoordinate2DMake(lat, lon) animated:YES];
+                [self.mapView setRegion:MKCoordinateRegionMake(coordinate, MKCoordinateSpanMake(0.5, 0.5)) animated:YES];
+                
+                
+                [item setAnnotationCoordinate:coordinate];
+                [self.mapView addAnnotation:item];
+                    
+
             }
         }
     }
@@ -470,6 +485,16 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
 
 
 #pragma mark IBActions
+
+- (IBAction)reportButtonAction:(NSButton *)sender {
+//    NSWindowController *windowController = [self.storyboard instantiateControllerWithIdentifier:@"VWWReportWindowController"];
+//    [[windowController window]makeKeyWindow];
+    
+    NSViewController *vc = [self.storyboard instantiateControllerWithIdentifier:@"VWWReportViewController"];
+    [self presentViewController:vc animator:self];
+}
+
+
 - (IBAction)browseButtonAction:(id)sender {
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     openPanel.canChooseDirectories = YES;
@@ -661,5 +686,26 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
 {
     completionBlock();
 }
+
+#pragma mark NSViewControllerPresentationAnimator
+
+- (void)animatePresentationOfViewController:(NSViewController *)viewController fromViewController:(NSViewController *)fromViewController{
+    viewController.view.frame = fromViewController.view.frame;
+    viewController.view.alphaValue = 1.0;
+    viewController.view.alphaValue = 0.0;
+}
+
+- (void)animateDismissalOfViewController:(NSViewController *)viewController fromViewController:(NSViewController *)fromViewController{
+    
+}
+
+
+#pragma mark MKMapDelegate
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation{
+    NSLog(@"annotation.class: %@", [annotation class]);
+//    if(annotation isKindOfClass:<#(__unsafe_unretained Class)#>
+    return nil;
+}
+
 
 @end

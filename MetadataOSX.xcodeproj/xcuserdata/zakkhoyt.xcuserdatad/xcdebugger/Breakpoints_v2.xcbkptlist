@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MetadataOSX/ViewController.m"
-            timestampString = "426633916.87776"
+            timestampString = "426636333.272699"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "487"
-            endingLineNumber = "487"
+            startingLineNumber = "506"
+            endingLineNumber = "506"
             landmarkName = "-browseButtonAction:"
             landmarkType = "5">
          </BreakpointContent>

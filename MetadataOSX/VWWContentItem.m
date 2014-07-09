@@ -112,5 +112,7 @@
 
 }
 
-
+-(void)setAnnotationCoordinate:(CLLocationCoordinate2D)coordinate{
+    _coordinate = coordinate;
+}
 @end

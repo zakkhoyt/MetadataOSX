@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+@import MapKit;
 
 
-
-@interface VWWContentItem : NSObject
+@interface VWWContentItem : NSObject <MKAnnotation>
 @property BOOL isDirectory;
 @property (strong) NSURL *url;
 @property (strong) NSString *path;
@@ -48,5 +48,11 @@
 -(BOOL)hasEXIFData;
 -(NSString *)description;
 
+
+// MKAnnotation
+-(void)setAnnotationCoordinate:(CLLocationCoordinate2D)coordinate;
+@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
+@property (nonatomic, readonly, copy) NSString *title;
+@property (nonatomic, readonly, copy) NSString *subtitle;
 
 @end
