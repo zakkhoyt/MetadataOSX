@@ -8,11 +8,13 @@
 
 #import "ViewController.h"
 #import "VWWContentItem.h"
+#import "SMGooglePlacesController.h"
 @import MapKit;
 
 @import ImageIO;
 
 typedef void (^VWWEmptyBlock)(void);
+typedef void (^VWWCLLocationCoordinate2DBlock)(CLLocationCoordinate2D coordinate);
 
 @interface ViewController ()
 @property (strong) NSMutableArray *contents;
@@ -24,24 +26,27 @@ typedef void (^VWWEmptyBlock)(void);
 @property (weak) IBOutlet MKMapView *mapView;
 @property (weak) IBOutlet NSSegmentedControl *metadataSegment;
 @property (weak) IBOutlet NSPopUpButton *metadataPopup;
-
+@property (weak) IBOutlet NSImageView *imageView;
+@property (strong) VWWEmptyBlock completionBlock;
 @end
 
 @implementation ViewController
-            
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-                                    
+    
     NSString *picturesDirectory = [NSString stringWithFormat:@"%@/%@", NSHomeDirectory(), @"Pictures"];
     [self seachForFilesInDirectory:picturesDirectory];
-
+    
+    [self.tableView setDoubleAction:@selector(tableViewDoubleAction:)];
+    [self.tableView setAction:@selector(tableViewAction:)];
 }
 
 - (void)setRepresentedObject:(id)representedObject {
     [super setRepresentedObject:representedObject];
-                                    
+    
     // Update the view, if already loaded.
-                                
+    
 }
 
 
@@ -49,21 +54,21 @@ typedef void (^VWWEmptyBlock)(void);
 
 -(void)seachForFilesInDirectory:(NSString*)path{
     
-//    self.progressIndicator.backgroundFilters = nil;
-//    [self.progressIndicator startAnimation:self];
-//    [self.progressView setLayer:self.progressViewCALayer];
+    //    self.progressIndicator.backgroundFilters = nil;
+    //    [self.progressIndicator startAnimation:self];
+    //    [self.progressView setLayer:self.progressViewCALayer];
     
-
+    
     self.contents = [@[]mutableCopy];
     self.pathLabel.stringValue = path;
     [self getDirectoryAtPath:path completion:^{
-//        [self.delegate fileViewController:self setWindowTitle:path];
+        //        [self.delegate fileViewController:self setWindowTitle:path];
         [self.tableView reloadData];
         
-//        // Store for later incase we need to up one dir.
-//        self.currentDirectory = path;
-//        [self.progressIndicator stopAnimation:self];
-//        [self.progressView setLayer:nil];
+        //        // Store for later incase we need to up one dir.
+        //        self.currentDirectory = path;
+        //        [self.progressIndicator stopAnimation:self];
+        //        [self.progressView setLayer:nil];
     }];
     
 }
@@ -73,7 +78,7 @@ typedef void (^VWWEmptyBlock)(void);
     
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    
+        
         
         NSError *error;
         NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -87,7 +92,7 @@ typedef void (^VWWEmptyBlock)(void);
             parentDirectory.path = [path stringByDeletingLastPathComponent];
             parentDirectory.displayName = @"..";
             parentDirectory.isDirectory = YES;
-            parentDirectory.url = [NSURL URLWithString:[NSString stringWithFormat:@"file://localhost%@", parentDirectory.path]];
+            parentDirectory.url = [NSURL fileURLWithPath:parentDirectory.path];
             [self.contents insertObject:parentDirectory atIndex:0];
         }
         
@@ -125,59 +130,59 @@ typedef void (^VWWEmptyBlock)(void);
                 item.metaData = [[self readMetadataFromURL:item.url] mutableCopy];
                 [self.contents addObject:item];
                 NSLog(@"added %@", item.path);
-//                if(self.filterType == VWWFileFilterTypeAll){
-//                    [self.contents addObject:item];
-//                }
-//                else if(self.filterType == VWWFileFilterTypeWithoutGPSDataOnly){
-//                    if([item hasGPSData] == NO ||
-//                       item.isDirectory == YES){
-//                        [self.contents addObject:item];
-//                    }
-//                }
-//                else if(self.filterType == VWWFileFilterTypeWithGPSDataOnly){
-//                    if([item hasGPSData] == YES ||
-//                       item.isDirectory == YES){
-//                        [self.contents addObject:item];
-//                    }
-//                }
-//                else if(self.filterType == VWWFileFilterTypeCustom){
-//                    // If checkbos is set, ensure file has that type of tag
-//                    // TODO: This code can be shortened
-//                    BOOL hasRequiredTags = YES;
-//                    if((self.fileTagFilterType & VWWFileTagFilterTypeHasGeneral) == VWWFileTagFilterTypeHasGeneral){
-//                        if([item hasGeneralData] == NO){
-//                            hasRequiredTags = NO;
-//                        }
-//                    }
-//                    if((self.fileTagFilterType & VWWFileTagFilterTypeHasGPS) == VWWFileTagFilterTypeHasGPS){
-//                        if([item hasGPSData] == NO){
-//                            hasRequiredTags = NO;
-//                        }
-//                    }
-//                    if((self.fileTagFilterType & VWWFileTagFilterTypeHasEXIF) == VWWFileTagFilterTypeHasEXIF){
-//                        if([item hasEXIFData] == NO){
-//                            hasRequiredTags = NO;
-//                        }
-//                    }
-//                    if((self.fileTagFilterType & VWWFileTagFilterTypeHasTIFF) == VWWFileTagFilterTypeHasTIFF){
-//                        if([item hasTIFFData] == NO){
-//                            hasRequiredTags = NO;
-//                        }
-//                    }
-//                    if((self.fileTagFilterType & VWWFileTagFilterTypeHasJFIF) == VWWFileTagFilterTypeHasJFIF){
-//                        if([item hasJFIFData] == NO){
-//                            hasRequiredTags = NO;
-//                        }
-//                    }
-//                    
-//                    if(hasRequiredTags == YES){
-//                        [self.contents addObject:item];
-//                    }
-//                }
+                //                if(self.filterType == VWWFileFilterTypeAll){
+                //                    [self.contents addObject:item];
+                //                }
+                //                else if(self.filterType == VWWFileFilterTypeWithoutGPSDataOnly){
+                //                    if([item hasGPSData] == NO ||
+                //                       item.isDirectory == YES){
+                //                        [self.contents addObject:item];
+                //                    }
+                //                }
+                //                else if(self.filterType == VWWFileFilterTypeWithGPSDataOnly){
+                //                    if([item hasGPSData] == YES ||
+                //                       item.isDirectory == YES){
+                //                        [self.contents addObject:item];
+                //                    }
+                //                }
+                //                else if(self.filterType == VWWFileFilterTypeCustom){
+                //                    // If checkbos is set, ensure file has that type of tag
+                //                    // TODO: This code can be shortened
+                //                    BOOL hasRequiredTags = YES;
+                //                    if((self.fileTagFilterType & VWWFileTagFilterTypeHasGeneral) == VWWFileTagFilterTypeHasGeneral){
+                //                        if([item hasGeneralData] == NO){
+                //                            hasRequiredTags = NO;
+                //                        }
+                //                    }
+                //                    if((self.fileTagFilterType & VWWFileTagFilterTypeHasGPS) == VWWFileTagFilterTypeHasGPS){
+                //                        if([item hasGPSData] == NO){
+                //                            hasRequiredTags = NO;
+                //                        }
+                //                    }
+                //                    if((self.fileTagFilterType & VWWFileTagFilterTypeHasEXIF) == VWWFileTagFilterTypeHasEXIF){
+                //                        if([item hasEXIFData] == NO){
+                //                            hasRequiredTags = NO;
+                //                        }
+                //                    }
+                //                    if((self.fileTagFilterType & VWWFileTagFilterTypeHasTIFF) == VWWFileTagFilterTypeHasTIFF){
+                //                        if([item hasTIFFData] == NO){
+                //                            hasRequiredTags = NO;
+                //                        }
+                //                    }
+                //                    if((self.fileTagFilterType & VWWFileTagFilterTypeHasJFIF) == VWWFileTagFilterTypeHasJFIF){
+                //                        if([item hasJFIFData] == NO){
+                //                            hasRequiredTags = NO;
+                //                        }
+                //                    }
+                //
+                //                    if(hasRequiredTags == YES){
+                //                        [self.contents addObject:item];
+                //                    }
+                //                }
                 
             }
         }
-    
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             completion();
         });
@@ -213,7 +218,7 @@ typedef void (^VWWEmptyBlock)(void);
         CFRelease(imageProperties);
     }
     CFRelease(imageSource);
-
+    
     return metadata;
 }
 
@@ -225,6 +230,13 @@ typedef void (^VWWEmptyBlock)(void);
     if([tableColumn.identifier isEqualToString:@"type"]){
         VWWContentItem *item = self.contents[row];
         cellView.textField.stringValue = item.isDirectory ? @"Dir" : @"File";
+//        if(item.isDirectory){
+//            cellView.imageView.image = [NSImage imageNamed:@"folder.png"];
+//        }
+//        else{
+//            cellView.imageView.image = [NSImage imageNamed:@"photo.png"];
+//        }
+
     } else if([tableColumn.identifier isEqualToString:@"titleColumn"]) {
         VWWContentItem *item = self.contents[row];
         if(item.isDirectory){
@@ -238,40 +250,63 @@ typedef void (^VWWEmptyBlock)(void);
         return cellView;
     } else if([tableColumn.identifier isEqualToString:@"coordinates"]){
         VWWContentItem *item = self.contents[row];
-        if(item.isDirectory){
-            cellView.imageView.image = [NSImage imageNamed:@"folder.png"];
-        }
-        else{
-            cellView.imageView.image = [NSImage imageNamed:@"photo.png"];
-        }
-//        cellView.textField.stringValue = item.path;
         NSDictionary *gpsDictionary = [item.metaData valueForKeyPath:@"{GPS}"];
         if(gpsDictionary){
-            NSNumber *latitude = [gpsDictionary valueForKeyPath:@"Latitude"];
-            NSNumber *longitude = [gpsDictionary valueForKeyPath:@"Longitude"];
-            NSString *latitudeRef = [gpsDictionary valueForKeyPath:@"LatitudeRef"];
-            NSString *longitudeRef = [gpsDictionary valueForKeyPath:@"LongitudeRef"];
-            NSString *latitudeString = nil;
-            if([latitudeRef isEqualToString:@"S"]){
-                latitudeString = [NSString stringWithFormat:@"-%f", latitude.floatValue];
-            } else {
-                latitudeString = [NSString stringWithFormat:@"%f", latitude.floatValue];
-            }
-            NSString *longitudeString = nil;
-            if([longitudeRef isEqualToString:@"W"]){
-                longitudeString = [NSString stringWithFormat:@"-%f", longitude.floatValue];
-            } else {
-                longitudeString = [NSString stringWithFormat:@"%f", longitude.floatValue];
-            }
-            cellView.textField.stringValue = [NSString stringWithFormat:@"%@,%@", latitudeString, longitudeString];
+            [self extractLocationFromGPSDictionary:gpsDictionary completionBlock:^(CLLocationCoordinate2D coordinate) {
+                cellView.textField.stringValue = [NSString stringWithFormat:@"%f,%f", coordinate.latitude, coordinate.longitude];
+            }];
+        } else {
+            cellView.textField.stringValue = @"n/a";
+        }
+    } else if([tableColumn.identifier isEqualToString:@"location"]){
+        VWWContentItem *item = self.contents[row];
+        NSDictionary *gpsDictionary = [item.metaData valueForKeyPath:@"{GPS}"];
+        if(gpsDictionary){
+            [self extractLocationFromGPSDictionary:gpsDictionary completionBlock:^(CLLocationCoordinate2D coordinate) {
+                [SMGooglePlacesController queryGooglePlacesWithLatitude:coordinate.latitude longitude:coordinate.longitude radius:10 completion:^(NSArray *places) {
+                    NSLog(@"Places: %@", places);
+                    if(places.count){
+                        NSDictionary *place = places[0];
+                        NSString *name = [place valueForKeyPath:@"name"];
+                        cellView.textField.stringValue = name;
+                    } else {
+                        cellView.textField.stringValue = @"n/a";
+                    }
+                    //cellView.textField.stringValue = [NSString stringWithFormat:@"%f,%f", coordinate.latitude, coordinate.longitude];
+                }];
+            }];
         } else {
             cellView.textField.stringValue = @"n/a";
         }
         
-    } else if([tableColumn.identifier isEqualToString:@"location"]){
-        
+    } else {
+        cellView.textField.stringValue = @"";
     }
     return cellView;
+}
+
+-(void)extractLocationFromGPSDictionary:(NSDictionary*)gpsDictionary completionBlock:(VWWCLLocationCoordinate2DBlock)completionBlock{
+    if(gpsDictionary){
+        NSNumber *latitude = [gpsDictionary valueForKeyPath:@"Latitude"];
+        NSNumber *longitude = [gpsDictionary valueForKeyPath:@"Longitude"];
+        NSString *latitudeRef = [gpsDictionary valueForKeyPath:@"LatitudeRef"];
+        NSString *longitudeRef = [gpsDictionary valueForKeyPath:@"LongitudeRef"];
+        NSString *latitudeString = nil;
+        if([latitudeRef isEqualToString:@"S"]){
+            latitudeString = [NSString stringWithFormat:@"-%f", latitude.floatValue];
+        } else {
+            latitudeString = [NSString stringWithFormat:@"%f", latitude.floatValue];
+        }
+        NSString *longitudeString = nil;
+        if([longitudeRef isEqualToString:@"W"]){
+            longitudeString = [NSString stringWithFormat:@"-%f", longitude.floatValue];
+        } else {
+            longitudeString = [NSString stringWithFormat:@"%f", longitude.floatValue];
+        }
+
+        return completionBlock(CLLocationCoordinate2DMake(latitudeString.floatValue, longitudeString.floatValue));
+    }
+    return completionBlock(CLLocationCoordinate2DMake(0, 0));
 }
 
 
@@ -281,172 +316,215 @@ typedef void (^VWWEmptyBlock)(void);
 
 // Catch keyboard
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification{
-    //    NSLog(@"%s", __FUNCTION__);
+    NSLog(@"%s", __FUNCTION__);
     
     NSInteger selectedRow = [self.tableView selectedRow];
     if (selectedRow != -1) {
         // Self
-        VWWContentItem  *item = self.contents[selectedRow];
         self.selectedIndex = selectedRow;
+        VWWContentItem  *item = self.contents[self.selectedIndex];
         
-        // Text View
-        self.metadataTextView.string = item.metaData.description;
         
-        // Segments
-        [self.metadataSegment setLabel:@"all" forSegment:0];
-        [self.metadataSegment setLabel:@"gps" forSegment:1];
-
-        [self.metadataPopup removeAllItems];
-        [self.metadataPopup addItemWithTitle:@"All"];
-
-        NSDictionary *tiffDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyTIFFDictionary];
-        if(tiffDictionary){
-            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyTIFFDictionary];
-        }
+        if(item.isDirectory){
+            self.imageView.image = nil;
+            self.metadataTextView.string = @"";
+            [self.metadataPopup removeAllItems];
         
-        NSDictionary *gifDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyGIFDictionary];
-        if(gifDictionary){
-            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyGIFDictionary];
-        }
+            [ViewController animateWithDuration:0.5 animation:^{
+                self.mapView.alphaValue = 0.0;
+                self.imageView.alphaValue = 0.0;
+            } completion:^{
+                self.mapView.hidden = YES;
+            }];
+            
+//            [self seachForFilesInDirectory:item.path];
+        } else {
+            
+            self.mapView.hidden = NO;
+            [ViewController animateWithDuration:0.5 animation:^{
+                self.mapView.alphaValue = 1.0;
+                self.imageView.alphaValue = 1.0;
+            } completion:^{
+            }];
 
-        NSDictionary *jfifDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyJFIFDictionary];
-        if(jfifDictionary){
-            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyJFIFDictionary];
-        }
-
-        NSDictionary *exifDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyExifDictionary];
-        if(exifDictionary){
-            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyExifDictionary];
-        }
-
-        NSDictionary *pngDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyPNGDictionary];
-        if(pngDictionary){
-            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyPNGDictionary];
-        }
-
-        NSDictionary *iptcDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyIPTCDictionary];
-        if(iptcDictionary){
-            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyIPTCDictionary];
-        }
-
-        NSDictionary *gpsDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyGPSDictionary];
-        if(gpsDictionary){
-            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyGPSDictionary];
-        }
-
-        NSDictionary *rawDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyRawDictionary];
-        if(rawDictionary){
-            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyRawDictionary];
-        }
-
-        NSDictionary *ciffDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyCIFFDictionary];
-        if(ciffDictionary){
-            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyCIFFDictionary];
-        }
-
-        NSDictionary *canonDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyMakerCanonDictionary];
-        if(canonDictionary){
-            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyMakerCanonDictionary];
-        }
-
-        NSDictionary *nikonDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyMakerNikonDictionary];
-        if(nikonDictionary){
-            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyMakerNikonDictionary];
-        }
-
-        NSDictionary *minoltaDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyMakerMinoltaDictionary];
-        if(minoltaDictionary){
-            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyMakerMinoltaDictionary];
-        }
-
-        NSDictionary *fujiDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyMakerFujiDictionary];
-        if(fujiDictionary){
-            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyMakerFujiDictionary];
-        }
-
-        NSDictionary *olumpusDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyMakerOlympusDictionary];
-        if(olumpusDictionary){
-            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyMakerOlympusDictionary];
-        }
-
-        NSDictionary *pentaxDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyMakerPentaxDictionary];
-        if(pentaxDictionary){
-            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyMakerPentaxDictionary];
-        }
-
-        NSDictionary *bim8Dictionary = [item.metaData valueForKey:(NSString*)kCGImageProperty8BIMDictionary];
-        if(bim8Dictionary){
-            [self.metadataPopup addItemWithTitle:(NSString*)kCGImageProperty8BIMDictionary];
-        }
-
-        NSDictionary *dngDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyDNGDictionary];
-        if(dngDictionary){
-            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyDNGDictionary];
-        }
-
-        NSDictionary *exifAuxDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyExifAuxDictionary];
-        if(exifAuxDictionary){
-            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyExifAuxDictionary];
-        }
-
-        NSDictionary *openEXRDDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyOpenEXRDictionary];
-        if(openEXRDDictionary){
-            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyOpenEXRDictionary];
-        }
-
-        NSDictionary *appleDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyMakerAppleDictionary];
-        if(appleDictionary){
-            [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyMakerAppleDictionary];
-        }
-        [self.metadataPopup selectItemAtIndex:0];
-        
-        // Coords
-        if(gpsDictionary){
-            NSNumber *latitude = [gpsDictionary valueForKeyPath:@"Latitude"];
-            NSNumber *longitude = [gpsDictionary valueForKeyPath:@"Longitude"];
-            NSString *latitudeRef = [gpsDictionary valueForKeyPath:@"LatitudeRef"];
-            NSString *longitudeRef = [gpsDictionary valueForKeyPath:@"LongitudeRef"];
-
-            float lat = 0, lon = 0;
-            if([latitudeRef isEqualToString:@"S"]){
-//                latitudeString = [NSString stringWithFormat:@"-%f", latitude.floatValue];
-                lat = -1 * latitude.floatValue;
-            } else {
-                lat = latitude.floatValue;
+            
+            // Image
+            self.imageView.image = [[NSImage alloc]initWithContentsOfURL:item.url];
+            
+            // Text View
+            self.metadataTextView.string = item.metaData.description;
+            
+            // Popup
+            [self.metadataPopup removeAllItems];
+            [self.metadataPopup addItemWithTitle:@"All"];
+            
+            NSDictionary *tiffDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyTIFFDictionary];
+            if(tiffDictionary){
+                [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyTIFFDictionary];
             }
-
-            if([longitudeRef isEqualToString:@"W"]){
-                lon = -1 * longitude.floatValue;
-            } else {
-                lon = longitude.floatValue;
+            
+            NSDictionary *gifDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyGIFDictionary];
+            if(gifDictionary){
+                [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyGIFDictionary];
             }
-
-            [self.mapView setCenterCoordinate:CLLocationCoordinate2DMake(lat, lon) animated:YES];
+            
+            NSDictionary *jfifDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyJFIFDictionary];
+            if(jfifDictionary){
+                [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyJFIFDictionary];
+            }
+            
+            NSDictionary *exifDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyExifDictionary];
+            if(exifDictionary){
+                [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyExifDictionary];
+            }
+            
+            NSDictionary *pngDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyPNGDictionary];
+            if(pngDictionary){
+                [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyPNGDictionary];
+            }
+            
+            NSDictionary *iptcDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyIPTCDictionary];
+            if(iptcDictionary){
+                [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyIPTCDictionary];
+            }
+            
+            NSDictionary *gpsDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyGPSDictionary];
+            if(gpsDictionary){
+                [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyGPSDictionary];
+            }
+            
+            NSDictionary *rawDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyRawDictionary];
+            if(rawDictionary){
+                [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyRawDictionary];
+            }
+            
+            NSDictionary *ciffDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyCIFFDictionary];
+            if(ciffDictionary){
+                [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyCIFFDictionary];
+            }
+            
+            NSDictionary *canonDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyMakerCanonDictionary];
+            if(canonDictionary){
+                [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyMakerCanonDictionary];
+            }
+            
+            NSDictionary *nikonDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyMakerNikonDictionary];
+            if(nikonDictionary){
+                [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyMakerNikonDictionary];
+            }
+            
+            NSDictionary *minoltaDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyMakerMinoltaDictionary];
+            if(minoltaDictionary){
+                [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyMakerMinoltaDictionary];
+            }
+            
+            NSDictionary *fujiDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyMakerFujiDictionary];
+            if(fujiDictionary){
+                [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyMakerFujiDictionary];
+            }
+            
+            NSDictionary *olumpusDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyMakerOlympusDictionary];
+            if(olumpusDictionary){
+                [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyMakerOlympusDictionary];
+            }
+            
+            NSDictionary *pentaxDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyMakerPentaxDictionary];
+            if(pentaxDictionary){
+                [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyMakerPentaxDictionary];
+            }
+            
+            NSDictionary *bim8Dictionary = [item.metaData valueForKey:(NSString*)kCGImageProperty8BIMDictionary];
+            if(bim8Dictionary){
+                [self.metadataPopup addItemWithTitle:(NSString*)kCGImageProperty8BIMDictionary];
+            }
+            
+            NSDictionary *dngDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyDNGDictionary];
+            if(dngDictionary){
+                [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyDNGDictionary];
+            }
+            
+            NSDictionary *exifAuxDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyExifAuxDictionary];
+            if(exifAuxDictionary){
+                [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyExifAuxDictionary];
+            }
+            
+            NSDictionary *openEXRDDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyOpenEXRDictionary];
+            if(openEXRDDictionary){
+                [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyOpenEXRDictionary];
+            }
+            
+            NSDictionary *appleDictionary = [item.metaData valueForKey:(NSString*)kCGImagePropertyMakerAppleDictionary];
+            if(appleDictionary){
+                [self.metadataPopup addItemWithTitle:(NSString*)kCGImagePropertyMakerAppleDictionary];
+            }
+            [self.metadataPopup selectItemAtIndex:0];
+            
+            // Coords
+            if(gpsDictionary){
+                NSNumber *latitude = [gpsDictionary valueForKeyPath:@"Latitude"];
+                NSNumber *longitude = [gpsDictionary valueForKeyPath:@"Longitude"];
+                NSString *latitudeRef = [gpsDictionary valueForKeyPath:@"LatitudeRef"];
+                NSString *longitudeRef = [gpsDictionary valueForKeyPath:@"LongitudeRef"];
+                
+                float lat = 0, lon = 0;
+                if([latitudeRef isEqualToString:@"S"]){
+                    //                latitudeString = [NSString stringWithFormat:@"-%f", latitude.floatValue];
+                    lat = -1 * latitude.floatValue;
+                } else {
+                    lat = latitude.floatValue;
+                }
+                
+                if([longitudeRef isEqualToString:@"W"]){
+                    lon = -1 * longitude.floatValue;
+                } else {
+                    lon = longitude.floatValue;
+                }
+                
+                [self.mapView setCenterCoordinate:CLLocationCoordinate2DMake(lat, lon) animated:YES];
+            }
         }
     }
 }
 
 
 #pragma mark IBActions
+- (IBAction)browseButtonAction:(id)sender {
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    openPanel.canChooseDirectories = YES;
+    openPanel.canChooseFiles = NO;
+    
+    
+    __weak ViewController *weakSelf = self;
+    [openPanel beginWithCompletionHandler:^(NSInteger result) {
+        //        NSString *dir = openPanel.directoryURL.description;
+        //        dir = [dir stringByReplacingOccurrencesOfString:@"file://localhost" withString:@""];
+        //        NSURL *url = openPanel.directoryURL;
+        NSURL *url = openPanel.URLs[0];
+        NSString *path = url.path;
+        
+        [weakSelf seachForFilesInDirectory:path];
+        
+    }];
+}
 
 - (IBAction)writeButtonAction:(id)sender {
     VWWContentItem *item = self.contents[self.selectedIndex];
     item.metaData[(NSString*)kCGImagePropertyOrientation] = @(3);
     
-//    NSMutableDictionary *gpsDictionary = [item.metaData valueForKeyPath:@"{GPS}"];
-//    if(gpsDictionary){
-//        gpsDictionary[@"Latitude"] = @(self.mapView.centerCoordinate.latitude);
-//        gpsDictionary[@"Longitude"] = @(self.mapView.centerCoordinate.longitude);
-//    }
+    //    NSMutableDictionary *gpsDictionary = [item.metaData valueForKeyPath:@"{GPS}"];
+    //    if(gpsDictionary){
+    //        gpsDictionary[@"Latitude"] = @(self.mapView.centerCoordinate.latitude);
+    //        gpsDictionary[@"Longitude"] = @(self.mapView.centerCoordinate.longitude);
+    //    }
 }
 
 - (IBAction)metadataPopupAction:(NSPopUpButton *)sender {
     NSString *key = sender.selectedItem.title;
     NSLog(@"Key: %@", key);
-
+    
     VWWContentItem *item = self.contents[self.selectedIndex];
     NSDictionary *dictionary = item.metaData[key];
-
+    
     if([key rangeOfString:@"{"].location == 0){
         if(dictionary){
             self.metadataTextView.string = dictionary.description;
@@ -473,43 +551,24 @@ typedef void (^VWWEmptyBlock)(void);
     }
 }
 
+-(void)tableViewAction:(NSTableView*)sender {
+    NSLog(@"%s", __FUNCTION__);
+}
+
+-(void)tableViewDoubleAction:(NSTableView*)sender{
+    NSLog(@"%s", __FUNCTION__);
+    VWWContentItem  *item = self.contents[self.selectedIndex];
+    if(item.isDirectory){
+        [self seachForFilesInDirectory:item.path];
+    } else {
+        
+    }
+}
+
+
 
 #pragma mark Implements NSTableViewDelegate
 
-- (IBAction)tableViewAction:(id)sender {
-        NSLog(@"%s", __FUNCTION__);
-//    NSIndexSet *selectedRows = [self.tableView selectedRowIndexes];
-//    [self.selectedItems removeAllObjects];
-//    NSMutableArray *indexes = [@[]mutableCopy];
-//    [selectedRows indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
-//        [indexes addObject:@(idx)];
-//        return YES;
-//    }];
-//    
-//    for(NSInteger index = 0; index < indexes.count; index++){
-//        NSInteger i = ((NSNumber*)indexes[index]).integerValue;
-//        VWWContentItem *item = self.contents[i];
-//        [self.selectedItems addObject:item];
-//    }
-}
-
--(void)tableViewDoubleAction:(id)sender{
-    NSLog(@"%s", __FUNCTION__);
-//    NSInteger selectedRow = [self.tableView selectedRow];
-//    if (selectedRow != -1) {
-//        VWWContentItem  *item = self.contents[selectedRow];
-//        if(item.isDirectory == YES){
-//            [self seachForFilesInDirectory:item.path];
-//        }
-//        //        NSDictionary *photoTags = [self photoTagsFromFile:item.path];
-//        //        if(photoTags){
-//        //            NSLog(@"photoTags=%@" ,photoTags);
-//        //            item.metaData = [photoTags mutableCopy];
-//        //            [self.delegate fileViewController:self item:item];
-//        //        }
-//    }
-//    
-}
 
 //- (void)tableViewSelectionDidChange:(NSNotification *)aNotification{
 //    NSDictionary *aNotification.userInfo
@@ -523,6 +582,25 @@ typedef void (^VWWEmptyBlock)(void);
 //}
 
 
++ (void)animateWithDuration:(NSTimeInterval)duration
+                  animation:(void (^)(void))animationBlock
+                 completion:(void (^)(void))completionBlock
+{
+    [NSAnimationContext beginGrouping];
+    [[NSAnimationContext currentContext] setDuration:duration];
+    animationBlock();
+    [NSAnimationContext endGrouping];
+    
+    if(completionBlock)
+    {
+        VWWEmptyBlock completionBlockCopy = [completionBlock copy];
+        [self performSelector:@selector(runEndBlock:) withObject:completionBlockCopy afterDelay:duration];
+    }
+}
 
++ (void)runEndBlock:(void (^)(void))completionBlock
+{
+    completionBlock();
+}
 
 @end

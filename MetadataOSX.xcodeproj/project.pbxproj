@@ -17,6 +17,7 @@
 		C6A9FB72196CB3F9002F2767 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6A9FB70196CB3F9002F2767 /* Main.storyboard */; };
 		C6A9FB7E196CB3F9002F2767 /* MetadataOSXTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C6A9FB7D196CB3F9002F2767 /* MetadataOSXTests.m */; };
 		C6A9FB89196CB5BB002F2767 /* VWWContentItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C6A9FB88196CB5BB002F2767 /* VWWContentItem.m */; };
+		C6DF0D34196DB24800C48DB6 /* SMGooglePlacesController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6DF0D33196DB24800C48DB6 /* SMGooglePlacesController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,8 @@
 		C6A9FB7D196CB3F9002F2767 /* MetadataOSXTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MetadataOSXTests.m; sourceTree = "<group>"; };
 		C6A9FB87196CB5BB002F2767 /* VWWContentItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWContentItem.h; sourceTree = "<group>"; };
 		C6A9FB88196CB5BB002F2767 /* VWWContentItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWContentItem.m; sourceTree = "<group>"; };
+		C6DF0D32196DB24800C48DB6 /* SMGooglePlacesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMGooglePlacesController.h; sourceTree = "<group>"; };
+		C6DF0D33196DB24800C48DB6 /* SMGooglePlacesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMGooglePlacesController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +93,8 @@
 		C6A9FB63196CB3F9002F2767 /* MetadataOSX */ = {
 			isa = PBXGroup;
 			children = (
+				C6DF0D32196DB24800C48DB6 /* SMGooglePlacesController.h */,
+				C6DF0D33196DB24800C48DB6 /* SMGooglePlacesController.m */,
 				C6A9FB87196CB5BB002F2767 /* VWWContentItem.h */,
 				C6A9FB88196CB5BB002F2767 /* VWWContentItem.m */,
 				C6A9FB68196CB3F9002F2767 /* ViewController.h */,
@@ -232,6 +237,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6DF0D34196DB24800C48DB6 /* SMGooglePlacesController.m in Sources */,
 				C6A9FB6A196CB3F9002F2767 /* ViewController.m in Sources */,
 				C6A9FB89196CB5BB002F2767 /* VWWContentItem.m in Sources */,
 				C6A9FB67196CB3F9002F2767 /* main.m in Sources */,
