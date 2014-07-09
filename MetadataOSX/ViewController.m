@@ -16,11 +16,12 @@ typedef void (^VWWEmptyBlock)(void);
 
 @interface ViewController ()
 @property (strong) NSMutableArray *contents;
-@property (strong) VWWContentItem *selectedItem;
+@property NSUInteger selectedIndex;
 
 @property (weak) IBOutlet NSTableView *tableView;
 @property (unsafe_unretained) IBOutlet NSTextView *metadataTextView;
 @property (weak) IBOutlet MKMapView *mapView;
+@property (weak) IBOutlet NSSegmentedControl *metadataSegment;
 
 @end
 
@@ -275,9 +276,17 @@ typedef void (^VWWEmptyBlock)(void);
     
     NSInteger selectedRow = [self.tableView selectedRow];
     if (selectedRow != -1) {
+        // Self
         VWWContentItem  *item = self.contents[selectedRow];
-        self.selectedItem = item;
+        self.selectedIndex = selectedRow;
+        
+        // Text View
         self.metadataTextView.string = item.metaData.description;
+        
+        // Segments
+        [self.metadataSegment setLabel:@"all" forSegment:0];
+        [self.metadataSegment setLabel:@"gps" forSegment:1];
+
         
         // Coords
         NSDictionary *gpsDictionary = [item.metaData valueForKeyPath:@"{GPS}"];
@@ -302,6 +311,22 @@ typedef void (^VWWEmptyBlock)(void);
             }
 
             [self.mapView setCenterCoordinate:CLLocationCoordinate2DMake(lat, lon) animated:YES];
+        }
+    }
+}
+
+
+#pragma mark IBActions
+- (IBAction)metadataSegmentAction:(NSSegmentedControl*)sender {
+    VWWContentItem *item = self.contents[self.selectedIndex];
+    if(sender.selectedSegment == 0){
+        // all
+        self.metadataTextView.string = item.metaData.description;
+    } else if(sender.selectedSegment == 1){
+        // GPS
+        NSDictionary *gpsDictionary = [item.metaData valueForKeyPath:@"{GPS}"];
+        if(gpsDictionary){
+            self.metadataTextView.string = gpsDictionary.description;
         }
     }
 }

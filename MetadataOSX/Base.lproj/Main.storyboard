@@ -867,12 +867,12 @@
                             <mapView mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="bp7-Uk-N4i">
                                 <rect key="frame" x="879" y="423" width="320" height="320"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="Ocw-gv-rNQ"/>
-                                    <constraint firstAttribute="height" constant="320" id="SuW-mx-J9Q"/>
+                                    <constraint firstAttribute="width" constant="320" id="Q38-Fl-Mln"/>
+                                    <constraint firstAttribute="height" constant="320" id="j9j-xW-teV"/>
                                 </constraints>
                             </mapView>
                             <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pO4-lc-5hy">
-                                <rect key="frame" x="879" y="20" width="320" height="395"/>
+                                <rect key="frame" x="879" y="20" width="320" height="366"/>
                                 <clipView key="contentView" id="V7c-9t-gGn">
                                     <rect key="frame" x="1" y="1" width="223" height="133"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -881,18 +881,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="223" height="393"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="303" height="393"/>
+                                            <size key="minSize" width="303" height="364"/>
                                             <size key="maxSize" width="463" height="10000000"/>
                                             <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="303" height="393"/>
+                                            <size key="minSize" width="303" height="364"/>
                                             <size key="maxSize" width="463" height="10000000"/>
                                         </textView>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </clipView>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="PPq-Rw-r37"/>
-                                </constraints>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="trE-wP-V6l">
                                     <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                                     <autoresizingMask key="autoresizingMask"/>
@@ -902,21 +899,45 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
+                            <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FuB-hY-1AH">
+                                <rect key="frame" x="877" y="392" width="324" height="24"/>
+                                <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="PxQ-dP-BOa">
+                                    <font key="font" metaFont="system"/>
+                                    <segments>
+                                        <segment width="106"/>
+                                        <segment width="105" selected="YES" tag="1"/>
+                                        <segment width="105">
+                                            <nil key="label"/>
+                                        </segment>
+                                    </segments>
+                                </segmentedCell>
+                                <connections>
+                                    <action selector="metadataSegmentAction:" target="XfG-lQ-9wD" id="4c3-W6-8cU"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="lSK-eM-Mg2" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="5st-Cg-daD"/>
-                            <constraint firstAttribute="bottom" secondItem="lSK-eM-Mg2" secondAttribute="bottom" constant="20" id="6ZM-eK-rA1"/>
-                            <constraint firstAttribute="trailing" secondItem="pO4-lc-5hy" secondAttribute="trailing" constant="20" id="QlP-YE-C3N"/>
-                            <constraint firstAttribute="bottom" secondItem="pO4-lc-5hy" secondAttribute="bottom" constant="20" id="SFK-SH-EdP"/>
-                            <constraint firstItem="pO4-lc-5hy" firstAttribute="top" secondItem="bp7-Uk-N4i" secondAttribute="bottom" constant="8" id="TXC-ql-K0H"/>
-                            <constraint firstAttribute="trailing" secondItem="bp7-Uk-N4i" secondAttribute="trailing" constant="20" id="cFm-7T-Fq9"/>
-                            <constraint firstItem="lSK-eM-Mg2" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="dy9-8S-suw"/>
-                            <constraint firstItem="pO4-lc-5hy" firstAttribute="leading" secondItem="lSK-eM-Mg2" secondAttribute="trailing" constant="8" id="e9d-2M-cTw"/>
-                            <constraint firstItem="bp7-Uk-N4i" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="tiz-jS-Egn"/>
+                            <constraint firstAttribute="trailing" secondItem="pO4-lc-5hy" secondAttribute="trailing" constant="20" id="1yP-rF-5Fq"/>
+                            <constraint firstItem="pO4-lc-5hy" firstAttribute="top" secondItem="FuB-hY-1AH" secondAttribute="bottom" constant="8" id="7Ay-pc-bG0"/>
+                            <constraint firstItem="lSK-eM-Mg2" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="BW9-vD-pK4"/>
+                            <constraint firstItem="FuB-hY-1AH" firstAttribute="top" secondItem="bp7-Uk-N4i" secondAttribute="bottom" constant="8" id="Eo2-kB-D22"/>
+                            <constraint firstItem="lSK-eM-Mg2" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="N43-A6-N4D"/>
+                            <constraint firstItem="FuB-hY-1AH" firstAttribute="leading" secondItem="lSK-eM-Mg2" secondAttribute="trailing" constant="8" id="OMW-MI-FKK"/>
+                            <constraint firstItem="bp7-Uk-N4i" firstAttribute="leading" secondItem="lSK-eM-Mg2" secondAttribute="trailing" constant="8" id="QGG-su-EPe"/>
+                            <constraint firstAttribute="trailing" secondItem="bp7-Uk-N4i" secondAttribute="trailing" constant="20" id="Qqq-sQ-Wnu"/>
+                            <constraint firstItem="pO4-lc-5hy" firstAttribute="leading" secondItem="lSK-eM-Mg2" secondAttribute="trailing" constant="8" id="RHa-B0-F7y"/>
+                            <constraint firstItem="pO4-lc-5hy" firstAttribute="top" secondItem="FuB-hY-1AH" secondAttribute="bottom" constant="8" id="V9d-TV-vmf"/>
+                            <constraint firstAttribute="trailing" secondItem="FuB-hY-1AH" secondAttribute="trailing" constant="20" id="XaC-s6-GRv"/>
+                            <constraint firstItem="FuB-hY-1AH" firstAttribute="top" secondItem="bp7-Uk-N4i" secondAttribute="bottom" constant="8" id="Xau-NY-sbv"/>
+                            <constraint firstItem="bp7-Uk-N4i" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="e9M-4o-Wwa"/>
+                            <constraint firstItem="FuB-hY-1AH" firstAttribute="leading" secondItem="lSK-eM-Mg2" secondAttribute="trailing" constant="8" id="iFv-HD-yYJ"/>
+                            <constraint firstAttribute="bottom" secondItem="pO4-lc-5hy" secondAttribute="bottom" constant="20" id="l44-tM-S7j"/>
+                            <constraint firstAttribute="bottom" secondItem="lSK-eM-Mg2" secondAttribute="bottom" constant="20" id="vXv-zp-wQp"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="mapView" destination="bp7-Uk-N4i" id="jD8-cI-TlJ"/>
+                        <outlet property="metadataSegment" destination="FuB-hY-1AH" id="1zO-rp-YhI"/>
                         <outlet property="metadataTextView" destination="6cR-IB-w8U" id="xi3-UT-M3U"/>
                         <outlet property="tableView" destination="If0-Na-jpb" id="uL3-zx-7xZ"/>
                     </connections>
