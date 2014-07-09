@@ -10,7 +10,7 @@
 #import "VWWContentItem.h"
 #import "SMGooglePlacesController.h"
 @import MapKit;
-
+@import AVFoundation;
 @import ImageIO;
 
 typedef void (^VWWEmptyBlock)(void);
@@ -54,21 +54,10 @@ typedef void (^VWWCLLocationCoordinate2DBlock)(CLLocationCoordinate2D coordinate
 
 -(void)seachForFilesInDirectory:(NSString*)path{
     
-    //    self.progressIndicator.backgroundFilters = nil;
-    //    [self.progressIndicator startAnimation:self];
-    //    [self.progressView setLayer:self.progressViewCALayer];
-    
-    
     self.contents = [@[]mutableCopy];
     self.pathLabel.stringValue = path;
     [self getDirectoryAtPath:path completion:^{
-        //        [self.delegate fileViewController:self setWindowTitle:path];
         [self.tableView reloadData];
-        
-        //        // Store for later incase we need to up one dir.
-        //        self.currentDirectory = path;
-        //        [self.progressIndicator stopAnimation:self];
-        //        [self.progressView setLayer:nil];
     }];
     
 }
@@ -129,57 +118,6 @@ typedef void (^VWWCLLocationCoordinate2DBlock)(CLLocationCoordinate2D coordinate
                 item.extension = [contentDetailsPath pathExtension];
                 item.metaData = [[self readMetadataFromURL:item.url] mutableCopy];
                 [self.contents addObject:item];
-                NSLog(@"added %@", item.path);
-                //                if(self.filterType == VWWFileFilterTypeAll){
-                //                    [self.contents addObject:item];
-                //                }
-                //                else if(self.filterType == VWWFileFilterTypeWithoutGPSDataOnly){
-                //                    if([item hasGPSData] == NO ||
-                //                       item.isDirectory == YES){
-                //                        [self.contents addObject:item];
-                //                    }
-                //                }
-                //                else if(self.filterType == VWWFileFilterTypeWithGPSDataOnly){
-                //                    if([item hasGPSData] == YES ||
-                //                       item.isDirectory == YES){
-                //                        [self.contents addObject:item];
-                //                    }
-                //                }
-                //                else if(self.filterType == VWWFileFilterTypeCustom){
-                //                    // If checkbos is set, ensure file has that type of tag
-                //                    // TODO: This code can be shortened
-                //                    BOOL hasRequiredTags = YES;
-                //                    if((self.fileTagFilterType & VWWFileTagFilterTypeHasGeneral) == VWWFileTagFilterTypeHasGeneral){
-                //                        if([item hasGeneralData] == NO){
-                //                            hasRequiredTags = NO;
-                //                        }
-                //                    }
-                //                    if((self.fileTagFilterType & VWWFileTagFilterTypeHasGPS) == VWWFileTagFilterTypeHasGPS){
-                //                        if([item hasGPSData] == NO){
-                //                            hasRequiredTags = NO;
-                //                        }
-                //                    }
-                //                    if((self.fileTagFilterType & VWWFileTagFilterTypeHasEXIF) == VWWFileTagFilterTypeHasEXIF){
-                //                        if([item hasEXIFData] == NO){
-                //                            hasRequiredTags = NO;
-                //                        }
-                //                    }
-                //                    if((self.fileTagFilterType & VWWFileTagFilterTypeHasTIFF) == VWWFileTagFilterTypeHasTIFF){
-                //                        if([item hasTIFFData] == NO){
-                //                            hasRequiredTags = NO;
-                //                        }
-                //                    }
-                //                    if((self.fileTagFilterType & VWWFileTagFilterTypeHasJFIF) == VWWFileTagFilterTypeHasJFIF){
-                //                        if([item hasJFIFData] == NO){
-                //                            hasRequiredTags = NO;
-                //                        }
-                //                    }
-                //
-                //                    if(hasRequiredTags == YES){
-                //                        [self.contents addObject:item];
-                //                    }
-                //                }
-                
             }
         }
         
@@ -191,13 +129,7 @@ typedef void (^VWWCLLocationCoordinate2DBlock)(CLLocationCoordinate2D coordinate
 
 
 
--(BOOL)writeMetadata:(NSDictionary*)metadata toURL:(NSURL*)url{
-    // See this thread: http://stackoverflow.com/questions/5125323/problem-setting-exif-data-for-an-image
-    
-    
-    
-    return YES;
-}
+
 -(NSDictionary*)readMetadataFromURL:(NSURL*)url{
     CGImageSourceRef imageSource = CGImageSourceCreateWithURL((__bridge CFURLRef)url, NULL);
     if (imageSource == NULL) {
@@ -222,7 +154,82 @@ typedef void (^VWWCLLocationCoordinate2DBlock)(CLLocationCoordinate2D coordinate
     return metadata;
 }
 
+-(BOOL)writeMetadata:(NSDictionary*)metadata toURL:(NSURL*)url{
+    
+    CGImageSourceRef imageSource = CGImageSourceCreateWithURL((__bridge CFURLRef)url, NULL);
+    if (imageSource == NULL) {
+        NSLog(@"%s Could not create image source for %@", __PRETTY_FUNCTION__, url.path);
+        return NO;
+    }
 
+    
+    NSURL *destURL = [NSURL URLWithString:@"file:///Users/zakkhoyt/__test.jpg"];
+    CGImageDestinationRef imageDestination = CGImageDestinationCreateWithURL((__bridge CFURLRef)destURL, kUTTypeJPEG, 1, NULL);
+    if(imageDestination == NULL){
+        NSLog(@"%s Could not create image destination for %@", __PRETTY_FUNCTION__, url.path);
+        return NO;
+        
+    }
+    
+    // Get metadata from source then create a mutable copy
+    CGImageMetadataRef metadataRef = CGImageSourceCopyMetadataAtIndex(imageSource, 0, NULL);
+    CGMutableImageMetadataRef mutableMetadataRef = CGImageMetadataCreateMutableCopy(metadataRef);
+    
+    // Modify the metadata
+    CFStringRef path = CFStringCreateWithFormat(NULL, NULL, CFSTR("{TIFF}.%@"), @"Orientation");
+    
+    CFTypeRef value = (CFTypeRef)3;
+    CGImageMetadataSetValueWithPath(mutableMetadataRef, NULL, path, value);
+    NSLog(@"mutableMetadataRef: \n%@", (__bridge NSString*)mutableMetadataRef);
+    
+    // Write the metadata to imageDestination
+    const void *keys[] =   {kCGImageDestinationMetadata};
+    const void *values[] = {mutableMetadataRef};
+    CFDictionaryRef options = CFDictionaryCreate(NULL, keys, values, 1, NULL, NULL);
+    CFErrorRef error;
+    bool success = CGImageDestinationCopyImageSource(imageDestination, imageSource, options, &error);
+    if(error){
+        NSLog(@"An error occurred when copying the file: %@", (__bridge NSString*)error);
+    }
+    
+    
+    CFRelease(imageSource);
+    CFRelease(imageDestination);
+
+    if(!success){
+        NSLog(@"%s Failed to create new image for %@", __PRETTY_FUNCTION__, url.path);
+        return NO;
+    }
+    
+
+    NSLog(@"%s Success", __PRETTY_FUNCTION__);
+    return YES;
+}
+
+
+-(void)extractLocationFromGPSDictionary:(NSDictionary*)gpsDictionary completionBlock:(VWWCLLocationCoordinate2DBlock)completionBlock{
+    if(gpsDictionary){
+        NSNumber *latitude = [gpsDictionary valueForKeyPath:@"Latitude"];
+        NSNumber *longitude = [gpsDictionary valueForKeyPath:@"Longitude"];
+        NSString *latitudeRef = [gpsDictionary valueForKeyPath:@"LatitudeRef"];
+        NSString *longitudeRef = [gpsDictionary valueForKeyPath:@"LongitudeRef"];
+        NSString *latitudeString = nil;
+        if([latitudeRef isEqualToString:@"S"]){
+            latitudeString = [NSString stringWithFormat:@"-%f", latitude.floatValue];
+        } else {
+            latitudeString = [NSString stringWithFormat:@"%f", latitude.floatValue];
+        }
+        NSString *longitudeString = nil;
+        if([longitudeRef isEqualToString:@"W"]){
+            longitudeString = [NSString stringWithFormat:@"-%f", longitude.floatValue];
+        } else {
+            longitudeString = [NSString stringWithFormat:@"%f", longitude.floatValue];
+        }
+        
+        return completionBlock(CLLocationCoordinate2DMake(latitudeString.floatValue, longitudeString.floatValue));
+    }
+    return completionBlock(CLLocationCoordinate2DMake(0, 0));
+}
 
 #pragma mark Implements NSTableViewDataSource
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
@@ -285,29 +292,6 @@ typedef void (^VWWCLLocationCoordinate2DBlock)(CLLocationCoordinate2D coordinate
     return cellView;
 }
 
--(void)extractLocationFromGPSDictionary:(NSDictionary*)gpsDictionary completionBlock:(VWWCLLocationCoordinate2DBlock)completionBlock{
-    if(gpsDictionary){
-        NSNumber *latitude = [gpsDictionary valueForKeyPath:@"Latitude"];
-        NSNumber *longitude = [gpsDictionary valueForKeyPath:@"Longitude"];
-        NSString *latitudeRef = [gpsDictionary valueForKeyPath:@"LatitudeRef"];
-        NSString *longitudeRef = [gpsDictionary valueForKeyPath:@"LongitudeRef"];
-        NSString *latitudeString = nil;
-        if([latitudeRef isEqualToString:@"S"]){
-            latitudeString = [NSString stringWithFormat:@"-%f", latitude.floatValue];
-        } else {
-            latitudeString = [NSString stringWithFormat:@"%f", latitude.floatValue];
-        }
-        NSString *longitudeString = nil;
-        if([longitudeRef isEqualToString:@"W"]){
-            longitudeString = [NSString stringWithFormat:@"-%f", longitude.floatValue];
-        } else {
-            longitudeString = [NSString stringWithFormat:@"%f", longitude.floatValue];
-        }
-
-        return completionBlock(CLLocationCoordinate2DMake(latitudeString.floatValue, longitudeString.floatValue));
-    }
-    return completionBlock(CLLocationCoordinate2DMake(0, 0));
-}
 
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
@@ -511,11 +495,7 @@ typedef void (^VWWCLLocationCoordinate2DBlock)(CLLocationCoordinate2D coordinate
     VWWContentItem *item = self.contents[self.selectedIndex];
     item.metaData[(NSString*)kCGImagePropertyOrientation] = @(3);
     
-    //    NSMutableDictionary *gpsDictionary = [item.metaData valueForKeyPath:@"{GPS}"];
-    //    if(gpsDictionary){
-    //        gpsDictionary[@"Latitude"] = @(self.mapView.centerCoordinate.latitude);
-    //        gpsDictionary[@"Longitude"] = @(self.mapView.centerCoordinate.longitude);
-    //    }
+    [self writeMetadata:item.metaData toURL:item.url];
 }
 
 - (IBAction)metadataPopupAction:(NSPopUpButton *)sender {
@@ -537,20 +517,6 @@ typedef void (^VWWCLLocationCoordinate2DBlock)(CLLocationCoordinate2D coordinate
 }
 
 
-- (IBAction)metadataSegmentAction:(NSSegmentedControl*)sender {
-    VWWContentItem *item = self.contents[self.selectedIndex];
-    if(sender.selectedSegment == 0){
-        // all
-        self.metadataTextView.string = item.metaData.description;
-    } else if(sender.selectedSegment == 1){
-        // GPS
-        NSDictionary *gpsDictionary = [item.metaData valueForKeyPath:@"{GPS}"];
-        if(gpsDictionary){
-            self.metadataTextView.string = gpsDictionary.description;
-        }
-    }
-}
-
 -(void)tableViewAction:(NSTableView*)sender {
     NSLog(@"%s", __FUNCTION__);
 }
@@ -570,18 +536,7 @@ typedef void (^VWWCLLocationCoordinate2DBlock)(CLLocationCoordinate2D coordinate
 #pragma mark Implements NSTableViewDelegate
 
 
-//- (void)tableViewSelectionDidChange:(NSNotification *)aNotification{
-//    NSDictionary *aNotification.userInfo
-//}
-//
-
-//- (void)tableView:(NSTableView *)tableView didClickTableColumn:(NSTableColumn *)tableColumn{
-//        self.contents[
-////    CGImageSourceCreateWithData(someCFDataRef, nil);
-////    CFDictionaryRef dictRef = CGImageSourceCopyPropertiesAtIndex(imgSource, 0, nil);
-//}
-
-
+#pragma mark Animation wrappers
 + (void)animateWithDuration:(NSTimeInterval)duration
                   animation:(void (^)(void))animationBlock
                  completion:(void (^)(void))completionBlock
