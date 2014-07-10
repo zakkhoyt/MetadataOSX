@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		C608542C196DEED000A05614 /* VWWReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C608542B196DEED000A05614 /* VWWReportViewController.m */; };
 		C608542F196DF12700A05614 /* VWWBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = C608542E196DF12700A05614 /* VWWBackgroundView.m */; };
-		C66E6A48196DEE3C00BABC7D /* VWWReportWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C66E6A47196DEE3C00BABC7D /* VWWReportWindowController.m */; };
 		C6A9FB67196CB3F9002F2767 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C6A9FB66196CB3F9002F2767 /* main.m */; };
 		C6A9FB6A196CB3F9002F2767 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6A9FB69196CB3F9002F2767 /* ViewController.m */; };
 		C6A9FB6D196CB3F9002F2767 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C6A9FB6C196CB3F9002F2767 /* AppDelegate.m */; };
@@ -37,8 +36,6 @@
 		C608542B196DEED000A05614 /* VWWReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWReportViewController.m; sourceTree = "<group>"; };
 		C608542D196DF12700A05614 /* VWWBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWBackgroundView.h; sourceTree = "<group>"; };
 		C608542E196DF12700A05614 /* VWWBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWBackgroundView.m; sourceTree = "<group>"; };
-		C66E6A46196DEE3C00BABC7D /* VWWReportWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWReportWindowController.h; sourceTree = "<group>"; };
-		C66E6A47196DEE3C00BABC7D /* VWWReportWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWReportWindowController.m; sourceTree = "<group>"; };
 		C6A9FB61196CB3F9002F2767 /* MetadataOSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetadataOSX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6A9FB65196CB3F9002F2767 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6A9FB66196CB3F9002F2767 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -164,8 +161,6 @@
 		CF49E62F196E275200DBD501 /* GUI */ = {
 			isa = PBXGroup;
 			children = (
-				C66E6A46196DEE3C00BABC7D /* VWWReportWindowController.h */,
-				C66E6A47196DEE3C00BABC7D /* VWWReportWindowController.m */,
 				C608542A196DEED000A05614 /* VWWReportViewController.h */,
 				C608542B196DEED000A05614 /* VWWReportViewController.m */,
 				C6A9FB68196CB3F9002F2767 /* ViewController.h */,
@@ -316,7 +311,6 @@
 				C6DF0D34196DB24800C48DB6 /* SMGooglePlacesController.m in Sources */,
 				C6A9FB6A196CB3F9002F2767 /* ViewController.m in Sources */,
 				C608542C196DEED000A05614 /* VWWReportViewController.m in Sources */,
-				C66E6A48196DEE3C00BABC7D /* VWWReportWindowController.m in Sources */,
 				C6A9FB89196CB5BB002F2767 /* VWWContentItem.m in Sources */,
 				C608542F196DF12700A05614 /* VWWBackgroundView.m in Sources */,
 				C6A9FB67196CB3F9002F2767 /* main.m in Sources */,

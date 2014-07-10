@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "SMGooglePlacesController.h"
 #import "FileSystemItem.h"
+#import "VWWReportViewController.h"
 
 @import MapKit;
 @import AVFoundation;
@@ -18,16 +19,11 @@ typedef void (^VWWEmptyBlock)(void);
 typedef void (^VWWCLLocationCoordinate2DBlock)(CLLocationCoordinate2D coordinate);
 typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
 
-@interface ViewController () <NSViewControllerPresentationAnimator, MKMapViewDelegate>
+@interface ViewController () <NSViewControllerPresentationAnimator, MKMapViewDelegate, VWWReportViewControllerDelegate>
 @property (strong) NSMutableArray *contents;
-//@property NSUInteger selectedIndex;
 @property (strong) NSIndexSet *selectedIndexes;
-//@property (weak) IBOutlet NSTextField *pathLabel;
-
-//@property (weak) IBOutlet NSTableView *tableView;
 @property (unsafe_unretained) IBOutlet NSTextView *metadataTextView;
 @property (weak) IBOutlet MKMapView *mapView;
-//@property (weak) IBOutlet NSSegmentedControl *metadataSegment;
 @property (weak) IBOutlet NSPopUpButton *metadataPopup;
 @property (weak) IBOutlet NSImageView *imageView;
 @property (strong) VWWEmptyBlock completionBlock;
@@ -35,7 +31,6 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
 @property (weak) IBOutlet NSButton *removeGPSButton;
 @property (weak) IBOutlet NSPathControl *pathControl;
 @property (weak) IBOutlet NSOutlineView *outlineView;
-
 @end
 
 @implementation ViewController
@@ -51,6 +46,8 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
     
 //    [self.pathControl setDoubleAction:@selector(pathControlAction:)];
     self.pathControl.allowedTypes = @[@"public.folder"];
+    
+
 }
 
 - (void)setRepresentedObject:(id)representedObject {
@@ -73,9 +70,9 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
     CFDictionaryRef imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, (__bridge CFDictionaryRef)options);
     NSDictionary *metadata = nil;
     if (imageProperties) {
-        NSNumber *width = (NSNumber *)CFDictionaryGetValue(imageProperties, kCGImagePropertyPixelWidth);
-        NSNumber *height = (NSNumber *)CFDictionaryGetValue(imageProperties, kCGImagePropertyPixelHeight);
-        NSLog(@"Image dimensions: %@ x %@ px", width, height);
+//        NSNumber *width = (NSNumber *)CFDictionaryGetValue(imageProperties, kCGImagePropertyPixelWidth);
+//        NSNumber *height = (NSNumber *)CFDictionaryGetValue(imageProperties, kCGImagePropertyPixelHeight);
+//        NSLog(@"Image dimensions: %@ x %@ px", width, height);
         metadata = (__bridge NSDictionary *)(imageProperties);
         CFRelease(imageProperties);
     }
@@ -83,6 +80,22 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
     
     return metadata;
 }
+
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier
+                                  sender:(id)sender{
+    return YES;
+}
+
+- (void)prepareForSegue:(NSStoryboardSegue *)segue sender:(id)sender{
+    if([segue.identifier isEqualToString:@"VWWSegueMainToReport"]){
+        VWWReportViewController *vc = segue.destinationController;
+        vc.mapView = self.mapView;
+        vc.delegate = self;
+    }
+}
+
+
 
 -(void)writeMetadata:(NSDictionary*)metadata toURL:(NSURL*)url completionBlock:(VWWBoolDictionaryBlock)completionBlock{
 
@@ -159,7 +172,16 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(FileSystemItem*)item {
-    return (item == nil) ? YES : ([item numberOfChildren] != -1);
+
+    if(item == nil){
+        return YES;
+    } else {
+        // We will load the 
+        NSURL *url = [NSURL fileURLWithPath:item.fullPath];
+        NSDictionary *metadata = [self readMetadataFromURL:url];
+        [item setMetadata:[metadata mutableCopy]];
+        return ([item numberOfChildren] != -1);
+    }
 }
 
 - (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(FileSystemItem*)item {
@@ -170,11 +192,11 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
     if([tableColumn.identifier isEqualToString:@"tree"]){
         return (item == nil) ? @"/" : (id)[item relativePath];
     } else if([tableColumn.identifier isEqualToString:@"coordinate"]){
-        NSURL *url = [NSURL fileURLWithPath:item.fullPath];
-        NSDictionary *metadata = [self readMetadataFromURL:url];
-        //item.metadata = [metadata mutableCopy];
-        [item setMetadata:[metadata mutableCopy]];
-        NSDictionary *gpsDictionary = [metadata valueForKeyPath:@"{GPS}"];
+//        NSURL *url = [NSURL fileURLWithPath:item.fullPath];
+//        NSDictionary *metadata = [self readMetadataFromURL:url];
+//        //item.metadata = [metadata mutableCopy];
+//        [item setMetadata:[metadata mutableCopy]];
+        NSDictionary *gpsDictionary = [item.metadata valueForKeyPath:@"{GPS}"];
         if(gpsDictionary){
             __block NSString *coordinateName = nil;
             [self extractLocationFromGPSDictionary:gpsDictionary completionBlock:^(CLLocationCoordinate2D coordinate) {
@@ -218,6 +240,12 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
 
 
 #pragma mark IBActions
+
+- (IBAction)buttonAction:(id)sender {
+    [self performSegueWithIdentifier:@"VWWSegueMainToReport" sender:self];
+    
+}
+
 
 - (IBAction)reportButtonAction:(NSButton *)sender {
 //    NSWindowController *windowController = [self.storyboard instantiateControllerWithIdentifier:@"VWWReportWindowController"];
@@ -608,6 +636,14 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
     NSLog(@"annotation.class: %@", [annotation class]);
 //    if(annotation isKindOfClass:<#(__unsafe_unretained Class)#>
     return nil;
+}
+
+
+
+#pragma mark VWWReportViewControllerDelegate
+-(void)reportViewController:(VWWReportViewController*)sender coordinate:(CLLocationCoordinate2D)coordinate{
+    MKCoordinateRegion region = MKCoordinateRegionMake(coordinate, MKCoordinateSpanMake(0.05, 0.05));
+    [self.mapView setRegion:region animated:YES];
 }
 
 
