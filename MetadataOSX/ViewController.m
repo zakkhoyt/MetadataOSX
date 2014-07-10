@@ -9,6 +9,8 @@
 #import "ViewController.h"
 #import "VWWContentItem.h"
 #import "SMGooglePlacesController.h"
+#import "FileSystemItem.h"
+
 @import MapKit;
 @import AVFoundation;
 @import ImageIO;
@@ -32,6 +34,8 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
 @property (strong) VWWEmptyBlock completionBlock;
 @property (weak) IBOutlet NSButton *writeGPSButton;
 @property (weak) IBOutlet NSButton *removeGPSButton;
+@property (weak) IBOutlet NSPathControl *pathControl;
+@property (weak) IBOutlet NSOutlineView *outlineView;
 
 @end
 
@@ -40,11 +44,18 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSString *picturesDirectory = [NSString stringWithFormat:@"%@/%@", NSHomeDirectory(), @"Pictures"];
-    [self seachForFilesInDirectory:picturesDirectory];
+    NSString *picturesPath = [NSString stringWithFormat:@"%@/%@", NSHomeDirectory(), @"Pictures"];
+    [self seachForFilesInDirectory:picturesPath];
+    self.pathControl.URL = [NSURL fileURLWithPath:picturesPath];
+
+
+    
     
     [self.tableView setDoubleAction:@selector(tableViewDoubleAction:)];
     [self.tableView setAction:@selector(tableViewAction:)];
+    
+    [self.outlineView setAction:@selector(outlineViewAction:)];
+    [self.outlineView setDoubleAction:@selector(outlineViewDoubleAction:)];
 }
 
 - (void)setRepresentedObject:(id)representedObject {
@@ -484,6 +495,37 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
 }
 
 
+
+#pragma mark NSOutlineViewDataSource
+- (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(FileSystemItem*)item {
+    return (item == nil) ? 1 : [item numberOfChildren];
+}
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(FileSystemItem*)item {
+    return (item == nil) ? YES : ([item numberOfChildren] != -1);
+}
+
+- (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(FileSystemItem*)item {
+    return (item == nil) ? [FileSystemItem rootItemWithPath:self.pathControl.URL.path] : [(FileSystemItem *)item childAtIndex:index];
+}
+
+- (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(FileSystemItem*)item {
+    if([tableColumn.identifier isEqualToString:@"tree"]){
+        return (item == nil) ? @"/" : (id)[item relativePath];
+    } else if([tableColumn.identifier isEqualToString:@"coordinate"]){
+        return @"coordinate";
+    }
+    
+    return nil;
+}
+
+#pragma mark NSOutlineViewDelegate
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(FileSystemItem*)item {
+    return NO;
+}
+
+
 #pragma mark IBActions
 
 - (IBAction)reportButtonAction:(NSButton *)sender {
@@ -594,6 +636,12 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
 }
 
 
+
+
+#pragma mark Private methods
+
+
+
 -(void)applyCoordinate:(CLLocationCoordinate2D)coordinate toGPSDictionary:(NSMutableDictionary*)gpsDictionary{
     if(coordinate.latitude == 0 && coordinate.longitude == 0) return;
     
@@ -659,6 +707,16 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
         
     }
 }
+
+-(void)outlineViewAction:(NSOutlineView*)sender {
+    NSLog(@"%s", __FUNCTION__);
+}
+
+-(void)outlineViewDoubleAction:(NSOutlineView*)sender{
+    NSLog(@"%s", __FUNCTION__);
+}
+
+
 
 
 

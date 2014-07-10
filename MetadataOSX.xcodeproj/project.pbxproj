@@ -10,8 +10,6 @@
 		C608542C196DEED000A05614 /* VWWReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C608542B196DEED000A05614 /* VWWReportViewController.m */; };
 		C608542F196DF12700A05614 /* VWWBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = C608542E196DF12700A05614 /* VWWBackgroundView.m */; };
 		C66E6A48196DEE3C00BABC7D /* VWWReportWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C66E6A47196DEE3C00BABC7D /* VWWReportWindowController.m */; };
-		C67B20DF196CBF34002185FF /* photo.png in Resources */ = {isa = PBXBuildFile; fileRef = C67B20DD196CBF34002185FF /* photo.png */; };
-		C67B20E0196CBF34002185FF /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = C67B20DE196CBF34002185FF /* folder.png */; };
 		C6A9FB67196CB3F9002F2767 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C6A9FB66196CB3F9002F2767 /* main.m */; };
 		C6A9FB6A196CB3F9002F2767 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6A9FB69196CB3F9002F2767 /* ViewController.m */; };
 		C6A9FB6D196CB3F9002F2767 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C6A9FB6C196CB3F9002F2767 /* AppDelegate.m */; };
@@ -19,8 +17,9 @@
 		C6A9FB72196CB3F9002F2767 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6A9FB70196CB3F9002F2767 /* Main.storyboard */; };
 		C6A9FB7E196CB3F9002F2767 /* MetadataOSXTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C6A9FB7D196CB3F9002F2767 /* MetadataOSXTests.m */; };
 		C6A9FB89196CB5BB002F2767 /* VWWContentItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C6A9FB88196CB5BB002F2767 /* VWWContentItem.m */; };
-		C6B128CD196DE88B00096C2E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6B128CC196DE88B00096C2E /* MapKit.framework */; };
 		C6DF0D34196DB24800C48DB6 /* SMGooglePlacesController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6DF0D33196DB24800C48DB6 /* SMGooglePlacesController.m */; };
+		CF49E628196E23BD00DBD501 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF49E627196E23BD00DBD501 /* MapKit.framework */; };
+		CF49E62C196E257E00DBD501 /* FileSystemItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CF49E62A196E257E00DBD501 /* FileSystemItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,8 +39,6 @@
 		C608542E196DF12700A05614 /* VWWBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWBackgroundView.m; sourceTree = "<group>"; };
 		C66E6A46196DEE3C00BABC7D /* VWWReportWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWReportWindowController.h; sourceTree = "<group>"; };
 		C66E6A47196DEE3C00BABC7D /* VWWReportWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWReportWindowController.m; sourceTree = "<group>"; };
-		C67B20DD196CBF34002185FF /* photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo.png; sourceTree = "<group>"; };
-		C67B20DE196CBF34002185FF /* folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folder.png; sourceTree = "<group>"; };
 		C6A9FB61196CB3F9002F2767 /* MetadataOSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetadataOSX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6A9FB65196CB3F9002F2767 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6A9FB66196CB3F9002F2767 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -56,10 +53,12 @@
 		C6A9FB7D196CB3F9002F2767 /* MetadataOSXTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MetadataOSXTests.m; sourceTree = "<group>"; };
 		C6A9FB87196CB5BB002F2767 /* VWWContentItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWContentItem.h; sourceTree = "<group>"; };
 		C6A9FB88196CB5BB002F2767 /* VWWContentItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWContentItem.m; sourceTree = "<group>"; };
-		C6B128CB196DE87500096C2E /* MetadataOSX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MetadataOSX.entitlements; sourceTree = "<group>"; };
-		C6B128CC196DE88B00096C2E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C6DF0D32196DB24800C48DB6 /* SMGooglePlacesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMGooglePlacesController.h; sourceTree = "<group>"; };
 		C6DF0D33196DB24800C48DB6 /* SMGooglePlacesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMGooglePlacesController.m; sourceTree = "<group>"; };
+		CF49E627196E23BD00DBD501 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		CF49E629196E23BD00DBD501 /* MetadataOSX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MetadataOSX.entitlements; sourceTree = "<group>"; };
+		CF49E62A196E257E00DBD501 /* FileSystemItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileSystemItem.m; sourceTree = "<group>"; };
+		CF49E62B196E257E00DBD501 /* FileSystemItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileSystemItem.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C6B128CD196DE88B00096C2E /* MapKit.framework in Frameworks */,
+				CF49E628196E23BD00DBD501 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,7 +83,7 @@
 		C6A9FB58196CB3F9002F2767 = {
 			isa = PBXGroup;
 			children = (
-				C6B128CC196DE88B00096C2E /* MapKit.framework */,
+				CF49E627196E23BD00DBD501 /* MapKit.framework */,
 				C6A9FB63196CB3F9002F2767 /* MetadataOSX */,
 				C6A9FB7A196CB3F9002F2767 /* MetadataOSXTests */,
 				C6A9FB62196CB3F9002F2767 /* Products */,
@@ -103,26 +102,12 @@
 		C6A9FB63196CB3F9002F2767 /* MetadataOSX */ = {
 			isa = PBXGroup;
 			children = (
-				C6B128CB196DE87500096C2E /* MetadataOSX.entitlements */,
-				C6DF0D32196DB24800C48DB6 /* SMGooglePlacesController.h */,
-				C6DF0D33196DB24800C48DB6 /* SMGooglePlacesController.m */,
-				C6A9FB87196CB5BB002F2767 /* VWWContentItem.h */,
-				C6A9FB88196CB5BB002F2767 /* VWWContentItem.m */,
-				C6A9FB68196CB3F9002F2767 /* ViewController.h */,
-				C6A9FB69196CB3F9002F2767 /* ViewController.m */,
-				C6A9FB6B196CB3F9002F2767 /* AppDelegate.h */,
-				C6A9FB6C196CB3F9002F2767 /* AppDelegate.m */,
+				CF49E62E196E273A00DBD501 /* Controller */,
 				C6A9FB6E196CB3F9002F2767 /* Images.xcassets */,
-				C67B20DD196CBF34002185FF /* photo.png */,
-				C67B20DE196CBF34002185FF /* folder.png */,
-				C6A9FB70196CB3F9002F2767 /* Main.storyboard */,
+				CF49E62D196E273400DBD501 /* Model */,
 				C6A9FB64196CB3F9002F2767 /* Supporting Files */,
-				C66E6A46196DEE3C00BABC7D /* VWWReportWindowController.h */,
-				C66E6A47196DEE3C00BABC7D /* VWWReportWindowController.m */,
-				C608542A196DEED000A05614 /* VWWReportViewController.h */,
-				C608542B196DEED000A05614 /* VWWReportViewController.m */,
-				C608542D196DF12700A05614 /* VWWBackgroundView.h */,
-				C608542E196DF12700A05614 /* VWWBackgroundView.m */,
+				CF49E633196E279B00DBD501 /* UserInterface */,
+				CF49E632196E279400DBD501 /* View */,
 			);
 			path = MetadataOSX;
 			sourceTree = "<group>";
@@ -130,6 +115,9 @@
 		C6A9FB64196CB3F9002F2767 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C6A9FB6B196CB3F9002F2767 /* AppDelegate.h */,
+				C6A9FB6C196CB3F9002F2767 /* AppDelegate.m */,
+				CF49E629196E23BD00DBD501 /* MetadataOSX.entitlements */,
 				C6A9FB65196CB3F9002F2767 /* Info.plist */,
 				C6A9FB66196CB3F9002F2767 /* main.m */,
 			);
@@ -151,6 +139,73 @@
 				C6A9FB7C196CB3F9002F2767 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CF49E62D196E273400DBD501 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C6A9FB87196CB5BB002F2767 /* VWWContentItem.h */,
+				C6A9FB88196CB5BB002F2767 /* VWWContentItem.m */,
+				CF49E62A196E257E00DBD501 /* FileSystemItem.m */,
+				CF49E62B196E257E00DBD501 /* FileSystemItem.h */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		CF49E62E196E273A00DBD501 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CF49E630196E275600DBD501 /* NonGUI */,
+				CF49E62F196E275200DBD501 /* GUI */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		CF49E62F196E275200DBD501 /* GUI */ = {
+			isa = PBXGroup;
+			children = (
+				C66E6A46196DEE3C00BABC7D /* VWWReportWindowController.h */,
+				C66E6A47196DEE3C00BABC7D /* VWWReportWindowController.m */,
+				C608542A196DEED000A05614 /* VWWReportViewController.h */,
+				C608542B196DEED000A05614 /* VWWReportViewController.m */,
+				C6A9FB68196CB3F9002F2767 /* ViewController.h */,
+				C6A9FB69196CB3F9002F2767 /* ViewController.m */,
+			);
+			name = GUI;
+			sourceTree = "<group>";
+		};
+		CF49E630196E275600DBD501 /* NonGUI */ = {
+			isa = PBXGroup;
+			children = (
+				CF49E631196E275E00DBD501 /* Location */,
+				C6DF0D32196DB24800C48DB6 /* SMGooglePlacesController.h */,
+				C6DF0D33196DB24800C48DB6 /* SMGooglePlacesController.m */,
+			);
+			name = NonGUI;
+			sourceTree = "<group>";
+		};
+		CF49E631196E275E00DBD501 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Location;
+			sourceTree = "<group>";
+		};
+		CF49E632196E279400DBD501 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C608542D196DF12700A05614 /* VWWBackgroundView.h */,
+				C608542E196DF12700A05614 /* VWWBackgroundView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		CF49E633196E279B00DBD501 /* UserInterface */ = {
+			isa = PBXGroup;
+			children = (
+				C6A9FB70196CB3F9002F2767 /* Main.storyboard */,
+			);
+			name = UserInterface;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,9 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6A9FB6F196CB3F9002F2767 /* Images.xcassets in Resources */,
-				C67B20E0196CBF34002185FF /* folder.png in Resources */,
 				C6A9FB72196CB3F9002F2767 /* Main.storyboard in Resources */,
-				C67B20DF196CBF34002185FF /* photo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +321,7 @@
 				C608542F196DF12700A05614 /* VWWBackgroundView.m in Sources */,
 				C6A9FB67196CB3F9002F2767 /* main.m in Sources */,
 				C6A9FB6D196CB3F9002F2767 /* AppDelegate.m in Sources */,
+				CF49E62C196E257E00DBD501 /* FileSystemItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
