@@ -146,8 +146,8 @@
 			children = (
 				C6A9FB87196CB5BB002F2767 /* VWWContentItem.h */,
 				C6A9FB88196CB5BB002F2767 /* VWWContentItem.m */,
-				CF49E62A196E257E00DBD501 /* FileSystemItem.m */,
 				CF49E62B196E257E00DBD501 /* FileSystemItem.h */,
+				CF49E62A196E257E00DBD501 /* FileSystemItem.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";

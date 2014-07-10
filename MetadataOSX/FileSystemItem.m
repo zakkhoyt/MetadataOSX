@@ -13,6 +13,7 @@
 
 static FileSystemItem *rootItem = nil;
 
+
 - (id)initWithPath:(NSString *)path parent:(FileSystemItem *)obj {
     if (self = [super init]) {
         rootPath = path;
@@ -23,12 +24,14 @@ static FileSystemItem *rootItem = nil;
 }
 
 + (FileSystemItem *)rootItem {
-   if (rootItem == nil) rootItem = [[FileSystemItem alloc] initWithPath:@"/" parent:nil];
+//   if (rootItem == nil)
+       rootItem = [[FileSystemItem alloc] initWithPath:@"/" parent:nil];
    return rootItem;       
 }
 
 + (FileSystemItem *)rootItemWithPath:(NSString*)path {
-    if (rootItem == nil) rootItem = [[FileSystemItem alloc] initWithPath:path parent:nil];
+//    if (rootItem == nil)
+        rootItem = [[FileSystemItem alloc] initWithPath:path parent:nil];
     return rootItem;
 }
 
@@ -73,6 +76,16 @@ static FileSystemItem *rootItem = nil;
     return [self children] ? self.children.count : -1;
 }
 
+-(void)setMetadata:(NSMutableDictionary *)metadata{
+    @synchronized(self){
+        _metadata = metadata;
+    }
+}
+
+
+-(void)setAnnotationCoordinate:(CLLocationCoordinate2D)coordinate{
+    _coordinate = coordinate;
+}
 
 @end
 
