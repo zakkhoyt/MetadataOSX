@@ -21,7 +21,7 @@ typedef void (^VWWCLLocationCoordinate2DBlock)(CLLocationCoordinate2D coordinate
 typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
 
 static NSString *VWWSegueMainToMetadata = @"VWWSegueMainToMetadata";
-
+static NSString *VWWMainViewControllerInitialDirKey = @"initialDir";
 @interface VWWMainViewController () <MKMapViewDelegate, VWWLocationSearchViewControllerDelegate>
 @property (strong) NSMutableArray *contents;
 @property (strong) NSIndexSet *selectedIndexes;
@@ -43,13 +43,19 @@ static NSString *VWWSegueMainToMetadata = @"VWWSegueMainToMetadata";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    NSString *picturesPath = [NSString stringWithFormat:@"%@/%@", NSHomeDirectory(), @"Pictures"];
-    self.pathControl.URL = [NSURL fileURLWithPath:picturesPath];
+    NSString *initialDir = [[NSUserDefaults standardUserDefaults] objectForKey:VWWMainViewControllerInitialDirKey];
+    if(initialDir == nil){
+        initialDir = [NSString stringWithFormat:@"%@/%@", NSHomeDirectory(), @"Pictures"];
+    }
+    
+    self.pathControl.URL = [NSURL fileURLWithPath:initialDir];
     
     [self.outlineView setAction:@selector(outlineViewAction:)];
     [self.outlineView setDoubleAction:@selector(outlineViewDoubleAction:)];
     
     self.pathControl.allowedTypes = @[@"public.folder"];
+    
+    self.datePicker.dateValue = [NSDate date];
 }
 
 - (void)setRepresentedObject:(id)representedObject {
@@ -200,6 +206,10 @@ static NSString *VWWSegueMainToMetadata = @"VWWSegueMainToMetadata";
 - (IBAction)pathControlAction:(NSPathControl *)sender {
     sender.URL = sender.clickedPathItem.URL;
     [self.outlineView reloadData];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:sender.URL.path forKey:VWWMainViewControllerInitialDirKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
 }
 
 -(void)outlineViewAction:(NSOutlineView*)sender {
