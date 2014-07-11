@@ -19,12 +19,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MetadataOSX/ViewController.m"
-            timestampString = "426654518.599875"
+            filePath = "MetadataOSX/VWWMainViewController.m"
+            timestampString = "426733635.963543"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "525"
-            endingLineNumber = "525"
+            startingLineNumber = "540"
+            endingLineNumber = "540"
             landmarkName = "-outlineViewAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -35,12 +35,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MetadataOSX/ViewController.m"
-            timestampString = "426654518.599875"
+            filePath = "MetadataOSX/VWWMainViewController.m"
+            timestampString = "426733635.963543"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "405"
-            endingLineNumber = "405"
+            startingLineNumber = "420"
+            endingLineNumber = "420"
             landmarkName = "-outlineViewAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -51,12 +51,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MetadataOSX/ViewController.m"
-            timestampString = "426654518.599875"
+            filePath = "MetadataOSX/VWWMainViewController.m"
+            timestampString = "426733635.963543"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "515"
-            endingLineNumber = "515"
+            startingLineNumber = "530"
+            endingLineNumber = "530"
             landmarkName = "-outlineViewAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -67,12 +67,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MetadataOSX/ViewController.m"
-            timestampString = "426654518.599875"
+            filePath = "MetadataOSX/VWWMainViewController.m"
+            timestampString = "426733635.963543"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "552"
-            endingLineNumber = "552"
+            startingLineNumber = "567"
+            endingLineNumber = "567"
             landmarkName = "-outlineViewAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -83,23 +83,23 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MetadataOSX/ViewController.m"
-            timestampString = "426654518.599875"
+            filePath = "MetadataOSX/VWWMainViewController.m"
+            timestampString = "426733635.963543"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "255"
-            endingLineNumber = "255"
-            landmarkName = "-writeButtonAction:"
+            startingLineNumber = "270"
+            endingLineNumber = "270"
+            landmarkName = "-reportButtonAction:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MetadataOSX/ViewController.m"
+            filePath = "MetadataOSX/VWWMainViewController.m"
             timestampString = "426653272.367662"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
@@ -115,12 +115,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MetadataOSX/ViewController.m"
-            timestampString = "426654518.599875"
+            filePath = "MetadataOSX/VWWMainViewController.m"
+            timestampString = "426733635.963543"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "285"
-            endingLineNumber = "285"
+            startingLineNumber = "300"
+            endingLineNumber = "300"
             landmarkName = "-writeButtonAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -131,12 +131,28 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MetadataOSX/ViewController.m"
-            timestampString = "426654518.599875"
+            filePath = "MetadataOSX/VWWMainViewController.m"
+            timestampString = "426733635.963543"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "303"
-            endingLineNumber = "303"
+            startingLineNumber = "318"
+            endingLineNumber = "318"
+            landmarkName = "-writeButtonAction:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MetadataOSX/VWWMainViewController.m"
+            timestampString = "426733635.963543"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "338"
+            endingLineNumber = "338"
             landmarkName = "-eraseGPSButtonAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -147,14 +163,14 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MetadataOSX/ViewController.m"
-            timestampString = "426654518.599875"
+            filePath = "MetadataOSX/VWWMainViewController.m"
+            timestampString = "426653421.000392"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "323"
-            endingLineNumber = "323"
-            landmarkName = "-pathControlAction:"
-            landmarkType = "5">
+            startingLineNumber = "166"
+            endingLineNumber = "166"
+            landmarkName = "@implementation VWWMainViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -163,13 +179,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MetadataOSX/ViewController.m"
-            timestampString = "426653421.000392"
+            filePath = "MetadataOSX/VWWMainViewController.m"
+            timestampString = "426733175.038946"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
-            landmarkName = "-outlineView:child:ofItem:"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
+            landmarkName = "-writeMetadata:toURL:completionBlock:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

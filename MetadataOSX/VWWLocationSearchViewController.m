@@ -1,23 +1,23 @@
 //
-//  VWWReportViewController.m
+//  VWWLocationSearchController.m
 //  MetadataOSX
 //
 //  Created by Zakk Hoyt on 7/9/14.
 //  Copyright (c) 2014 Zakk Hoyt. All rights reserved.
 //
 
-#import "VWWReportViewController.h"
+#import "VWWLocationSearchViewController.h"
 
 
 typedef void (^VWWMKLocalSearchResponseBlock)(MKLocalSearchResponse *response);
 
-@interface VWWReportViewController ()
+@interface VWWLocationSearchViewController ()
 @property (weak) IBOutlet NSSearchField *searchBar;
 @property (weak) IBOutlet NSTableView *tableView;
 @property (strong) NSArray *places;
 @end
 
-@implementation VWWReportViewController
+@implementation VWWLocationSearchViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -58,7 +58,7 @@ typedef void (^VWWMKLocalSearchResponseBlock)(MKLocalSearchResponse *response);
     if(index != -1){
         MKMapItem *item = self.places[index];
         MKPlacemark *placemark = item.placemark;
-        [self.delegate reportViewController:self coordinate:placemark.coordinate];
+        [self.delegate reportVWWMainViewController:self coordinate:placemark.coordinate];
     }
     
     [self dismissViewController:self];

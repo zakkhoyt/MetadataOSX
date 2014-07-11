@@ -1,15 +1,15 @@
 //
-//  ViewController.m
+//  VWWMainViewController.m
 //  MetadataOSX
 //
 //  Created by Zakk Hoyt on 7/8/14.
 //  Copyright (c) 2014 Zakk Hoyt. All rights reserved.
 //
 
-#import "ViewController.h"
-#import "SMGooglePlacesController.h"
+#import "VWWMainViewController.h"
+#import "VWWPlacesController.h"
 #import "FileSystemItem.h"
-#import "VWWReportViewController.h"
+#import "VWWLocationSearchViewController.h"
 
 @import MapKit;
 @import AVFoundation;
@@ -19,7 +19,7 @@ typedef void (^VWWEmptyBlock)(void);
 typedef void (^VWWCLLocationCoordinate2DBlock)(CLLocationCoordinate2D coordinate);
 typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
 
-@interface ViewController () <NSViewControllerPresentationAnimator, MKMapViewDelegate, VWWReportViewControllerDelegate>
+@interface VWWMainViewController () <NSViewControllerPresentationAnimator, MKMapViewDelegate, VWWLocationSearchViewControllerDelegate>
 @property (strong) NSMutableArray *contents;
 @property (strong) NSIndexSet *selectedIndexes;
 @property (unsafe_unretained) IBOutlet NSTextView *metadataTextView;
@@ -33,7 +33,7 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
 @property (weak) IBOutlet NSOutlineView *outlineView;
 @end
 
-@implementation ViewController
+@implementation VWWMainViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -89,7 +89,7 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
 
 - (void)prepareForSegue:(NSStoryboardSegue *)segue sender:(id)sender{
     if([segue.identifier isEqualToString:@"VWWSegueMainToReport"]){
-        VWWReportViewController *vc = segue.destinationController;
+        VWWLocationSearchViewController *vc = segue.destinationController;
         vc.mapView = self.mapView;
         vc.delegate = self;
     }
@@ -213,7 +213,7 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
 //        NSDictionary *gpsDictionary = [item.metaData valueForKeyPath:@"{GPS}"];
 //        if(gpsDictionary){
 //            [self extractLocationFromGPSDictionary:gpsDictionary completionBlock:^(CLLocationCoordinate2D coordinate) {
-//                [SMGooglePlacesController stringLocalityFromLatitude:coordinate.latitude longitude:coordinate.longitude completionBlock:^(NSString *name) {
+//                [VWWPlacesController stringLocalityFromLatitude:coordinate.latitude longitude:coordinate.longitude completionBlock:^(NSString *name) {
 //                    dispatch_async(dispatch_get_main_queue(), ^{
 //                        if(name){
 //                            cellView.textField.stringValue = name;
@@ -227,6 +227,21 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
 //            cellView.textField.stringValue = @"n/a";
 //        }
         return @"n/a";
+    } else if([tableColumn.identifier isEqualToString:@"date"]){
+        NSDictionary *exifDictionary = [item.metadata valueForKeyPath:(NSString*)kCGImagePropertyExifDictionary];
+        if(exifDictionary){
+            NSString *dateName = exifDictionary[(NSString*)kCGImagePropertyExifDateTimeOriginal];
+            if(dateName){
+                return dateName;
+            } else {
+                return @"n/a";
+            }
+        } else {
+            return @"n/a";
+        }
+        
+        return @"coordinate";
+        
     }
     
     return nil;
@@ -248,10 +263,10 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
 
 
 - (IBAction)reportButtonAction:(NSButton *)sender {
-//    NSWindowController *windowController = [self.storyboard instantiateControllerWithIdentifier:@"VWWReportWindowController"];
+//    NSWindowController *windowController = [self.storyboard instantiateControllerWithIdentifier:@"VWWLocationSearchWindowController"];
 //    [[windowController window]makeKeyWindow];
     
-    NSViewController *vc = [self.storyboard instantiateControllerWithIdentifier:@"VWWReportViewController"];
+    NSViewController *vc = [self.storyboard instantiateControllerWithIdentifier:@"VWWLocationSearchViewController"];
     [self presentViewController:vc animator:self];
 }
 
@@ -262,7 +277,7 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
 //    openPanel.canChooseFiles = NO;
 //    
 //    
-//    __weak ViewController *weakSelf = self;
+//    __weak VWWMainViewController *weakSelf = self;
 //    [openPanel beginWithCompletionHandler:^(NSInteger result) {
 //        //        NSString *dir = openPanel.directoryURL.description;
 //        //        dir = [dir stringByReplacingOccurrencesOfString:@"file://localhost" withString:@""];
@@ -620,13 +635,13 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
 
 #pragma mark NSViewControllerPresentationAnimator
 
-- (void)animatePresentationOfViewController:(NSViewController *)viewController fromViewController:(NSViewController *)fromViewController{
-    viewController.view.frame = fromViewController.view.frame;
-    viewController.view.alphaValue = 1.0;
-    viewController.view.alphaValue = 0.0;
+- (void)animatePresentationOfVWWMainViewController:(NSViewController *)VWWMainViewController fromVWWMainViewController:(NSViewController *)fromVWWMainViewController{
+    VWWMainViewController.view.frame = fromVWWMainViewController.view.frame;
+    VWWMainViewController.view.alphaValue = 1.0;
+    VWWMainViewController.view.alphaValue = 0.0;
 }
 
-- (void)animateDismissalOfViewController:(NSViewController *)viewController fromViewController:(NSViewController *)fromViewController{
+- (void)animateDismissalOfVWWMainViewController:(NSViewController *)VWWMainViewController fromVWWMainViewController:(NSViewController *)fromVWWMainViewController{
     
 }
 
@@ -640,8 +655,8 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
 
 
 
-#pragma mark VWWReportViewControllerDelegate
--(void)reportViewController:(VWWReportViewController*)sender coordinate:(CLLocationCoordinate2D)coordinate{
+#pragma mark VWWLocationSearchViewControllerDelegate
+-(void)reportVWWMainViewController:(VWWLocationSearchViewController*)sender coordinate:(CLLocationCoordinate2D)coordinate{
     MKCoordinateRegion region = MKCoordinateRegionMake(coordinate, MKCoordinateSpanMake(0.05, 0.05));
     [self.mapView setRegion:region animated:YES];
 }

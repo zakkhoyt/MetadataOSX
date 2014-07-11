@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  VWWMainViewController.h
 //  MetadataOSX
 //
 //  Created by Zakk Hoyt on 7/8/14.
@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface ViewController : NSViewController
+@interface VWWMainViewController : NSViewController
 
 
 @end

@@ -1,21 +1,21 @@
 //
-//  SMGooglePlacesController.m
+//  VWWPlacesController.m
 //  Radius_iOS
 //
 //  Created by Zakk Hoyt on 1/15/14.
 //  Copyright (c) 2014 Zakk Hoyt. All rights reserved.
 //
 
-#import "SMGooglePlacesController.h"
+#import "VWWPlacesController.h"
 
 
 static NSString *SMGoogleAPIKey = @"AIzaSyCc6Ab9CdriC-IT53S_2qszNtrsCj2fSpQ";
 
-@implementation SMGooglePlacesController
+@implementation VWWPlacesController
 
 
 //-(void)queryGooglePlaces:(NSString *)googleType withCoordinate2D:(CLLocationCoordinate2D)currentCentre currentDist:(int)currentDist{
-+(void)queryGooglePlacesWithLatitude:(double)latitude longitude:(double)longitude radius:(NSInteger)radius completion:(SMArrayBlock)completion{
++(void)queryGooglePlacesWithLatitude:(double)latitude longitude:(double)longitude radius:(NSInteger)radius completion:(VWWArrayBlock)completion{
 //    Required parameters
 //    
 //    key — Your application's API key. This key identifies your application for purposes of quota management and so that Places added from your application are made immediately available to your app. Visit the APIs Console to create an API Project and obtain your key.
