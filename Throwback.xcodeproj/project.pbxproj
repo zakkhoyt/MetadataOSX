@@ -39,7 +39,7 @@
 		C608542B196DEED000A05614 /* VWWLocationSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWLocationSearchViewController.m; sourceTree = "<group>"; };
 		C608542D196DF12700A05614 /* VWWBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWBackgroundView.h; sourceTree = "<group>"; };
 		C608542E196DF12700A05614 /* VWWBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWBackgroundView.m; sourceTree = "<group>"; };
-		C6A9FB61196CB3F9002F2767 /* MetadataOSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetadataOSX.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6A9FB61196CB3F9002F2767 /* Throwback.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Throwback.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6A9FB65196CB3F9002F2767 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6A9FB66196CB3F9002F2767 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C6A9FB68196CB3F9002F2767 /* VWWMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VWWMainViewController.h; sourceTree = "<group>"; };
@@ -48,7 +48,7 @@
 		C6A9FB6C196CB3F9002F2767 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C6A9FB6E196CB3F9002F2767 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C6A9FB71196CB3F9002F2767 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C6A9FB77196CB3F9002F2767 /* MetadataOSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MetadataOSXTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6A9FB77196CB3F9002F2767 /* ThrowbackTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThrowbackTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6A9FB7C196CB3F9002F2767 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6A9FB7D196CB3F9002F2767 /* MetadataOSXTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MetadataOSXTests.m; sourceTree = "<group>"; };
 		C6A9FB87196CB5BB002F2767 /* VWWContentItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWContentItem.h; sourceTree = "<group>"; };
@@ -99,8 +99,8 @@
 		C6A9FB62196CB3F9002F2767 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C6A9FB61196CB3F9002F2767 /* MetadataOSX.app */,
-				C6A9FB77196CB3F9002F2767 /* MetadataOSXTests.xctest */,
+				C6A9FB61196CB3F9002F2767 /* Throwback.app */,
+				C6A9FB77196CB3F9002F2767 /* ThrowbackTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -221,9 +221,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C6A9FB60196CB3F9002F2767 /* MetadataOSX */ = {
+		C6A9FB60196CB3F9002F2767 /* Throwback */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C6A9FB81196CB3F9002F2767 /* Build configuration list for PBXNativeTarget "MetadataOSX" */;
+			buildConfigurationList = C6A9FB81196CB3F9002F2767 /* Build configuration list for PBXNativeTarget "Throwback" */;
 			buildPhases = (
 				C6A9FB5D196CB3F9002F2767 /* Sources */,
 				C6A9FB5E196CB3F9002F2767 /* Frameworks */,
@@ -233,14 +233,14 @@
 			);
 			dependencies = (
 			);
-			name = MetadataOSX;
+			name = Throwback;
 			productName = MetadataOSX;
-			productReference = C6A9FB61196CB3F9002F2767 /* MetadataOSX.app */;
+			productReference = C6A9FB61196CB3F9002F2767 /* Throwback.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C6A9FB76196CB3F9002F2767 /* MetadataOSXTests */ = {
+		C6A9FB76196CB3F9002F2767 /* ThrowbackTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C6A9FB84196CB3F9002F2767 /* Build configuration list for PBXNativeTarget "MetadataOSXTests" */;
+			buildConfigurationList = C6A9FB84196CB3F9002F2767 /* Build configuration list for PBXNativeTarget "ThrowbackTests" */;
 			buildPhases = (
 				C6A9FB73196CB3F9002F2767 /* Sources */,
 				C6A9FB74196CB3F9002F2767 /* Frameworks */,
@@ -251,9 +251,9 @@
 			dependencies = (
 				C6A9FB79196CB3F9002F2767 /* PBXTargetDependency */,
 			);
-			name = MetadataOSXTests;
+			name = ThrowbackTests;
 			productName = MetadataOSXTests;
-			productReference = C6A9FB77196CB3F9002F2767 /* MetadataOSXTests.xctest */;
+			productReference = C6A9FB77196CB3F9002F2767 /* ThrowbackTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -280,7 +280,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C6A9FB5C196CB3F9002F2767 /* Build configuration list for PBXProject "MetadataOSX" */;
+			buildConfigurationList = C6A9FB5C196CB3F9002F2767 /* Build configuration list for PBXProject "Throwback" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -293,8 +293,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C6A9FB60196CB3F9002F2767 /* MetadataOSX */,
-				C6A9FB76196CB3F9002F2767 /* MetadataOSXTests */,
+				C6A9FB60196CB3F9002F2767 /* Throwback */,
+				C6A9FB76196CB3F9002F2767 /* ThrowbackTests */,
 			);
 		};
 /* End PBXProject section */
@@ -350,7 +350,7 @@
 /* Begin PBXTargetDependency section */
 		C6A9FB79196CB3F9002F2767 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C6A9FB60196CB3F9002F2767 /* MetadataOSX */;
+			target = C6A9FB60196CB3F9002F2767 /* Throwback */;
 			targetProxy = C6A9FB78196CB3F9002F2767 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -404,7 +404,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.10;
 			};
 			name = Debug;
 		};
@@ -439,7 +439,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.10;
 			};
 			name = Release;
 		};
@@ -454,9 +454,9 @@
 				INFOPLIST_FILE = MetadataOSX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Throwback;
 				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.10;
 			};
 			name = Debug;
 		};
@@ -471,9 +471,9 @@
 				INFOPLIST_FILE = MetadataOSX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Throwback;
 				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.10;
 			};
 			name = Release;
 		};
@@ -492,7 +492,7 @@
 				);
 				INFOPLIST_FILE = MetadataOSXTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ThrowbackTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
 			name = Debug;
@@ -508,7 +508,7 @@
 				);
 				INFOPLIST_FILE = MetadataOSXTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ThrowbackTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
 			name = Release;
@@ -516,7 +516,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C6A9FB5C196CB3F9002F2767 /* Build configuration list for PBXProject "MetadataOSX" */ = {
+		C6A9FB5C196CB3F9002F2767 /* Build configuration list for PBXProject "Throwback" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C6A9FB7F196CB3F9002F2767 /* Debug */,
@@ -525,7 +525,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C6A9FB81196CB3F9002F2767 /* Build configuration list for PBXNativeTarget "MetadataOSX" */ = {
+		C6A9FB81196CB3F9002F2767 /* Build configuration list for PBXNativeTarget "Throwback" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C6A9FB82196CB3F9002F2767 /* Debug */,
@@ -534,7 +534,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C6A9FB84196CB3F9002F2767 /* Build configuration list for PBXNativeTarget "MetadataOSXTests" */ = {
+		C6A9FB84196CB3F9002F2767 /* Build configuration list for PBXNativeTarget "ThrowbackTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C6A9FB85196CB3F9002F2767 /* Debug */,

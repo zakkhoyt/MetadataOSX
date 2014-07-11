@@ -5,30 +5,7 @@
 //  Created by Zakk Hoyt on 7/10/14.
 //  Copyright (c) 2014 Zakk Hoyt. All rights reserved.
 //
-//jpg
-//jpeg
-//jif
-//jfif
-//exif
-//tif
-//tiff
-//raw
-//gif
-//bmp
-//png
-//ppm
-//pmg
-//pbm
-//pnm
-//webp
-//
-//jp2
-//jpx
-//j2k
-//j2c
-//fpx
-//pdc
-//pdf
+
 
 #import "VWWReportViewController.h"
 @import ImageIO;
@@ -38,41 +15,69 @@
 @property (weak) IBOutlet NSPathControl *pathControl;
 @property (strong) NSMutableArray *files;
 @property (weak) IBOutlet NSTextField *currentPathLabel;
-
+@property (weak) IBOutlet NSButton *imageTypesCheckButton;
+@property (strong) NSArray *imageTypes;
+@property dispatch_queue_t reportQueue;
 @end
 
 @implementation VWWReportViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.reportQueue = dispatch_queue_create("com.vaporwarewolf.throwback.report", DISPATCH_QUEUE_SERIAL);
+    [self setupImageTypes];
+    
+    
+    
+    
+}
+
+-(void)viewWillAppear{
+    [super viewWillAppear];
     self.files = [@[]mutableCopy];
     NSString *initialDir = [[NSUserDefaults standardUserDefaults] objectForKey:@"initialDir"];
     self.pathControl.URL = [NSURL fileURLWithPath:initialDir];
     self.currentPathLabel.stringValue = @"";
+    self.view.window.title = initialDir;
+}
+
+-(void)viewDidAppear{
+    [super viewDidAppear];
 }
 
 
 - (IBAction)startButtonAction:(id)sender {
     [self.files removeAllObjects];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+    // To simplify things we'll use a serial queue. We won't need to worry about critical sections.
+    dispatch_async(self.reportQueue, ^{
         [self findFiles:self.pathControl.URL.path];
-        self.currentPathLabel.stringValue = @"Finished";
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.currentPathLabel.stringValue = [NSString stringWithFormat:@"Found %ld photos without GPS tags in %@", (long)self.files.count, self.pathControl.URL.path];
+        });
     });
 }
 
 
 -(void)findFiles:(NSString*)path{
     //    NSLog(@"Examining dir: %@", path);
-    
+
     dispatch_async(dispatch_get_main_queue(), ^{
+        
         self.textView.string = [NSString stringWithFormat:@"Looking in %@.\nFound %ld without GPS tags\n%@",
                                 path,
                                 (long)self.files.count,
                                 self.files.description];
+        //        NSLog(@"%@", [NSString stringWithFormat:@"Looking in %@.\nFound %ld without GPS tags\n%@",
+        //                      path,
+        //                      (long)self.files.count,
+        //                      self.files.description]);
         self.currentPathLabel.stringValue = path;
+        
     });
-
+    
     
     NSError *error;
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -90,27 +95,76 @@
         NSURL *url = [NSURL fileURLWithPath:contentDetailsPath isDirectory:isDirectory];
         
         if(isDirectory){
-            // Recursion
-            [self findFiles:url.path];
+            if([url.path rangeOfString:@"iPhoto Library.photolibrary"].location == NSNotFound){
+                // Recurse
+//                dispatch_async(self.reportQueue, ^{
+                    [self findFiles:url.path];
+//                });
+            }
         } else {
-            
-            NSDictionary *metadata = [self readMetadataFromURL:url];
-            NSDictionary *gpsDictionary = metadata[(NSString*)kCGImagePropertyGPSDictionary];
-            if(gpsDictionary == nil) {
-                [self.files insertObject:url.path atIndex:0];
-                continue;
+            BOOL shouldInspectMetadata = NO;
+            if(self.imageTypesCheckButton.state == NSOnState){
+                shouldInspectMetadata = [self urlIsImageType:url];
+            } else {
+                shouldInspectMetadata = YES;
             }
             
-            NSNumber *latitude = gpsDictionary[(NSString*)kCGImagePropertyGPSLatitude];
-            NSNumber *longitude = gpsDictionary[(NSString*)kCGImagePropertyGPSLongitude];
-            if(latitude == nil && longitude == nil){
-                [self.files insertObject:url.path atIndex:0];
+            if(shouldInspectMetadata){
+                NSDictionary *metadata = [self readMetadataFromURL:url];
+                NSDictionary *gpsDictionary = metadata[(NSString*)kCGImagePropertyGPSDictionary];
+                if(gpsDictionary == nil) {
+                    [self.files insertObject:url.path atIndex:0];
+                    continue;
+                }
+                
+                NSNumber *latitude = gpsDictionary[(NSString*)kCGImagePropertyGPSLatitude];
+                NSNumber *longitude = gpsDictionary[(NSString*)kCGImagePropertyGPSLongitude];
+                if(latitude == nil && longitude == nil){
+                    [self.files insertObject:url.path atIndex:0];
+                }
             }
-            
         }
     }
 }
 
+
+-(void)setupImageTypes{
+    self.imageTypes = @[
+                        @"jpg",
+                        @"jpeg",
+                        @"jif",
+                        @"jfif",
+                        @"tif",
+                        @"tiff",
+                        @"exif",
+                        @"raw",
+                        @"gif",
+                        @"bmp",
+                        @"png",
+                        @"ppm",
+                        @"pmg",
+                        @"pbm",
+                        @"pnm",
+                        @"webp",
+                        @"jp2",
+                        @"jpx",
+                        @"j2k",
+                        @"j2c",
+                        @"fpx",
+                        @"pdc",
+                        @"pdf"
+                        ];
+}
+
+-(BOOL)urlIsImageType:(NSURL*)url{
+    NSString *extension = [url.path pathExtension];
+
+    for(NSString *imageType in self.imageTypes){
+        if([extension compare:imageType options:NSCaseInsensitiveSearch] == NSOrderedSame) return YES;
+    }
+    
+    return NO;
+}
 
 -(NSDictionary*)readMetadataFromURL:(NSURL*)url{
     CGImageSourceRef imageSource = CGImageSourceCreateWithURL((__bridge CFURLRef)url, NULL);

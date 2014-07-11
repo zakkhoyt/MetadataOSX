@@ -13,7 +13,7 @@
 - (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code here.
+        self.backgroundColor = [NSColor blackColor];
     }
     return self;
 }
@@ -21,8 +21,17 @@
 - (void)drawRect:(NSRect)dirtyRect {
     // Fill in background Color
     CGContextRef context = (CGContextRef) [[NSGraphicsContext currentContext] graphicsPort];
-    CGContextSetRGBFillColor(context, 0, 0, 0, 1.0);
+
+    
+    NSColor *color = [self.backgroundColor colorUsingColorSpace:[NSColorSpace deviceRGBColorSpace]];
+    CGFloat red = color.redComponent;
+    CGFloat green = color.greenComponent;
+    CGFloat blue  = color.blueComponent;
+    
+    
+    CGContextSetRGBFillColor(context, red, green, blue, 1.0);
     CGContextFillRect(context, NSRectToCGRect(dirtyRect));
 }
+
 
 @end

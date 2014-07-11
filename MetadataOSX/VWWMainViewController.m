@@ -11,7 +11,7 @@
 #import "FileSystemItem.h"
 #import "VWWLocationSearchViewController.h"
 #import "VWWMetadataViewController.h"
-
+#import "VWWBackgroundView.h"
 @import MapKit;
 @import AVFoundation;
 @import ImageIO;
@@ -31,11 +31,21 @@ static NSString *VWWSegueMainToMetadataReport = @"VWWSegueMainToMetadataReport";
 @property (weak) IBOutlet MKMapView *mapView;
 @property (weak) IBOutlet NSImageView *imageView;
 @property (strong) VWWEmptyBlock completionBlock;
+
 @property (weak) IBOutlet NSButton *writeGPSButton;
-@property (weak) IBOutlet NSButton *removeGPSButton;
+@property (weak) IBOutlet NSButton *writeDateButton;
+@property (weak) IBOutlet NSButton *writeGPSDateButton;
+@property (weak) IBOutlet NSButton *eraseGPSButton;
+@property (weak) IBOutlet NSButton *eraseDateButton;
+@property (weak) IBOutlet NSButton *eraseGPSDateButton;
+
+
+
+
 @property (weak) IBOutlet NSPathControl *pathControl;
 @property (weak) IBOutlet NSOutlineView *outlineView;
 @property (weak) IBOutlet NSDatePicker *datePicker;
+@property (weak) IBOutlet VWWBackgroundView *imageBackgroundView;
 
 @end
 
@@ -59,6 +69,17 @@ static NSString *VWWSegueMainToMetadataReport = @"VWWSegueMainToMetadataReport";
     self.pathControl.allowedTypes = @[@"public.folder"];
     
     self.datePicker.dateValue = [NSDate date];
+    self.imageBackgroundView.backgroundColor = [NSColor darkGrayColor];
+}
+
+
+-(void)viewWillAppear{
+    NSString *initialDir = [[NSUserDefaults standardUserDefaults] objectForKey:VWWMainViewControllerInitialDirKey];
+    if(initialDir == nil){
+        initialDir = [NSString stringWithFormat:@"%@/%@", NSHomeDirectory(), @"Pictures"];
+    }
+
+    self.view.window.title = initialDir;
 }
 
 - (void)setRepresentedObject:(id)representedObject {
@@ -227,6 +248,23 @@ static NSString *VWWSegueMainToMetadataReport = @"VWWSegueMainToMetadataReport";
     if (selectedRow != -1) {
         self.selectedIndexes = self.outlineView.selectedRowIndexes;
         FileSystemItem *item = [self.outlineView itemAtRow:selectedRow];
+        
+        if(item.metadata){
+            self.writeGPSButton.hidden = NO;
+            self.writeDateButton.hidden = NO;
+            self.writeGPSDateButton.hidden = NO;
+            self.eraseGPSButton.hidden = NO;
+            self.eraseDateButton.hidden = NO;
+            self.eraseGPSDateButton.hidden = NO;
+        } else {
+            self.writeGPSButton.hidden = YES;
+            self.writeDateButton.hidden = YES;
+            self.writeGPSDateButton.hidden = YES;
+            self.eraseGPSButton.hidden = YES;
+            self.eraseDateButton.hidden = YES;
+            self.eraseGPSDateButton.hidden = YES;
+
+        }
 
         // Image
         self.imageView.image = [[NSImage alloc]initWithContentsOfURL:[NSURL fileURLWithPath:item.fullPath]];

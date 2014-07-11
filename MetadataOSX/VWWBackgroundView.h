@@ -9,5 +9,5 @@
 #import <Cocoa/Cocoa.h>
 
 @interface VWWBackgroundView : NSView
-
+@property (strong) NSColor *backgroundColor;
 @end

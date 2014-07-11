@@ -175,7 +175,7 @@
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="142" y="975" width="480" height="302"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
                         <value key="minSize" type="size" width="1000" height="840"/>
                         <view key="contentView" id="O92-4t-NeX">
                             <rect key="frame" x="0.0" y="0.0" width="480" height="302"/>
@@ -199,7 +199,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2YO-pF-lhG">
-                                <rect key="frame" x="20" y="62" width="563" height="333"/>
+                                <rect key="frame" x="20" y="62" width="563" height="311"/>
                                 <clipView key="contentView" id="aSJ-hR-T4j">
                                     <rect key="frame" x="1" y="1" width="223" height="133"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -208,10 +208,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="223" height="351"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="546" height="331"/>
+                                            <size key="minSize" width="546" height="309"/>
                                             <size key="maxSize" width="568" height="10000000"/>
                                             <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="546" height="331"/>
+                                            <size key="minSize" width="546" height="309"/>
                                             <size key="maxSize" width="568" height="10000000"/>
                                         </textView>
                                     </subviews>
@@ -255,30 +255,42 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="cON-Ed-0cM"/>
                                 </constraints>
-                                <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Multiline Label" id="jJX-Xj-6m0">
+                                <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Current search dir" id="jJX-Xj-6m0">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="AMw-X8-lGA">
+                                <rect key="frame" x="19" y="378" width="566" height="20"/>
+                                <buttonCell key="cell" type="check" title="Only image types (jpg, jgpeg, bmp, gif, png, jif, jfif, tif, tiff, raw, ppm, pmg, pbm, pnm, etc..)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="EZU-GU-5aV">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="ThJ-mP-d0a" secondAttribute="trailing" constant="20" id="AvS-OO-Zmg"/>
                             <constraint firstItem="2YO-pF-lhG" firstAttribute="leading" secondItem="fD7-Or-ojJ" secondAttribute="leading" constant="20" id="CDM-Bi-PGI"/>
+                            <constraint firstItem="AMw-X8-lGA" firstAttribute="leading" secondItem="fD7-Or-ojJ" secondAttribute="leading" constant="22" id="FPm-7I-ANs"/>
+                            <constraint firstAttribute="trailing" secondItem="AMw-X8-lGA" secondAttribute="trailing" constant="20" id="Gbf-d7-cs1"/>
                             <constraint firstItem="rLn-fB-bfT" firstAttribute="top" secondItem="fD7-Or-ojJ" secondAttribute="top" constant="20" id="HWw-FY-ar4"/>
+                            <constraint firstItem="AMw-X8-lGA" firstAttribute="top" secondItem="rLn-fB-bfT" secondAttribute="bottom" constant="10" id="KTL-33-i41"/>
                             <constraint firstAttribute="trailing" secondItem="rLn-fB-bfT" secondAttribute="trailing" constant="20" id="OXa-wB-OvX"/>
                             <constraint firstItem="rLn-fB-bfT" firstAttribute="leading" secondItem="0qN-iX-NLt" secondAttribute="trailing" constant="8" id="Sh0-cp-ifG"/>
                             <constraint firstItem="ThJ-mP-d0a" firstAttribute="leading" secondItem="fD7-Or-ojJ" secondAttribute="leading" constant="20" id="bOa-rb-Gvu"/>
                             <constraint firstItem="0qN-iX-NLt" firstAttribute="top" secondItem="fD7-Or-ojJ" secondAttribute="top" constant="20" id="nq3-EI-l0k"/>
                             <constraint firstItem="0qN-iX-NLt" firstAttribute="leading" secondItem="fD7-Or-ojJ" secondAttribute="leading" constant="20" id="sd7-lT-DnP"/>
                             <constraint firstAttribute="bottom" secondItem="2YO-pF-lhG" secondAttribute="bottom" constant="62" id="uaO-lT-PKf"/>
+                            <constraint firstItem="2YO-pF-lhG" firstAttribute="top" secondItem="AMw-X8-lGA" secondAttribute="bottom" constant="8" id="wvg-I6-VBm"/>
                             <constraint firstAttribute="bottom" secondItem="ThJ-mP-d0a" secondAttribute="bottom" constant="20" id="xq9-Nt-Vo8"/>
-                            <constraint firstItem="2YO-pF-lhG" firstAttribute="top" secondItem="fD7-Or-ojJ" secondAttribute="top" constant="48" id="yQ3-T1-u3H"/>
+                            <constraint firstItem="2YO-pF-lhG" firstAttribute="top" secondItem="fD7-Or-ojJ" secondAttribute="top" constant="70" id="yQ3-T1-u3H"/>
                             <constraint firstAttribute="trailing" secondItem="2YO-pF-lhG" secondAttribute="trailing" constant="20" id="zDv-uQ-xjA"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="currentPathLabel" destination="ThJ-mP-d0a" id="9mB-Xu-K1W"/>
+                        <outlet property="imageTypesCheckButton" destination="AMw-X8-lGA" id="yRJ-p3-LfR"/>
                         <outlet property="pathControl" destination="0qN-iX-NLt" id="sfU-wg-1rU"/>
                         <outlet property="textView" destination="f58-KV-3xE" id="hWF-uz-oEL"/>
                     </connections>
@@ -551,7 +563,7 @@ Gw
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveColumns="NO" headerView="zfC-i4-Kwi" indentationPerLevel="16" outlineTableColumn="1EL-TQ-h04" id="kq5-TB-dam">
-                                            <rect key="frame" x="0.0" y="0.0" width="652" height="19"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="849" height="19"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -716,9 +728,9 @@ Gw
                                 </connections>
                             </button>
                             <datePicker verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7DO-9o-unU">
-                                <rect key="frame" x="879" y="161" width="152" height="27"/>
+                                <rect key="frame" x="879" y="161" width="225" height="27"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="149" id="Hug-sU-r8v"/>
+                                    <constraint firstAttribute="width" constant="222" id="Hug-sU-r8v"/>
                                     <constraint firstAttribute="height" constant="23" id="xSR-Vm-idV"/>
                                 </constraints>
                                 <datePickerCell key="cell" borderStyle="bezel" alignment="left" id="VOh-V3-WE2">
@@ -732,11 +744,11 @@ Gw
                                 </datePickerCell>
                             </datePicker>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aEq-IB-sBU">
-                                <rect key="frame" x="1039" y="123" width="166" height="32"/>
+                                <rect key="frame" x="1103" y="123" width="102" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="TuQ-4i-kXo"/>
-                                    <constraint firstAttribute="width" constant="154" id="cEZ-o1-Gg4"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="154" id="dgO-kv-LbG"/>
+                                    <constraint firstAttribute="width" constant="90" id="cEZ-o1-Gg4"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="dgO-kv-LbG"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="syy-fG-GNf"/>
                                 </constraints>
                                 <buttonCell key="cell" type="push" title="Report" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="D1J-N1-l1Z">
@@ -748,9 +760,9 @@ Gw
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Uyp-o4-vXJ">
-                                <rect key="frame" x="1039" y="156" width="166" height="32"/>
+                                <rect key="frame" x="1103" y="156" width="102" height="32"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="154" id="bj3-oi-L7g"/>
+                                    <constraint firstAttribute="width" constant="90" id="bj3-oi-L7g"/>
                                     <constraint firstAttribute="height" constant="21" id="wUu-aJ-96U"/>
                                 </constraints>
                                 <buttonCell key="cell" type="push" title="Search" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Xnq-rb-F9g">
@@ -799,17 +811,24 @@ Gw
                             <constraint firstItem="ErZ-oO-y6h" firstAttribute="leading" secondItem="Rqt-ie-Z86" secondAttribute="trailing" constant="8" id="td3-AT-WPv"/>
                             <constraint firstItem="Rqt-ie-Z86" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="tpC-BO-BZG"/>
                             <constraint firstItem="1Ex-Rm-ng2" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="22" id="tyR-l2-WmP"/>
-                            <constraint firstItem="Uyp-o4-vXJ" firstAttribute="leading" secondItem="7DO-9o-unU" secondAttribute="trailing" constant="17" id="uXp-gb-G3A"/>
+                            <constraint firstItem="Uyp-o4-vXJ" firstAttribute="leading" secondItem="7DO-9o-unU" secondAttribute="trailing" constant="8" id="uXp-gb-G3A"/>
                             <constraint firstItem="Rqt-ie-Z86" firstAttribute="top" secondItem="1Ex-Rm-ng2" secondAttribute="bottom" constant="8" id="uhf-8N-kgB"/>
                             <constraint firstItem="1CJ-kq-asz" firstAttribute="leading" secondItem="Rqt-ie-Z86" secondAttribute="trailing" constant="8" id="ySI-wI-Tcb"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="datePicker" destination="7DO-9o-unU" id="vXb-X6-496"/>
+                        <outlet property="eraseDateButton" destination="DVb-6f-wLL" id="fMh-5U-8Sd"/>
+                        <outlet property="eraseGPSButton" destination="2zO-HT-Xro" id="AVO-FQ-N0j"/>
+                        <outlet property="eraseGPSDateButton" destination="Prh-CY-I5P" id="rlX-ar-Hdh"/>
+                        <outlet property="imageBackgroundView" destination="y1R-5s-oqy" id="cKL-QR-Yor"/>
                         <outlet property="imageView" destination="A4D-lk-nhF" id="Pcy-RY-vWK"/>
                         <outlet property="mapView" destination="bp7-Uk-N4i" id="jD8-cI-TlJ"/>
                         <outlet property="outlineView" destination="kq5-TB-dam" id="zE8-L0-7Uy"/>
                         <outlet property="pathControl" destination="1Ex-Rm-ng2" id="MF0-Ip-c8x"/>
+                        <outlet property="writeDateButton" destination="ErZ-oO-y6h" id="xRP-5B-IhX"/>
+                        <outlet property="writeGPSButton" destination="UUO-LF-bmU" id="fVM-aT-Hvv"/>
+                        <outlet property="writeGPSDateButton" destination="1CJ-kq-asz" id="WE8-Tx-Mov"/>
                         <segue destination="I7M-JD-7mk" kind="sheet" identifier="VWWSegueMainToReport" id="rz4-oa-Vyp"/>
                         <segue destination="WjB-Ec-Sbo" kind="popover" identifier="VWWSegueMainToMetadata" popoverBehavior="t" preferredEdge="maxY" id="fkK-JT-lec"/>
                         <segue destination="uUv-YC-T0t" kind="modal" identifier="VWWSegueMainToMetadataReport" id="93P-ct-VGW"/>
