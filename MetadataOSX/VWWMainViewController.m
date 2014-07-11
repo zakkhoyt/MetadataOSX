@@ -22,6 +22,9 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
 
 static NSString *VWWSegueMainToMetadata = @"VWWSegueMainToMetadata";
 static NSString *VWWMainViewControllerInitialDirKey = @"initialDir";
+static NSString *VWWSegueMainToMetadataReport = @"VWWSegueMainToMetadataReport";
+
+
 @interface VWWMainViewController () <MKMapViewDelegate, VWWLocationSearchViewControllerDelegate>
 @property (strong) NSMutableArray *contents;
 @property (strong) NSIndexSet *selectedIndexes;
@@ -165,6 +168,11 @@ static NSString *VWWMainViewControllerInitialDirKey = @"initialDir";
 }
 
 #pragma mark IBActions
+
+- (IBAction)reportButtonAction:(id)sender {
+    [self performSegueWithIdentifier:VWWSegueMainToMetadataReport sender:self];
+}
+
 
 - (IBAction)buttonAction:(id)sender {
     [self performSegueWithIdentifier:@"VWWSegueMainToReport" sender:self];
