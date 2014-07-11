@@ -336,11 +336,7 @@ static NSString *VWWSegueMainToMetadataReport = @"VWWSegueMainToMetadataReport";
     }
     
     // Create destination
-    //    NSURL *destURL = [NSURL URLWithString:@"file:///Users/zakkhoyt/__test.jpg"];
-    //    CGImageDestinationRef imageDestination = CGImageDestinationCreateWithURL((__bridge CFURLRef)destURL, kUTTypeJPEG, 1, NULL);
-    
     CGImageDestinationRef imageDestination = CGImageDestinationCreateWithURL((__bridge CFURLRef)url, kUTTypeJPEG, 1, NULL);
-    
     if(imageDestination == NULL){
         NSLog(@"%s Could not create image destination for %@", __PRETTY_FUNCTION__, url.path);
         return completionBlock(NO, nil);
@@ -363,7 +359,7 @@ static NSString *VWWSegueMainToMetadataReport = @"VWWSegueMainToMetadataReport";
         NSLog(@"%s Success", __PRETTY_FUNCTION__);
     }
     
-    // TODO: read back the dictionary from the actual file
+    // TODO: read back the dictionary from the actual file not just return what was passed in
     return completionBlock(success, metadata);
 }
 
@@ -429,13 +425,11 @@ static NSString *VWWSegueMainToMetadataReport = @"VWWSegueMainToMetadataReport";
 -(NSDictionary*)readMetadataFromURL:(NSURL*)url{
     CGImageSourceRef imageSource = CGImageSourceCreateWithURL((__bridge CFURLRef)url, NULL);
     if (imageSource == NULL) {
-//        NSLog(@"Could not read metadata for %@", url.path);
+        NSLog(@"Could not read metadata for %@", url.path);
         return nil;
     }
     
-    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
-                             [NSNumber numberWithBool:NO], (NSString *)kCGImageSourceShouldCache,
-                             nil];
+    NSDictionary *options = @{(NSString *)kCGImageSourceShouldCache : [NSNumber numberWithBool:NO]};
     CFDictionaryRef imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, (__bridge CFDictionaryRef)options);
     NSDictionary *metadata = nil;
     if (imageProperties) {
@@ -443,7 +437,6 @@ static NSString *VWWSegueMainToMetadataReport = @"VWWSegueMainToMetadataReport";
         CFRelease(imageProperties);
     }
     CFRelease(imageSource);
-    
     return metadata;
 }
 
@@ -486,16 +479,12 @@ static NSString *VWWSegueMainToMetadataReport = @"VWWSegueMainToMetadataReport";
                     
                 }
 
-//                FileSystemItem *testItem = [self.outlineView itemAtRow:self.selectedIndexes.firstIndex];
-//                NSLog(@"testItem.fullPath: %@", testItem.fullPath);
-
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.outlineView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:index] columnIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.outlineView.numberOfColumns)]];
                 });
 
             }];
         }];
-        
     });
 }
                        
