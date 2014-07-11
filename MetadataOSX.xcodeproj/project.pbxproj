@@ -19,6 +19,7 @@
 		C6DF0D34196DB24800C48DB6 /* VWWPlacesController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6DF0D33196DB24800C48DB6 /* VWWPlacesController.m */; };
 		CF49E628196E23BD00DBD501 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF49E627196E23BD00DBD501 /* MapKit.framework */; };
 		CF49E62C196E257E00DBD501 /* FileSystemItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CF49E62A196E257E00DBD501 /* FileSystemItem.m */; };
+		CFC4F212196F72E300EC0575 /* VWWMetadataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFC4F211196F72E300EC0575 /* VWWMetadataViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,8 @@
 		CF49E629196E23BD00DBD501 /* MetadataOSX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MetadataOSX.entitlements; sourceTree = "<group>"; };
 		CF49E62A196E257E00DBD501 /* FileSystemItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileSystemItem.m; sourceTree = "<group>"; };
 		CF49E62B196E257E00DBD501 /* FileSystemItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileSystemItem.h; sourceTree = "<group>"; };
+		CFC4F210196F72E300EC0575 /* VWWMetadataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWMetadataViewController.h; sourceTree = "<group>"; };
+		CFC4F211196F72E300EC0575 /* VWWMetadataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWMetadataViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +168,8 @@
 				C608542B196DEED000A05614 /* VWWLocationSearchViewController.m */,
 				C6A9FB68196CB3F9002F2767 /* VWWMainViewController.h */,
 				C6A9FB69196CB3F9002F2767 /* VWWMainViewController.m */,
+				CFC4F210196F72E300EC0575 /* VWWMetadataViewController.h */,
+				CFC4F211196F72E300EC0575 /* VWWMetadataViewController.m */,
 			);
 			name = GUI;
 			sourceTree = "<group>";
@@ -311,6 +316,7 @@
 				C6DF0D34196DB24800C48DB6 /* VWWPlacesController.m in Sources */,
 				C6A9FB6A196CB3F9002F2767 /* VWWMainViewController.m in Sources */,
 				C608542C196DEED000A05614 /* VWWLocationSearchViewController.m in Sources */,
+				CFC4F212196F72E300EC0575 /* VWWMetadataViewController.m in Sources */,
 				C6A9FB89196CB5BB002F2767 /* VWWContentItem.m in Sources */,
 				C608542F196DF12700A05614 /* VWWBackgroundView.m in Sources */,
 				C6A9FB67196CB3F9002F2767 /* main.m in Sources */,

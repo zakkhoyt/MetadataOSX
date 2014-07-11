@@ -657,8 +657,7 @@
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="142" y="975" width="480" height="302"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <value key="minSize" type="size" width="1000" height="800"/>
-                        <value key="maxSize" type="size" width="1200" height="1000"/>
+                        <value key="minSize" type="size" width="1000" height="840"/>
                         <view key="contentView" id="O92-4t-NeX">
                             <rect key="frame" x="0.0" y="0.0" width="480" height="302"/>
                             <autoresizingMask key="autoresizingMask"/>
@@ -803,116 +802,124 @@ Gw
             </objects>
             <point key="canvasLocation" x="1415.5" y="975.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Metadata View Controller-->
         <scene sceneID="knV-uN-vh8">
             <objects>
-                <viewController id="WjB-Ec-Sbo" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VWWMetadataViewController" id="WjB-Ec-Sbo" customClass="VWWMetadataViewController" sceneMemberID="viewController">
                     <view key="view" id="pfP-cP-m4F">
-                        <rect key="frame" x="0.0" y="0.0" width="173" height="61"/>
+                        <rect key="frame" x="0.0" y="0.0" width="453" height="468"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <datePicker verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZKH-qP-J9C">
-                                <rect key="frame" x="20" y="18" width="136" height="27"/>
-                                <datePickerCell key="cell" borderStyle="bezel" alignment="left" id="yL4-cD-xOQ">
-                                    <font key="font" metaFont="system"/>
-                                    <calendarDate key="date" timeIntervalSinceReferenceDate="-595929600" calendarFormat="%Y-%m-%d %H:%M:%S %z">
-                                        <!--1982-02-12 16:00:00 +0000-->
-                                        <timeZone key="timeZone" name="US/Pacific"/>
-                                    </calendarDate>
-                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                </datePickerCell>
-                            </datePicker>
+                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sWE-ID-iDh">
+                                <rect key="frame" x="18" y="424" width="418" height="26"/>
+                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="0XH-gC-cuB" id="zwB-a1-Zug">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="menu"/>
+                                    <menu key="menu" id="hDc-DJ-W1S">
+                                        <items>
+                                            <menuItem title="Item 1" state="on" id="0XH-gC-cuB"/>
+                                            <menuItem title="Item 2" id="KkE-eE-MRx"/>
+                                            <menuItem title="Item 3" id="sWR-V7-TJo"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <action selector="metadataPopupAction:" target="WjB-Ec-Sbo" id="la9-fT-sQG"/>
+                                </connections>
+                            </popUpButton>
+                            <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tRe-HK-5fZ">
+                                <rect key="frame" x="20" y="20" width="413" height="387"/>
+                                <clipView key="contentView" id="zOX-Ly-QpE">
+                                    <rect key="frame" x="1" y="1" width="223" height="133"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textView importsGraphics="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="VCg-1o-eN7">
+                                            <rect key="frame" x="0.0" y="0.0" width="223" height="393"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <size key="minSize" width="396" height="385"/>
+                                            <size key="maxSize" width="463" height="10000000"/>
+                                            <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <size key="minSize" width="396" height="385"/>
+                                            <size key="maxSize" width="463" height="10000000"/>
+                                        </textView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="LbX-Gm-vkm">
+                                    <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="h9Y-XO-Mu9">
+                                    <rect key="frame" x="224" y="1" width="15" height="133"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="ZKH-qP-J9C" firstAttribute="leading" secondItem="pfP-cP-m4F" secondAttribute="leading" constant="20" id="3LR-bQ-1EX"/>
-                            <constraint firstAttribute="trailing" secondItem="ZKH-qP-J9C" secondAttribute="trailing" constant="20" id="HH3-TY-3dF"/>
-                            <constraint firstAttribute="bottom" secondItem="ZKH-qP-J9C" secondAttribute="bottom" constant="18" id="NAN-LP-0KK"/>
-                            <constraint firstItem="ZKH-qP-J9C" firstAttribute="top" secondItem="pfP-cP-m4F" secondAttribute="top" constant="20" id="y9O-QG-jRU"/>
+                            <constraint firstItem="tRe-HK-5fZ" firstAttribute="leading" secondItem="pfP-cP-m4F" secondAttribute="leading" constant="20" id="MQV-IA-ODI"/>
+                            <constraint firstAttribute="bottom" secondItem="tRe-HK-5fZ" secondAttribute="bottom" constant="20" id="ZYk-8N-tzz"/>
+                            <constraint firstItem="sWE-ID-iDh" firstAttribute="leading" secondItem="pfP-cP-m4F" secondAttribute="leading" constant="20" id="bZs-uQ-fNa"/>
+                            <constraint firstAttribute="trailing" secondItem="sWE-ID-iDh" secondAttribute="trailing" constant="20" id="mKQ-gO-Rh9"/>
+                            <constraint firstItem="tRe-HK-5fZ" firstAttribute="top" secondItem="sWE-ID-iDh" secondAttribute="bottom" constant="20" id="qxT-bt-18a"/>
+                            <constraint firstItem="sWE-ID-iDh" firstAttribute="top" secondItem="pfP-cP-m4F" secondAttribute="top" constant="20" id="xFv-cM-AtB"/>
+                            <constraint firstAttribute="trailing" secondItem="tRe-HK-5fZ" secondAttribute="trailing" constant="20" id="yXf-cE-4Fk"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="metadataPopup" destination="sWE-ID-iDh" id="Md0-A0-cLm"/>
+                        <outlet property="metadataTextView" destination="VCg-1o-eN7" id="gBS-GQ-BCm"/>
+                    </connections>
                 </viewController>
                 <customObject id="AeS-I3-ZT5" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1176.5" y="1358.5"/>
+            <point key="canvasLocation" x="1316.5" y="1549"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
                 <viewController storyboardIdentifier="VWWMainViewController" id="XfG-lQ-9wD" customClass="VWWMainViewController" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl" customClass="VWWBackgroundView">
-                        <rect key="frame" x="0.0" y="0.0" width="1219" height="1103"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1219" height="860"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <mapView mapType="hybrid" showsUserLocation="YES" showsScale="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bp7-Uk-N4i">
-                                <rect key="frame" x="879" y="763" width="320" height="320"/>
+                                <rect key="frame" x="879" y="192" width="320" height="320"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="7si-tV-0Mv"/>
-                                    <constraint firstAttribute="height" constant="320" id="ABt-J7-AV2"/>
+                                    <constraint firstAttribute="width" constant="320" id="WwW-Ub-QO6"/>
+                                    <constraint firstAttribute="height" constant="320" id="ogR-Pj-aUi"/>
                                 </constraints>
                             </mapView>
-                            <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pO4-lc-5hy">
-                                <rect key="frame" x="879" y="20" width="320" height="265"/>
-                                <clipView key="contentView" id="V7c-9t-gGn">
-                                    <rect key="frame" x="1" y="1" width="223" height="133"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <textView importsGraphics="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="6cR-IB-w8U">
-                                            <rect key="frame" x="0.0" y="0.0" width="223" height="393"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="303" height="263"/>
-                                            <size key="maxSize" width="463" height="10000000"/>
-                                            <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="303" height="263"/>
-                                            <size key="maxSize" width="463" height="10000000"/>
-                                        </textView>
-                                    </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="trE-wP-V6l">
-                                    <rect key="frame" x="-100" y="-100" width="87" height="18"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </scroller>
-                                <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="zYH-PM-yyY">
-                                    <rect key="frame" x="224" y="1" width="15" height="133"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </scroller>
-                            </scrollView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UUO-LF-bmU">
-                                <rect key="frame" x="873" y="398" width="166" height="32"/>
+                                <rect key="frame" x="873" y="79" width="166" height="32"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="154" id="VfJ-jX-5T2"/>
-                                    <constraint firstAttribute="height" constant="21" id="jlP-iA-dGS"/>
+                                    <constraint firstAttribute="height" constant="21" id="MSk-Jv-nrH"/>
+                                    <constraint firstAttribute="width" constant="154" id="Vlt-HQ-K8d"/>
                                 </constraints>
                                 <buttonCell key="cell" type="push" title="Write GPS" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UKI-94-wTd">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="writeButtonAction:" target="XfG-lQ-9wD" id="Qj5-Pf-aho"/>
+                                    <action selector="writeGPSButtonAction:" target="XfG-lQ-9wD" id="YNj-bx-z47"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2zO-HT-Xro">
-                                <rect key="frame" x="1039" y="398" width="166" height="32"/>
+                                <rect key="frame" x="1039" y="79" width="166" height="32"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="Rre-Wj-H74"/>
-                                    <constraint firstAttribute="width" constant="154" id="kCs-14-dnY"/>
+                                    <constraint firstAttribute="height" constant="21" id="6z2-oP-hDw"/>
+                                    <constraint firstAttribute="width" constant="154" id="aZI-uu-8Zx"/>
                                 </constraints>
                                 <buttonCell key="cell" type="push" title="Erase GPS" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vcv-q4-sjV">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="eraseGPSButtonAction:" target="XfG-lQ-9wD" id="qZJ-OQ-SCg"/>
+                                    <action selector="eraseGPSButtonAction:" target="XfG-lQ-9wD" id="VDO-sV-8b2"/>
                                 </connections>
                             </button>
-                            <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="J0m-TD-5Yg">
-                                <rect key="frame" x="873" y="759" width="39" height="38"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="26" id="JmJ-Tm-Q9b"/>
-                                    <constraint firstAttribute="height" constant="26" id="xqd-Om-GKZ"/>
-                                </constraints>
+                            <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J0m-TD-5Yg">
+                                <rect key="frame" x="873" y="188" width="39" height="38"/>
                                 <buttonCell key="cell" type="round" bezelStyle="circular" imagePosition="above" alignment="left" borderStyle="border" imageScaling="proportionallyDown" id="ddi-A2-R1R">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="label"/>
@@ -922,7 +929,7 @@ Gw
                                 </connections>
                             </button>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rqt-ie-Z86">
-                                <rect key="frame" x="20" y="20" width="851" height="1033"/>
+                                <rect key="frame" x="20" y="20" width="851" height="790"/>
                                 <clipView key="contentView" id="Gob-va-8st">
                                     <rect key="frame" x="1" y="17" width="238" height="117"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -935,7 +942,7 @@ Gw
                                             <tableViewGridLines key="gridStyleMask" vertical="YES" horizontal="YES"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn identifier="tree" width="300" minWidth="40" maxWidth="1000" id="1EL-TQ-h04">
+                                                <tableColumn identifier="tree" width="200" minWidth="40" maxWidth="1000" id="1EL-TQ-h04">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Item">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -974,7 +981,7 @@ Gw
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 </tableColumn>
-                                                <tableColumn identifier="date" width="137" minWidth="40" maxWidth="1000" id="l3q-HU-7Hn">
+                                                <tableColumn identifier="date" width="200" minWidth="40" maxWidth="1000" id="l3q-HU-7Hn">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Date">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1010,9 +1017,9 @@ Gw
                                 </tableHeaderView>
                             </scrollView>
                             <pathControl verticalHuggingPriority="750" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Ex-Rm-ng2">
-                                <rect key="frame" x="17" y="1057" width="857" height="26"/>
+                                <rect key="frame" x="17" y="814" width="857" height="26"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="851" id="7ev-D1-CoJ"/>
+                                    <constraint firstAttribute="height" constant="20" id="ts6-m3-kuS"/>
                                 </constraints>
                                 <pathCell key="cell" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="j0v-5l-KEK">
                                     <font key="font" metaFont="system"/>
@@ -1024,24 +1031,97 @@ Gw
                                 </connections>
                             </pathControl>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="y1R-5s-oqy" userLabel="Custom View - image background" customClass="VWWBackgroundView">
-                                <rect key="frame" x="879" y="435" width="320" height="320"/>
+                                <rect key="frame" x="879" y="520" width="320" height="320"/>
                                 <subviews>
-                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="A4D-lk-nhF">
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A4D-lk-nhF">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyUpOrDown" id="vZZ-c0-hCe"/>
                                     </imageView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="A4D-lk-nhF" firstAttribute="top" secondItem="y1R-5s-oqy" secondAttribute="top" id="4BZ-Yv-fAQ"/>
-                                    <constraint firstAttribute="trailing" secondItem="A4D-lk-nhF" secondAttribute="trailing" id="4Ed-Eu-DBz"/>
-                                    <constraint firstAttribute="width" constant="320" id="JG8-Vu-C2p"/>
-                                    <constraint firstItem="A4D-lk-nhF" firstAttribute="leading" secondItem="y1R-5s-oqy" secondAttribute="leading" id="YXJ-vS-ESS"/>
-                                    <constraint firstAttribute="bottom" secondItem="A4D-lk-nhF" secondAttribute="bottom" id="dQ8-mW-38D"/>
-                                    <constraint firstAttribute="height" constant="320" id="zvO-1h-zvL"/>
+                                    <constraint firstAttribute="width" constant="320" id="lwi-qD-RGc"/>
+                                    <constraint firstAttribute="height" constant="320" id="ska-uD-hGX"/>
                                 </constraints>
                             </customView>
-                            <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uyp-o4-vXJ">
-                                <rect key="frame" x="1123" y="1075" width="82" height="32"/>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ErZ-oO-y6h">
+                                <rect key="frame" x="873" y="46" width="166" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="S8d-wQ-WpA"/>
+                                    <constraint firstAttribute="width" constant="154" id="lgl-il-1ty"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="Write Date" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5uF-pK-e7O">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="writeDateButtonAction:" target="XfG-lQ-9wD" id="mhx-ag-NwC"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1CJ-kq-asz">
+                                <rect key="frame" x="873" y="13" width="166" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="8BJ-xe-XGR"/>
+                                    <constraint firstAttribute="width" constant="154" id="bQ2-Xb-bhM"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="Write GPS &amp; Date" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KxJ-49-kiC">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="writeDateAndGPSButtonAction:" target="XfG-lQ-9wD" id="CGQ-fc-RWC"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DVb-6f-wLL">
+                                <rect key="frame" x="1039" y="46" width="166" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="154" id="5aY-G6-uKx"/>
+                                    <constraint firstAttribute="height" constant="21" id="PcA-Hu-p1m"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="Erase Date" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="W16-uv-CH0">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="eraseDateButtonAction:" target="XfG-lQ-9wD" id="QI7-ar-tjY"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Prh-CY-I5P">
+                                <rect key="frame" x="1039" y="13" width="166" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="154" id="YUM-X2-PBJ"/>
+                                    <constraint firstAttribute="height" constant="21" id="pAZ-TX-LPO"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="Erase GPS + Date" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="XxM-g8-0Rh">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="eraseDateAndGPSButtonAction:" target="XfG-lQ-9wD" id="PgB-8x-69G"/>
+                                </connections>
+                            </button>
+                            <datePicker verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7DO-9o-unU">
+                                <rect key="frame" x="879" y="161" width="152" height="27"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="149" id="Hug-sU-r8v"/>
+                                    <constraint firstAttribute="height" constant="23" id="xSR-Vm-idV"/>
+                                </constraints>
+                                <datePickerCell key="cell" borderStyle="bezel" alignment="left" id="VOh-V3-WE2">
+                                    <font key="font" metaFont="system"/>
+                                    <calendarDate key="date" timeIntervalSinceReferenceDate="-595929600" calendarFormat="%Y-%m-%d %H:%M:%S %z">
+                                        <!--1982-02-12 16:00:00 +0000-->
+                                        <timeZone key="timeZone" name="US/Pacific"/>
+                                    </calendarDate>
+                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <datePickerElements key="datePickerElements" year="YES" month="YES" day="YES" hour="YES" minute="YES"/>
+                                </datePickerCell>
+                            </datePicker>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Uyp-o4-vXJ">
+                                <rect key="frame" x="1039" y="156" width="166" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="154" id="bj3-oi-L7g"/>
+                                    <constraint firstAttribute="height" constant="21" id="wUu-aJ-96U"/>
+                                </constraints>
                                 <buttonCell key="cell" type="push" title="Search" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Xnq-rb-F9g">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -1050,141 +1130,60 @@ Gw
                                     <action selector="buttonAction:" target="XfG-lQ-9wD" id="BLL-Gi-ePW"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ErZ-oO-y6h">
-                                <rect key="frame" x="873" y="365" width="166" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="154" id="DlQ-RS-IYr"/>
-                                    <constraint firstAttribute="height" constant="21" id="dtA-LQ-Vge"/>
-                                </constraints>
-                                <buttonCell key="cell" type="push" title="Write Date" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5uF-pK-e7O">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="writeButtonAction:" target="XfG-lQ-9wD" id="jKk-Td-zXs"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1CJ-kq-asz">
-                                <rect key="frame" x="873" y="332" width="166" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="64T-gn-xAs"/>
-                                    <constraint firstAttribute="width" constant="154" id="BFI-Lb-hNe"/>
-                                </constraints>
-                                <buttonCell key="cell" type="push" title="Write GPS &amp; Date" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KxJ-49-kiC">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="writeButtonAction:" target="XfG-lQ-9wD" id="OY3-hl-tbf"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DVb-6f-wLL">
-                                <rect key="frame" x="1039" y="365" width="166" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="0mH-a8-rs3"/>
-                                    <constraint firstAttribute="width" constant="154" id="DaA-A6-tNg"/>
-                                </constraints>
-                                <buttonCell key="cell" type="push" title="Erase Date" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="W16-uv-CH0">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="eraseGPSButtonAction:" target="XfG-lQ-9wD" id="zdh-jQ-VC9"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Prh-CY-I5P">
-                                <rect key="frame" x="1039" y="332" width="166" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="FA2-if-5aO"/>
-                                    <constraint firstAttribute="width" constant="154" id="p5o-1n-gRx"/>
-                                </constraints>
-                                <buttonCell key="cell" type="push" title="Erase GPS + Date" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="XxM-g8-0Rh">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="eraseGPSButtonAction:" target="XfG-lQ-9wD" id="wq0-Bo-sdi"/>
-                                </connections>
-                            </button>
-                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xBo-6Y-keF">
-                                <rect key="frame" x="877" y="302" width="325" height="26"/>
-                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="P70-Wh-f7m" id="0Nh-8Z-59d">
-                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
-                                    <menu key="menu" id="UGm-IA-UOp">
-                                        <items>
-                                            <menuItem title="Item 1" state="on" id="P70-Wh-f7m"/>
-                                            <menuItem title="Item 2" id="TxL-Uf-bkk"/>
-                                            <menuItem title="Item 3" id="vtF-7X-sre"/>
-                                        </items>
-                                    </menu>
-                                </popUpButtonCell>
-                                <connections>
-                                    <action selector="metadataPopupAction:" target="XfG-lQ-9wD" id="Eg6-jW-ygd"/>
-                                </connections>
-                            </popUpButton>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="pO4-lc-5hy" firstAttribute="leading" secondItem="Rqt-ie-Z86" secondAttribute="trailing" constant="8" id="0HK-9n-bE3"/>
-                            <constraint firstItem="bp7-Uk-N4i" firstAttribute="leading" secondItem="1Ex-Rm-ng2" secondAttribute="trailing" constant="8" symbolic="YES" id="1kH-sS-9OJ"/>
-                            <constraint firstItem="Rqt-ie-Z86" firstAttribute="top" secondItem="1Ex-Rm-ng2" secondAttribute="bottom" constant="8" symbolic="YES" id="53O-NN-Kur"/>
-                            <constraint firstItem="y1R-5s-oqy" firstAttribute="leading" secondItem="Rqt-ie-Z86" secondAttribute="trailing" constant="8" id="7Ld-en-hlH"/>
-                            <constraint firstAttribute="trailing" secondItem="xBo-6Y-keF" secondAttribute="trailing" constant="20" id="8py-47-aaN"/>
-                            <constraint firstAttribute="trailing" secondItem="bp7-Uk-N4i" secondAttribute="trailing" constant="20" id="C2t-A7-ahc"/>
-                            <constraint firstItem="ErZ-oO-y6h" firstAttribute="top" secondItem="UUO-LF-bmU" secondAttribute="bottom" constant="12" id="EJR-xB-lAi"/>
-                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="pO4-lc-5hy" secondAttribute="bottom" constant="20" id="Gd5-P6-5Jh"/>
-                            <constraint firstItem="Prh-CY-I5P" firstAttribute="top" secondItem="DVb-6f-wLL" secondAttribute="bottom" constant="12" id="Ibv-si-QQp"/>
-                            <constraint firstItem="Rqt-ie-Z86" firstAttribute="leading" secondItem="1Ex-Rm-ng2" secondAttribute="leading" id="J3b-bv-WJf"/>
-                            <constraint firstItem="1Ex-Rm-ng2" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="22" id="KWM-gs-vRP"/>
-                            <constraint firstItem="bp7-Uk-N4i" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="Ksf-mY-nfO"/>
-                            <constraint firstAttribute="bottom" secondItem="pO4-lc-5hy" secondAttribute="bottom" constant="20" symbolic="YES" id="NSg-Kc-dqZ"/>
-                            <constraint firstItem="xBo-6Y-keF" firstAttribute="top" secondItem="1CJ-kq-asz" secondAttribute="bottom" constant="13" id="PHD-4D-8Zy"/>
-                            <constraint firstItem="xBo-6Y-keF" firstAttribute="leading" secondItem="Rqt-ie-Z86" secondAttribute="trailing" constant="8" id="Pv6-7D-gqi"/>
-                            <constraint firstItem="pO4-lc-5hy" firstAttribute="leading" secondItem="Rqt-ie-Z86" secondAttribute="trailing" constant="8" symbolic="YES" id="SCY-i3-AfA"/>
-                            <constraint firstItem="Rqt-ie-Z86" firstAttribute="bottom" secondItem="pO4-lc-5hy" secondAttribute="bottom" id="Vl3-Cv-fpo"/>
-                            <constraint firstItem="ErZ-oO-y6h" firstAttribute="leading" secondItem="Rqt-ie-Z86" secondAttribute="trailing" constant="8" id="WYv-c5-XfK"/>
-                            <constraint firstAttribute="trailing" secondItem="2zO-HT-Xro" secondAttribute="trailing" constant="20" id="XgQ-fK-hd9"/>
-                            <constraint firstItem="UUO-LF-bmU" firstAttribute="leading" secondItem="Rqt-ie-Z86" secondAttribute="trailing" constant="8" id="alc-Ui-7ZH"/>
-                            <constraint firstItem="J0m-TD-5Yg" firstAttribute="leading" secondItem="Rqt-ie-Z86" secondAttribute="trailing" constant="8" symbolic="YES" id="cEs-sa-zxB"/>
-                            <constraint firstItem="pO4-lc-5hy" firstAttribute="top" secondItem="xBo-6Y-keF" secondAttribute="bottom" constant="20" id="d4t-kl-eeh"/>
-                            <constraint firstItem="DVb-6f-wLL" firstAttribute="top" secondItem="2zO-HT-Xro" secondAttribute="bottom" constant="12" id="dEx-5a-yUD"/>
-                            <constraint firstItem="y1R-5s-oqy" firstAttribute="top" secondItem="bp7-Uk-N4i" secondAttribute="bottom" constant="8" id="dMT-C0-9sJ"/>
-                            <constraint firstItem="1CJ-kq-asz" firstAttribute="leading" secondItem="Rqt-ie-Z86" secondAttribute="trailing" constant="8" id="efq-1H-G9E"/>
-                            <constraint firstItem="J0m-TD-5Yg" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="309" id="fnp-BR-SQh"/>
-                            <constraint firstAttribute="trailing" secondItem="J0m-TD-5Yg" secondAttribute="trailing" constant="314" id="ghj-LA-9U7"/>
-                            <constraint firstItem="Prh-CY-I5P" firstAttribute="leading" secondItem="1CJ-kq-asz" secondAttribute="trailing" constant="12" id="i9F-N2-5xn"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pO4-lc-5hy" secondAttribute="trailing" constant="20" id="iLM-LJ-Sfj"/>
-                            <constraint firstItem="bp7-Uk-N4i" firstAttribute="leading" secondItem="Rqt-ie-Z86" secondAttribute="trailing" constant="8" symbolic="YES" id="joj-0a-3PW"/>
-                            <constraint firstAttribute="trailing" secondItem="DVb-6f-wLL" secondAttribute="trailing" constant="20" id="kBw-h2-l2o"/>
-                            <constraint firstItem="2zO-HT-Xro" firstAttribute="top" secondItem="y1R-5s-oqy" secondAttribute="bottom" constant="9" id="lrO-x9-KmS"/>
-                            <constraint firstItem="DVb-6f-wLL" firstAttribute="leading" secondItem="ErZ-oO-y6h" secondAttribute="trailing" constant="12" id="mdC-ye-Wkh"/>
-                            <constraint firstItem="1Ex-Rm-ng2" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="oxd-68-ObT"/>
-                            <constraint firstItem="1CJ-kq-asz" firstAttribute="top" secondItem="ErZ-oO-y6h" secondAttribute="bottom" constant="12" id="pP4-be-Whq"/>
-                            <constraint firstAttribute="trailing" secondItem="Uyp-o4-vXJ" secondAttribute="trailing" constant="20" id="pdk-Qg-rWD"/>
-                            <constraint firstAttribute="trailing" secondItem="Prh-CY-I5P" secondAttribute="trailing" constant="20" id="rLQ-xd-X2p"/>
-                            <constraint firstItem="2zO-HT-Xro" firstAttribute="leading" secondItem="UUO-LF-bmU" secondAttribute="trailing" constant="12" id="u4e-wx-Ecd"/>
-                            <constraint firstAttribute="trailing" secondItem="pO4-lc-5hy" secondAttribute="trailing" constant="20" id="us9-rW-Jz9"/>
-                            <constraint firstItem="xBo-6Y-keF" firstAttribute="top" secondItem="Prh-CY-I5P" secondAttribute="bottom" constant="13" id="vbV-sv-czi"/>
-                            <constraint firstAttribute="trailing" secondItem="y1R-5s-oqy" secondAttribute="trailing" constant="20" id="wMA-gC-t4g"/>
-                            <constraint firstItem="Uyp-o4-vXJ" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="ylT-bV-rvY"/>
-                            <constraint firstItem="UUO-LF-bmU" firstAttribute="top" secondItem="y1R-5s-oqy" secondAttribute="bottom" constant="9" id="zgU-00-O58"/>
+                            <constraint firstItem="Prh-CY-I5P" firstAttribute="top" secondItem="DVb-6f-wLL" secondAttribute="bottom" constant="12" id="25J-GA-mox"/>
+                            <constraint firstAttribute="bottom" secondItem="1CJ-kq-asz" secondAttribute="bottom" constant="20" id="2Tn-Oh-mlO"/>
+                            <constraint firstItem="Prh-CY-I5P" firstAttribute="leading" secondItem="1CJ-kq-asz" secondAttribute="trailing" constant="12" id="4mh-cT-csB"/>
+                            <constraint firstItem="7DO-9o-unU" firstAttribute="leading" secondItem="Rqt-ie-Z86" secondAttribute="trailing" constant="8" id="6km-1N-FtG"/>
+                            <constraint firstAttribute="bottom" secondItem="Prh-CY-I5P" secondAttribute="bottom" constant="20" id="8Kf-ZM-XN3"/>
+                            <constraint firstItem="y1R-5s-oqy" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="A1j-Q8-bWa"/>
+                            <constraint firstItem="UUO-LF-bmU" firstAttribute="leading" secondItem="Rqt-ie-Z86" secondAttribute="trailing" constant="8" id="Cgo-j3-nQH"/>
+                            <constraint firstItem="bp7-Uk-N4i" firstAttribute="leading" secondItem="Rqt-ie-Z86" secondAttribute="trailing" constant="8" id="Ckb-0P-CR4"/>
+                            <constraint firstItem="DVb-6f-wLL" firstAttribute="top" secondItem="2zO-HT-Xro" secondAttribute="bottom" constant="12" id="DZK-mu-5cb"/>
+                            <constraint firstAttribute="trailing" secondItem="y1R-5s-oqy" secondAttribute="trailing" constant="20" id="DbV-nm-Qul"/>
+                            <constraint firstItem="DVb-6f-wLL" firstAttribute="leading" secondItem="ErZ-oO-y6h" secondAttribute="trailing" constant="12" id="Eg7-ld-F90"/>
+                            <constraint firstItem="1Ex-Rm-ng2" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="FJd-F6-CdT"/>
+                            <constraint firstItem="y1R-5s-oqy" firstAttribute="leading" secondItem="1Ex-Rm-ng2" secondAttribute="trailing" constant="8" id="G6k-EV-IVp"/>
+                            <constraint firstItem="bp7-Uk-N4i" firstAttribute="top" secondItem="y1R-5s-oqy" secondAttribute="bottom" constant="8" id="INf-AZ-FPG"/>
+                            <constraint firstAttribute="trailing" secondItem="bp7-Uk-N4i" secondAttribute="trailing" constant="20" id="JRY-BR-Bnd"/>
+                            <constraint firstAttribute="bottom" secondItem="Rqt-ie-Z86" secondAttribute="bottom" constant="20" id="MvN-1s-aPd"/>
+                            <constraint firstItem="Rqt-ie-Z86" firstAttribute="top" secondItem="1Ex-Rm-ng2" secondAttribute="bottom" constant="8" id="R2a-vr-QH4"/>
+                            <constraint firstItem="ErZ-oO-y6h" firstAttribute="top" secondItem="UUO-LF-bmU" secondAttribute="bottom" constant="12" id="TVV-AR-jl5"/>
+                            <constraint firstItem="7DO-9o-unU" firstAttribute="top" secondItem="bp7-Uk-N4i" secondAttribute="bottom" constant="8" id="Tan-Be-XxC"/>
+                            <constraint firstItem="DVb-6f-wLL" firstAttribute="top" secondItem="2zO-HT-Xro" secondAttribute="bottom" constant="12" id="UzN-ud-O26"/>
+                            <constraint firstItem="2zO-HT-Xro" firstAttribute="leading" secondItem="UUO-LF-bmU" secondAttribute="trailing" constant="12" id="WrG-GR-XdQ"/>
+                            <constraint firstItem="1CJ-kq-asz" firstAttribute="top" secondItem="ErZ-oO-y6h" secondAttribute="bottom" constant="12" id="X3x-kO-dMh"/>
+                            <constraint firstItem="Prh-CY-I5P" firstAttribute="top" secondItem="DVb-6f-wLL" secondAttribute="bottom" constant="12" id="YCZ-bW-cns"/>
+                            <constraint firstItem="Uyp-o4-vXJ" firstAttribute="top" secondItem="bp7-Uk-N4i" secondAttribute="bottom" constant="8" id="Yel-Fc-MdO"/>
+                            <constraint firstItem="y1R-5s-oqy" firstAttribute="leading" secondItem="1Ex-Rm-ng2" secondAttribute="trailing" constant="8" id="Yxe-wh-pjX"/>
+                            <constraint firstAttribute="trailing" secondItem="Prh-CY-I5P" secondAttribute="trailing" constant="20" id="aa3-pC-eDP"/>
+                            <constraint firstAttribute="trailing" secondItem="2zO-HT-Xro" secondAttribute="trailing" constant="20" id="alZ-fn-wWF"/>
+                            <constraint firstAttribute="trailing" secondItem="Uyp-o4-vXJ" secondAttribute="trailing" constant="20" id="ayb-WZ-qtm"/>
+                            <constraint firstAttribute="trailing" secondItem="DVb-6f-wLL" secondAttribute="trailing" constant="20" id="fXV-e1-kEO"/>
+                            <constraint firstItem="1CJ-kq-asz" firstAttribute="top" secondItem="ErZ-oO-y6h" secondAttribute="bottom" constant="12" id="jKZ-La-PQg"/>
+                            <constraint firstItem="ErZ-oO-y6h" firstAttribute="top" secondItem="UUO-LF-bmU" secondAttribute="bottom" constant="12" id="oOy-KR-etg"/>
+                            <constraint firstItem="ErZ-oO-y6h" firstAttribute="leading" secondItem="Rqt-ie-Z86" secondAttribute="trailing" constant="8" id="td3-AT-WPv"/>
+                            <constraint firstItem="Rqt-ie-Z86" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="tpC-BO-BZG"/>
+                            <constraint firstItem="1Ex-Rm-ng2" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="22" id="tyR-l2-WmP"/>
+                            <constraint firstItem="Uyp-o4-vXJ" firstAttribute="leading" secondItem="7DO-9o-unU" secondAttribute="trailing" constant="17" id="uXp-gb-G3A"/>
+                            <constraint firstItem="Rqt-ie-Z86" firstAttribute="top" secondItem="1Ex-Rm-ng2" secondAttribute="bottom" constant="8" id="uhf-8N-kgB"/>
+                            <constraint firstItem="1CJ-kq-asz" firstAttribute="leading" secondItem="Rqt-ie-Z86" secondAttribute="trailing" constant="8" id="ySI-wI-Tcb"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="datePicker" destination="7DO-9o-unU" id="vXb-X6-496"/>
                         <outlet property="imageView" destination="A4D-lk-nhF" id="Pcy-RY-vWK"/>
                         <outlet property="mapView" destination="bp7-Uk-N4i" id="jD8-cI-TlJ"/>
-                        <outlet property="metadataPopup" destination="xBo-6Y-keF" id="Q7O-hj-NQv"/>
-                        <outlet property="metadataTextView" destination="6cR-IB-w8U" id="coE-Hy-iFc"/>
                         <outlet property="outlineView" destination="kq5-TB-dam" id="zE8-L0-7Uy"/>
                         <outlet property="pathControl" destination="1Ex-Rm-ng2" id="MF0-Ip-c8x"/>
-                        <outlet property="removeGPSButton" destination="2zO-HT-Xro" id="Fvf-gy-nZ4"/>
-                        <outlet property="writeGPSButton" destination="UUO-LF-bmU" id="aK5-me-dPh"/>
                         <segue destination="I7M-JD-7mk" kind="sheet" identifier="VWWSegueMainToReport" id="rz4-oa-Vyp"/>
+                        <segue destination="WjB-Ec-Sbo" kind="popover" identifier="VWWSegueMainToMetadata" popoverBehavior="t" preferredEdge="maxY" id="fkK-JT-lec"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="195.5" y="1219.5"/>
+            <point key="canvasLocation" x="195.5" y="1098"/>
         </scene>
     </scenes>
 </document>
