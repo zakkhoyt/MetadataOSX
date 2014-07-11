@@ -19,6 +19,7 @@
 		C6DF0D34196DB24800C48DB6 /* VWWPlacesController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6DF0D33196DB24800C48DB6 /* VWWPlacesController.m */; };
 		CF49E628196E23BD00DBD501 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF49E627196E23BD00DBD501 /* MapKit.framework */; };
 		CF49E62C196E257E00DBD501 /* FileSystemItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CF49E62A196E257E00DBD501 /* FileSystemItem.m */; };
+		CF58C1AD196FB83C00C802C1 /* VWWMetadataController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF58C1AC196FB83C00C802C1 /* VWWMetadataController.m */; };
 		CFC4F212196F72E300EC0575 /* VWWMetadataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFC4F211196F72E300EC0575 /* VWWMetadataViewController.m */; };
 		CFC4F216196FA9BB00EC0575 /* VWWReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFC4F214196FA9BB00EC0575 /* VWWReportViewController.m */; };
 /* End PBXBuildFile section */
@@ -58,6 +59,8 @@
 		CF49E629196E23BD00DBD501 /* MetadataOSX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MetadataOSX.entitlements; sourceTree = "<group>"; };
 		CF49E62A196E257E00DBD501 /* FileSystemItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileSystemItem.m; sourceTree = "<group>"; };
 		CF49E62B196E257E00DBD501 /* FileSystemItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileSystemItem.h; sourceTree = "<group>"; };
+		CF58C1AB196FB83C00C802C1 /* VWWMetadataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWMetadataController.h; sourceTree = "<group>"; };
+		CF58C1AC196FB83C00C802C1 /* VWWMetadataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWMetadataController.m; sourceTree = "<group>"; };
 		CFC4F210196F72E300EC0575 /* VWWMetadataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWMetadataViewController.h; sourceTree = "<group>"; };
 		CFC4F211196F72E300EC0575 /* VWWMetadataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWMetadataViewController.m; sourceTree = "<group>"; };
 		CFC4F213196FA9BB00EC0575 /* VWWReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWReportViewController.h; sourceTree = "<group>"; };
@@ -185,6 +188,8 @@
 				CF49E631196E275E00DBD501 /* Location */,
 				C6DF0D32196DB24800C48DB6 /* VWWPlacesController.h */,
 				C6DF0D33196DB24800C48DB6 /* VWWPlacesController.m */,
+				CF58C1AB196FB83C00C802C1 /* VWWMetadataController.h */,
+				CF58C1AC196FB83C00C802C1 /* VWWMetadataController.m */,
 			);
 			name = NonGUI;
 			sourceTree = "<group>";
@@ -326,6 +331,7 @@
 				C608542F196DF12700A05614 /* VWWBackgroundView.m in Sources */,
 				C6A9FB67196CB3F9002F2767 /* main.m in Sources */,
 				CFC4F216196FA9BB00EC0575 /* VWWReportViewController.m in Sources */,
+				CF58C1AD196FB83C00C802C1 /* VWWMetadataController.m in Sources */,
 				C6A9FB6D196CB3F9002F2767 /* AppDelegate.m in Sources */,
 				CF49E62C196E257E00DBD501 /* FileSystemItem.m in Sources */,
 			);

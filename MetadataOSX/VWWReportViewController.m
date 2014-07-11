@@ -5,6 +5,30 @@
 //  Created by Zakk Hoyt on 7/10/14.
 //  Copyright (c) 2014 Zakk Hoyt. All rights reserved.
 //
+//jpg
+//jpeg
+//jif
+//jfif
+//exif
+//tif
+//tiff
+//raw
+//gif
+//bmp
+//png
+//ppm
+//pmg
+//pbm
+//pnm
+//webp
+//
+//jp2
+//jpx
+//j2k
+//j2c
+//fpx
+//pdc
+//pdf
 
 #import "VWWReportViewController.h"
 @import ImageIO;
