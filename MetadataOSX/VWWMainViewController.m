@@ -203,7 +203,7 @@ static NSString *VWWSegueMainToMetadata = @"VWWSegueMainToMetadata";
 }
 
 -(void)outlineViewAction:(NSOutlineView*)sender {
-    NSLog(@"%s", __FUNCTION__);
+    
     
     NSInteger selectedRow = [self.outlineView selectedRow];
     if (selectedRow != -1) {
@@ -373,7 +373,7 @@ static NSString *VWWSegueMainToMetadata = @"VWWSegueMainToMetadata";
 -(NSDictionary*)readMetadataFromURL:(NSURL*)url{
     CGImageSourceRef imageSource = CGImageSourceCreateWithURL((__bridge CFURLRef)url, NULL);
     if (imageSource == NULL) {
-        NSLog(@"Could not read metadata for %@", url.path);
+//        NSLog(@"Could not read metadata for %@", url.path);
         return nil;
     }
     
@@ -392,95 +392,107 @@ static NSString *VWWSegueMainToMetadata = @"VWWSegueMainToMetadata";
 }
 
 -(void)writeMetatdataGPS:(BOOL)gps date:(BOOL)date{
-    [self.selectedIndexes enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop) {
-        FileSystemItem *item = [self.outlineView itemAtRow:index];
-        
-        if(item.metadata == nil){
-            NSLog(@"TODO: Support for writing metadata where there once was none");
-            return;
-        }
-        
-        // {Exif}
-        NSProcessInfo *pi = [NSProcessInfo processInfo];
-        NSString *appName = [pi processName];
-        NSMutableDictionary *exifDictionary = item.metadata[(NSString*)kCGImagePropertyExifDictionary];
-        if(exifDictionary == nil){
-            exifDictionary = [@{}mutableCopy];
-        }
-        exifDictionary[(NSString*)kCGImagePropertyExifMakerNote] = [NSString stringWithFormat:@"Modified by %@", appName];
-        if(date){
-            NSString *dateString = [self stringFromDate:self.datePicker.dateValue];
-            exifDictionary[(NSString*)kCGImagePropertyExifDateTimeOriginal] = dateString;
-            exifDictionary[(NSString*)kCGImagePropertyExifDateTimeDigitized] = dateString;
-            item.metadata[(NSString*)kCGImagePropertyExifDictionary] = exifDictionary;
-        }
-        
-        if(gps){
-            // {GPS}
-            NSMutableDictionary *gpsDictionary = [@{}mutableCopy];
-            [self applyCoordinate:self.mapView.centerCoordinate toGPSDictionary:gpsDictionary];
-            item.metadata[(NSString*)kCGImagePropertyGPSDictionary] = gpsDictionary;
-        }
-        [self writeMetadata:item.metadata toURL:[NSURL fileURLWithPath:item.fullPath] completionBlock:^(BOOL success, NSDictionary *dictionary) {
-            if(success){
-                item.metadata = [dictionary mutableCopy];
-            } else {
-                
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self.selectedIndexes enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop) {
+            FileSystemItem *item = [self.outlineView itemAtRow:index];
+            
+            if(item.metadata == nil){
+                NSLog(@"TODO: Support for writing metadata where there once was none");
+                return;
             }
+            
+            // {Exif}
+            NSProcessInfo *pi = [NSProcessInfo processInfo];
+            NSString *appName = [pi processName];
+            NSMutableDictionary *exifDictionary = item.metadata[(NSString*)kCGImagePropertyExifDictionary];
+            if(exifDictionary == nil){
+                exifDictionary = [@{}mutableCopy];
+            }
+            exifDictionary[(NSString*)kCGImagePropertyExifMakerNote] = [NSString stringWithFormat:@"Modified by %@", appName];
+            if(date){
+                NSString *dateString = [self stringFromDate:self.datePicker.dateValue];
+                exifDictionary[(NSString*)kCGImagePropertyExifDateTimeOriginal] = dateString;
+                exifDictionary[(NSString*)kCGImagePropertyExifDateTimeDigitized] = dateString;
+                item.metadata[(NSString*)kCGImagePropertyExifDictionary] = exifDictionary;
+            }
+            
+            if(gps){
+                // {GPS}
+                NSMutableDictionary *gpsDictionary = [@{}mutableCopy];
+                [self applyCoordinate:self.mapView.centerCoordinate toGPSDictionary:gpsDictionary];
+                item.metadata[(NSString*)kCGImagePropertyGPSDictionary] = gpsDictionary;
+            }
+            [self writeMetadata:item.metadata toURL:[NSURL fileURLWithPath:item.fullPath] completionBlock:^(BOOL success, NSDictionary *dictionary) {
+                if(success){
+                    item.metadata = [dictionary mutableCopy];
+                } else {
+                    
+                }
+
+//                FileSystemItem *testItem = [self.outlineView itemAtRow:self.selectedIndexes.firstIndex];
+//                NSLog(@"testItem.fullPath: %@", testItem.fullPath);
+
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.outlineView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:index] columnIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.outlineView.numberOfColumns)]];
+                });
+
+            }];
         }];
-    }];
-    
-    FileSystemItem *testItem = [self.outlineView itemAtRow:self.selectedIndexes.firstIndex];
-    NSLog(@"testItem.fullPath: %@", testItem.fullPath);
-    [self.outlineView reloadDataForRowIndexes:self.selectedIndexes columnIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.outlineView.numberOfColumns)]];
-    
+        
+    });
 }
+                       
 
 -(void)eraseMetatdataGPS:(BOOL)gps date:(BOOL)date{
-    [self.selectedIndexes enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop) {
-        FileSystemItem *item = [self.outlineView itemAtRow:index];
-        
-        if(item.metadata == nil){
-            NSLog(@"TODO: erasing data from non-photo?");
-            return;
-        }
-        
-        // {GPS}
-        if(gps) {
-            // {GPS}
-            // For what ever reason, removing keys doesn't stick, so we'll set them to nil
-            //[item.metadata removeObjectForKey:(NSString*)kCGImagePropertyGPSDictionary];
-            NSMutableDictionary *gpsDictionary = [@{}mutableCopy];
-            gpsDictionary[(NSString*)kCGImagePropertyGPSLatitude] = @"";
-            gpsDictionary[(NSString*)kCGImagePropertyGPSLatitudeRef] = @"";
-            gpsDictionary[(NSString*)kCGImagePropertyGPSLongitude] = @"";
-            gpsDictionary[(NSString*)kCGImagePropertyGPSLongitudeRef] = @"";
-            item.metadata[(NSString*)kCGImagePropertyGPSDictionary] = gpsDictionary;
-        }
-        
-        // {Exif}
-        if(date){
-            // For what ever reason, removing keys doesn't stick, so we'll set them to nil
-            //            [exifDictionary removeObjectForKey:(NSString*)kCGImagePropertyExifDateTimeOriginal];
-            //            [exifDictionary removeObjectForKey:(NSString*)kCGImagePropertyExifDateTimeDigitized];
-            NSMutableDictionary *exifDictionary = item.metadata[(NSString*)kCGImagePropertyExifDictionary];
-            exifDictionary[(NSString*)kCGImagePropertyExifDateTimeOriginal] = @"";
-            exifDictionary[(NSString*)kCGImagePropertyExifDateTimeDigitized] = @"";
-            item.metadata[(NSString*)kCGImagePropertyExifDictionary] = exifDictionary;
-        }
-        
-        [self writeMetadata:item.metadata toURL:[NSURL fileURLWithPath:item.fullPath] completionBlock:^(BOOL success, NSDictionary *dictionary) {
-            if(success){
-                item.metadata = [dictionary mutableCopy];
-            } else {
-                
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self.selectedIndexes enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop) {
+            FileSystemItem *item = [self.outlineView itemAtRow:index];
+            
+            if(item.metadata == nil){
+                NSLog(@"TODO: erasing data from non-photo?");
+                return;
             }
+            
+            // {GPS}
+            if(gps) {
+                // {GPS}
+                // For what ever reason, removing keys doesn't stick, so we'll set them to nil
+                //[item.metadata removeObjectForKey:(NSString*)kCGImagePropertyGPSDictionary];
+                NSMutableDictionary *gpsDictionary = [@{}mutableCopy];
+                gpsDictionary[(NSString*)kCGImagePropertyGPSLatitude] = @"";
+                gpsDictionary[(NSString*)kCGImagePropertyGPSLatitudeRef] = @"";
+                gpsDictionary[(NSString*)kCGImagePropertyGPSLongitude] = @"";
+                gpsDictionary[(NSString*)kCGImagePropertyGPSLongitudeRef] = @"";
+                item.metadata[(NSString*)kCGImagePropertyGPSDictionary] = gpsDictionary;
+            }
+            
+            // {Exif}
+            if(date){
+                // For what ever reason, removing keys doesn't stick, so we'll set them to nil
+                //            [exifDictionary removeObjectForKey:(NSString*)kCGImagePropertyExifDateTimeOriginal];
+                //            [exifDictionary removeObjectForKey:(NSString*)kCGImagePropertyExifDateTimeDigitized];
+                NSMutableDictionary *exifDictionary = item.metadata[(NSString*)kCGImagePropertyExifDictionary];
+                exifDictionary[(NSString*)kCGImagePropertyExifDateTimeOriginal] = @"";
+                exifDictionary[(NSString*)kCGImagePropertyExifDateTimeDigitized] = @"";
+                item.metadata[(NSString*)kCGImagePropertyExifDictionary] = exifDictionary;
+            }
+            
+            [self writeMetadata:item.metadata toURL:[NSURL fileURLWithPath:item.fullPath] completionBlock:^(BOOL success, NSDictionary *dictionary) {
+                if(success){
+                    item.metadata = [dictionary mutableCopy];
+                } else {
+                    
+                }
+            }];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.outlineView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:index] columnIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.outlineView.numberOfColumns)]];
+            });
+
+            
         }];
-        
-    }];
-    
-    [self.outlineView reloadDataForRowIndexes:self.selectedIndexes columnIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.outlineView.numberOfColumns)]];
-    
+    });
 }
 
 
