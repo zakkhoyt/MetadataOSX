@@ -70,13 +70,13 @@ typedef void (^VWWMKLocalSearchResponseBlock)(MKLocalSearchResponse *response);
         MKMapItem *item = self.places[index];
         MKPlacemark *placemark = item.placemark;
         //[self.mapView setCenterCoordinate:placemark.coordinate animated:YES];
-        [self.mapView setRegion:MKCoordinateRegionMake(placemark.coordinate, MKCoordinateSpanMake(0.05, 0.05)) animated:YES];
+        [self.mapView setRegion:MKCoordinateRegionMake(placemark.coordinate, MKCoordinateSpanMake(0.01, 0.01)) animated:YES];
         
         // If user clicked with option key pressed, show details
         NSUInteger flags = [[NSApp currentEvent] modifierFlags];
         if ((flags & NSAlternateKeyMask)) {
             NSAlert *alert = [[NSAlert alloc]init];
-            alert.messageText = placemark.description;
+            alert.messageText = item.description;
             [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
             }];
         }

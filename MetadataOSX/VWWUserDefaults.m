@@ -11,7 +11,26 @@
 
 static NSString *VWWUserDefaultsInitialPathKey = @"initialPath";
 static NSString *VWWUserDefaultsAllowedTypesKey = @"allowedTypes";
+static NSString *VWWUserDefaultsRecentLocationsKey = @"recentLocations";
+
 @implementation VWWUserDefaults
+
+
++(NSArray*)recentLocations{
+    NSArray *locations = [[NSUserDefaults standardUserDefaults] objectForKey:VWWUserDefaultsRecentLocationsKey];
+    return locations;
+}
+
++(void)setRecentLocations:(NSArray*)recentLocations{
+    if(recentLocations == nil){
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:VWWUserDefaultsRecentLocationsKey];
+    } else {
+        [[NSUserDefaults standardUserDefaults] setObject:recentLocations forKey:VWWUserDefaultsRecentLocationsKey];
+    }
+
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 
 +(NSString*)allowedTypes{
     NSString *allowedTypes = [[NSUserDefaults standardUserDefaults] objectForKey:VWWUserDefaultsAllowedTypesKey];

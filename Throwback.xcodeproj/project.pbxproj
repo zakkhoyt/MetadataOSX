@@ -23,6 +23,7 @@
 		CF49E628196E23BD00DBD501 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF49E627196E23BD00DBD501 /* MapKit.framework */; };
 		CF49E62C196E257E00DBD501 /* FileSystemItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CF49E62A196E257E00DBD501 /* FileSystemItem.m */; };
 		CF58C1AD196FB83C00C802C1 /* VWWMetadataController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF58C1AC196FB83C00C802C1 /* VWWMetadataController.m */; };
+		CF7B09D11971B6CE0007164C /* VWWExifViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7B09D01971B6CE0007164C /* VWWExifViewController.m */; };
 		CFC4F212196F72E300EC0575 /* VWWMetadataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFC4F211196F72E300EC0575 /* VWWMetadataViewController.m */; };
 		CFC4F216196FA9BB00EC0575 /* VWWReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFC4F214196FA9BB00EC0575 /* VWWReportViewController.m */; };
 /* End PBXBuildFile section */
@@ -70,6 +71,8 @@
 		CF49E62B196E257E00DBD501 /* FileSystemItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileSystemItem.h; sourceTree = "<group>"; };
 		CF58C1AB196FB83C00C802C1 /* VWWMetadataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWMetadataController.h; sourceTree = "<group>"; };
 		CF58C1AC196FB83C00C802C1 /* VWWMetadataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWMetadataController.m; sourceTree = "<group>"; };
+		CF7B09CF1971B6CE0007164C /* VWWExifViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWExifViewController.h; sourceTree = "<group>"; };
+		CF7B09D01971B6CE0007164C /* VWWExifViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWExifViewController.m; sourceTree = "<group>"; };
 		CFC4F210196F72E300EC0575 /* VWWMetadataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWMetadataViewController.h; sourceTree = "<group>"; };
 		CFC4F211196F72E300EC0575 /* VWWMetadataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWMetadataViewController.m; sourceTree = "<group>"; };
 		CFC4F213196FA9BB00EC0575 /* VWWReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWReportViewController.h; sourceTree = "<group>"; };
@@ -117,12 +120,12 @@
 		C6A9FB63196CB3F9002F2767 /* MetadataOSX */ = {
 			isa = PBXGroup;
 			children = (
-				CF2D6FE51970D02F00C6B9AE /* Utilities */,
 				CF49E62E196E273A00DBD501 /* Controller */,
 				C6A9FB6E196CB3F9002F2767 /* Images.xcassets */,
 				CF49E62D196E273400DBD501 /* Model */,
 				C6A9FB64196CB3F9002F2767 /* Supporting Files */,
 				CF49E633196E279B00DBD501 /* UserInterface */,
+				CF2D6FE51970D02F00C6B9AE /* Utilities */,
 				CF49E632196E279400DBD501 /* View */,
 			);
 			path = MetadataOSX;
@@ -201,6 +204,8 @@
 				CF2D6FDE1970CA4100C6B9AE /* VWWPreferencesViewController.m */,
 				CF2D6FE01970CA4D00C6B9AE /* VWWAboutViewController.h */,
 				CF2D6FE11970CA4D00C6B9AE /* VWWAboutViewController.m */,
+				CF7B09CF1971B6CE0007164C /* VWWExifViewController.h */,
+				CF7B09D01971B6CE0007164C /* VWWExifViewController.m */,
 			);
 			name = GUI;
 			sourceTree = "<group>";
@@ -356,6 +361,7 @@
 				CF2D6FE81970D04100C6B9AE /* VWWUserDefaults.m in Sources */,
 				C6A9FB67196CB3F9002F2767 /* main.m in Sources */,
 				CFC4F216196FA9BB00EC0575 /* VWWReportViewController.m in Sources */,
+				CF7B09D11971B6CE0007164C /* VWWExifViewController.m in Sources */,
 				CF58C1AD196FB83C00C802C1 /* VWWMetadataController.m in Sources */,
 				C6A9FB6D196CB3F9002F2767 /* AppDelegate.m in Sources */,
 				CF2D6FE31970CA4E00C6B9AE /* VWWAboutViewController.m in Sources */,

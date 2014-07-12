@@ -10,6 +10,10 @@
 
 @interface VWWUserDefaults : NSObject
 
++(NSArray*)recentLocations;
++(void)setRecentLocations:(NSArray*)recentLocations;
+
+
 +(NSString*)allowedTypes;
 +(void)setAllowedTypes:(NSString*)allowedTypes;
 

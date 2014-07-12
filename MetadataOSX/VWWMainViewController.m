@@ -14,6 +14,7 @@
 #import "VWWBackgroundView.h"
 #import "VWWUserDefaults.h"
 #import "VWWMetadataController.h"
+#import "VWWExifViewController.h"
 
 @import MapKit;
 @import AVFoundation;
@@ -27,6 +28,7 @@ static NSString *VWWSegueMainToMetadata = @"VWWSegueMainToMetadata";
 static NSString *VWWMainViewControllerInitialDirKey = @"initialDir";
 static NSString *VWWSegueMainToMetadataReport = @"VWWSegueMainToMetadataReport";
 static NSString *VWWSegueMainToSettings = @"VWWSegueMainToSettings";
+static NSString *VWWSegueMainToAdvanced = @"VWWSegueMainToAdvanced";
 
 @interface VWWMainViewController () <MKMapViewDelegate, VWWLocationSearchViewControllerDelegate>
 @property (strong) NSMutableArray *contents;
@@ -91,6 +93,9 @@ static NSString *VWWSegueMainToSettings = @"VWWSegueMainToSettings";
         vc.delegate = self;
     } else if([segue.identifier isEqualToString:VWWSegueMainToMetadata]){
         VWWMetadataViewController *vc = segue.destinationController;
+        vc.item = sender;
+    } else if([segue.identifier isEqualToString:VWWSegueMainToAdvanced]){
+        VWWExifViewController *vc = segue.destinationController;
         vc.item = sender;
     }
 }
@@ -182,6 +187,14 @@ static NSString *VWWSegueMainToSettings = @"VWWSegueMainToSettings";
 }
 
 #pragma mark IBActions
+- (IBAction)advancedButtonAction:(NSButton *)sender {
+    NSUInteger index = self.outlineView.selectedRow;
+    FileSystemItem *item = [self.outlineView itemAtRow:index];
+    if(item.metadata){
+        [self performSegueWithIdentifier:VWWSegueMainToAdvanced sender:item];
+    }
+
+}
 
 - (IBAction)reportButtonAction:(id)sender {
     [self performSegueWithIdentifier:VWWSegueMainToMetadataReport sender:self];
