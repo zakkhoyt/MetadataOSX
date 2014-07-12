@@ -17,6 +17,8 @@
 		C6A9FB7E196CB3F9002F2767 /* MetadataOSXTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C6A9FB7D196CB3F9002F2767 /* MetadataOSXTests.m */; };
 		C6A9FB89196CB5BB002F2767 /* VWWContentItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C6A9FB88196CB5BB002F2767 /* VWWContentItem.m */; };
 		C6DF0D34196DB24800C48DB6 /* VWWPlacesController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6DF0D33196DB24800C48DB6 /* VWWPlacesController.m */; };
+		CF2D6FDF1970CA4100C6B9AE /* VWWPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2D6FDE1970CA4100C6B9AE /* VWWPreferencesViewController.m */; };
+		CF2D6FE31970CA4E00C6B9AE /* VWWHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2D6FE11970CA4D00C6B9AE /* VWWHelpViewController.m */; };
 		CF49E628196E23BD00DBD501 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF49E627196E23BD00DBD501 /* MapKit.framework */; };
 		CF49E62C196E257E00DBD501 /* FileSystemItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CF49E62A196E257E00DBD501 /* FileSystemItem.m */; };
 		CF58C1AD196FB83C00C802C1 /* VWWMetadataController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF58C1AC196FB83C00C802C1 /* VWWMetadataController.m */; };
@@ -55,6 +57,10 @@
 		C6A9FB88196CB5BB002F2767 /* VWWContentItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWContentItem.m; sourceTree = "<group>"; };
 		C6DF0D32196DB24800C48DB6 /* VWWPlacesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWPlacesController.h; sourceTree = "<group>"; };
 		C6DF0D33196DB24800C48DB6 /* VWWPlacesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWPlacesController.m; sourceTree = "<group>"; };
+		CF2D6FDD1970CA4100C6B9AE /* VWWPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWPreferencesViewController.h; sourceTree = "<group>"; };
+		CF2D6FDE1970CA4100C6B9AE /* VWWPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWPreferencesViewController.m; sourceTree = "<group>"; };
+		CF2D6FE01970CA4D00C6B9AE /* VWWHelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWHelpViewController.h; sourceTree = "<group>"; };
+		CF2D6FE11970CA4D00C6B9AE /* VWWHelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWHelpViewController.m; sourceTree = "<group>"; };
 		CF49E627196E23BD00DBD501 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		CF49E629196E23BD00DBD501 /* MetadataOSX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MetadataOSX.entitlements; sourceTree = "<group>"; };
 		CF49E62A196E257E00DBD501 /* FileSystemItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileSystemItem.m; sourceTree = "<group>"; };
@@ -178,6 +184,10 @@
 				CFC4F211196F72E300EC0575 /* VWWMetadataViewController.m */,
 				CFC4F213196FA9BB00EC0575 /* VWWReportViewController.h */,
 				CFC4F214196FA9BB00EC0575 /* VWWReportViewController.m */,
+				CF2D6FDD1970CA4100C6B9AE /* VWWPreferencesViewController.h */,
+				CF2D6FDE1970CA4100C6B9AE /* VWWPreferencesViewController.m */,
+				CF2D6FE01970CA4D00C6B9AE /* VWWHelpViewController.h */,
+				CF2D6FE11970CA4D00C6B9AE /* VWWHelpViewController.m */,
 			);
 			name = GUI;
 			sourceTree = "<group>";
@@ -325,6 +335,7 @@
 			files = (
 				C6DF0D34196DB24800C48DB6 /* VWWPlacesController.m in Sources */,
 				C6A9FB6A196CB3F9002F2767 /* VWWMainViewController.m in Sources */,
+				CF2D6FDF1970CA4100C6B9AE /* VWWPreferencesViewController.m in Sources */,
 				C608542C196DEED000A05614 /* VWWLocationSearchViewController.m in Sources */,
 				CFC4F212196F72E300EC0575 /* VWWMetadataViewController.m in Sources */,
 				C6A9FB89196CB5BB002F2767 /* VWWContentItem.m in Sources */,
@@ -333,6 +344,7 @@
 				CFC4F216196FA9BB00EC0575 /* VWWReportViewController.m in Sources */,
 				CF58C1AD196FB83C00C802C1 /* VWWMetadataController.m in Sources */,
 				C6A9FB6D196CB3F9002F2767 /* AppDelegate.m in Sources */,
+				CF2D6FE31970CA4E00C6B9AE /* VWWHelpViewController.m in Sources */,
 				CF49E62C196E257E00DBD501 /* FileSystemItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -401,7 +413,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx10.10;
@@ -437,7 +449,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx10.10;
 			};
@@ -453,7 +465,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = MetadataOSX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = Throwback;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx10.10;
@@ -470,7 +482,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = MetadataOSX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = Throwback;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx10.10;

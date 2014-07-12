@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="6185.7" systemVersion="14A283o" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
+        <deployment defaultVersion="101000" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6185.7"/>
         <plugIn identifier="com.apple.MapKitIBPlugin" version="6185.7"/>
     </dependencies>
@@ -22,7 +23,11 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
+                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
+                                            <connections>
+                                                <segue destination="ngh-b9-wgt" kind="modal" id="2wb-HY-GVr"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                                         <menuItem title="Services" id="NMo-om-nkz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -55,7 +60,7 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="File" id="dMs-cI-mzQ">
+                            <menuItem title="File" hidden="YES" id="dMs-cI-mzQ">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="File" id="bib-Uj-vzu">
                                     <items>
@@ -119,6 +124,30 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Tools" id="8c7-6t-i9M">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Tools" id="BDp-la-xsC">
+                                    <items>
+                                        <menuItem title="Report" keyEquivalent="R" id="4UN-dq-g6L">
+                                            <connections>
+                                                <action selector="showHelp:" target="Ady-hI-5gd" id="XfB-Hq-qQ1"/>
+                                                <segue destination="uUv-YC-T0t" kind="modal" id="kNq-Oi-fXJ"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Location" keyEquivalent="L" id="TeL-Gr-lPW">
+                                            <connections>
+                                                <action selector="showHelp:" target="Ady-hI-5gd" id="urM-7E-NNL"/>
+                                                <segue destination="I7M-JD-7mk" kind="modal" id="bzx-Ga-uSH"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Test" keyEquivalent="T" id="UB3-ZE-UKY">
+                                            <connections>
+                                                <action selector="showHelp:" target="Ady-hI-5gd" id="SBb-tK-eUQ"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                             <menuItem title="Window" id="aUF-d1-5bR">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
@@ -151,6 +180,7 @@
                                         <menuItem title="MetadataOSX Help" keyEquivalent="?" id="FKE-Sm-Kum">
                                             <connections>
                                                 <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
+                                                <segue destination="Ud0-Uj-a4h" kind="custom" id="FPF-UM-yzb"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -165,7 +195,7 @@
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="0.0"/>
+            <point key="canvasLocation" x="188.5" y="-530"/>
         </scene>
         <!--Window-->
         <scene sceneID="R2V-B0-nI4">
@@ -175,7 +205,7 @@
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="142" y="975" width="480" height="302"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <value key="minSize" type="size" width="1000" height="840"/>
                         <view key="contentView" id="O92-4t-NeX">
                             <rect key="frame" x="0.0" y="0.0" width="480" height="302"/>
@@ -188,7 +218,220 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="266"/>
+            <point key="canvasLocation" x="189" y="-264"/>
+        </scene>
+        <!--Help-->
+        <scene sceneID="Df6-IA-Uy8">
+            <objects>
+                <viewController title="Help" storyboardIdentifier="VWWHelpViewController" id="Ud0-Uj-a4h" customClass="VWWHelpViewController" sceneMemberID="viewController">
+                    <view key="view" id="KDC-Wk-IHJ">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oKf-9Y-BqO">
+                                <rect key="frame" x="20" y="20" width="410" height="260"/>
+                                <clipView key="contentView" id="F63-Gv-9lD">
+                                    <rect key="frame" x="1" y="1" width="223" height="133"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textView editable="NO" findStyle="bar" allowsUndo="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" linkDetection="YES" dataDetection="YES" dashSubstitution="YES" smartInsertDelete="YES" id="Gtj-Kt-k0q">
+                                            <rect key="frame" x="0.0" y="0.0" width="223" height="133"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <size key="minSize" width="393" height="258"/>
+                                            <size key="maxSize" width="463" height="10000000"/>
+                                            <attributedString key="textStorage">
+                                                <fragment>
+                                                    <string key="content">Throwback (A photo metadata editor)
+
+</string>
+                                                    <attributes>
+                                                        <font key="NSFont" size="17" name=".HelveticaNeueDeskInterface-Regular"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                    </attributes>
+                                                </fragment>
+                                                <fragment>
+                                                    <string key="content">Written by Zakk Hoyt (vaporwarewolf@gmail.com)
+SourceCode (https://github.com/zakkhoyt/MetadataOSX)
+
+About metadata: http://en.wikipedia.org/wiki/Exchangeable_image_file_format
+
+iOS Version: </string>
+                                                    <attributes>
+                                                        <font key="NSFont" size="13" name=".HelveticaNeueDeskInterface-Regular"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                    </attributes>
+                                                </fragment>
+                                                <fragment>
+                                                    <string key="content" base64-UTF8="YES">
+CgoKA
+</string>
+                                                    <attributes>
+                                                        <font key="NSFont" size="17" name=".HelveticaNeueDeskInterface-Regular"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <size key="minSize" width="393" height="258"/>
+                                            <size key="maxSize" width="463" height="10000000"/>
+                                        </textView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="LhO-X0-Lo7">
+                                    <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="6QL-h7-97a">
+                                    <rect key="frame" x="224" y="1" width="15" height="133"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="oKf-9Y-BqO" secondAttribute="trailing" constant="20" id="KTh-eC-T7c"/>
+                            <constraint firstAttribute="bottom" secondItem="oKf-9Y-BqO" secondAttribute="bottom" constant="20" id="R6d-zG-eJY"/>
+                            <constraint firstItem="oKf-9Y-BqO" firstAttribute="leading" secondItem="KDC-Wk-IHJ" secondAttribute="leading" constant="20" id="hK6-tC-nIx"/>
+                            <constraint firstItem="oKf-9Y-BqO" firstAttribute="top" secondItem="KDC-Wk-IHJ" secondAttribute="top" constant="20" id="zKQ-iZ-F0M"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="SOl-g1-Qzg" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="707" y="-193"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="3ox-dC-MPR">
+            <objects>
+                <viewController id="ngh-b9-wgt" sceneMemberID="viewController">
+                    <view key="view" id="Zgc-mC-Meo">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="692"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pVt-Ly-YRv">
+                                <rect key="frame" x="17" y="655" width="415" height="20"/>
+                                <buttonCell key="cell" type="check" title="Filter by type (separated by | )" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="p27-sD-Mdn">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                            </button>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MIy-Xx-agW">
+                                <rect key="frame" x="20" y="631" width="410" height="19"/>
+                                <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="jpg | jpeg | bmp | gif | png | jif | jfif | tif | tiff | raw | ppm | pmg | pbm | pnm" drawsBackground="YES" id="bpX-Vv-0VQ">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <box autoresizesSubviews="NO" fixedFrame="YES" title="EXIF" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Hhd-01-zwH">
+                                <rect key="frame" x="17" y="522" width="416" height="101"/>
+                                <view key="contentView">
+                                    <rect key="frame" x="1" y="1" width="414" height="85"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <matrix verticalHuggingPriority="750" fixedFrame="YES" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CaA-Pe-PoF">
+                                            <rect key="frame" x="18" y="11" width="141" height="64"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            <size key="cellSize" width="112" height="18"/>
+                                            <size key="intercellSpacing" width="4" height="2"/>
+                                            <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" controlSize="small" inset="2" id="43z-i5-NwL">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="smallSystem"/>
+                                            </buttonCell>
+                                            <cells>
+                                                <column>
+                                                    <buttonCell type="radio" title="Has EXIF.date" imagePosition="left" alignment="left" controlSize="small" state="on" tag="1" inset="2" id="7jn-Gh-xH9">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                    </buttonCell>
+                                                    <buttonCell type="radio" title="Has no EXIF.date" imagePosition="left" alignment="left" controlSize="small" inset="2" id="j5O-mw-qW2">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                    </buttonCell>
+                                                    <buttonCell type="radio" title="Don't care" imagePosition="left" alignment="left" controlSize="small" inset="2" id="qmg-vq-SgT">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                    </buttonCell>
+                                                </column>
+                                            </cells>
+                                        </matrix>
+                                        <datePicker verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U1v-4v-lsD">
+                                            <rect key="frame" x="167" y="55" width="231" height="22"/>
+                                            <datePickerCell key="cell" controlSize="small" borderStyle="bezel" alignment="left" datePickerMode="range" id="GQi-V7-XwW">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <calendarDate key="date" timeIntervalSinceReferenceDate="-595929600" calendarFormat="%Y-%m-%d %H:%M:%S %z">
+                                                    <!--1982-02-12 16:00:00 +0000-->
+                                                    <timeZone key="timeZone" name="US/Pacific"/>
+                                                </calendarDate>
+                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            </datePickerCell>
+                                        </datePicker>
+                                    </subviews>
+                                </view>
+                                <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </box>
+                            <box autoresizesSubviews="NO" fixedFrame="YES" title="GPS" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="f1i-bG-cxF">
+                                <rect key="frame" x="17" y="417" width="416" height="101"/>
+                                <view key="contentView">
+                                    <rect key="frame" x="1" y="1" width="414" height="85"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <matrix verticalHuggingPriority="750" fixedFrame="YES" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AzH-8S-Tgo">
+                                            <rect key="frame" x="18" y="10" width="200" height="64"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            <size key="cellSize" width="193" height="18"/>
+                                            <size key="intercellSpacing" width="4" height="2"/>
+                                            <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" controlSize="small" inset="2" id="M9Q-Fp-R1f">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="smallSystem"/>
+                                            </buttonCell>
+                                            <cells>
+                                                <column>
+                                                    <buttonCell type="radio" title="Has GPS latitude &amp; longitude" imagePosition="left" alignment="left" controlSize="small" state="on" tag="1" inset="2" id="eH9-Ar-Hf7">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                    </buttonCell>
+                                                    <buttonCell type="radio" title="Has no GPS latitude &amp; longitude" imagePosition="left" alignment="left" controlSize="small" inset="2" id="n4h-26-jLx">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                    </buttonCell>
+                                                    <buttonCell type="radio" title="Don't care" imagePosition="left" alignment="left" controlSize="small" inset="2" id="k9d-N3-uky">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                    </buttonCell>
+                                                </column>
+                                            </cells>
+                                        </matrix>
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ROE-vs-p8q">
+                                            <rect key="frame" x="300" y="55" width="96" height="19"/>
+                                            <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="zJ8-3j-Dvb">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cyB-oO-Ero">
+                                            <rect key="frame" x="300" y="32" width="96" height="19"/>
+                                            <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="2kc-tj-Eey">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
+                                </view>
+                                <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </box>
+                        </subviews>
+                    </view>
+                </viewController>
+                <customObject id="RNi-S2-AD0" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1445" y="277"/>
         </scene>
         <!--Report View Controller-->
         <scene sceneID="MLG-DT-7sn">
@@ -204,7 +447,7 @@
                                     <rect key="frame" x="1" y="1" width="223" height="133"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textView importsGraphics="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="f58-KV-3xE">
+                                        <textView editable="NO" importsGraphics="NO" findStyle="panel" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="f58-KV-3xE">
                                             <rect key="frame" x="0.0" y="0.0" width="223" height="351"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -268,6 +511,9 @@
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
                             </button>
+                            <progressIndicator hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="B6a-eV-UIU">
+                                <rect key="frame" x="0.0" y="38" width="16" height="16"/>
+                            </progressIndicator>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="ThJ-mP-d0a" secondAttribute="trailing" constant="20" id="AvS-OO-Zmg"/>
@@ -297,7 +543,7 @@
                 </viewController>
                 <customObject id="dWI-FX-75z" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1394.5" y="415.5"/>
+            <point key="canvasLocation" x="1521.5" y="-416.5"/>
         </scene>
         <!--Location Search View Controller-->
         <scene sceneID="jnE-Cp-yeG">
@@ -331,7 +577,7 @@
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn identifier="location" width="606.40327334178414" minWidth="40" maxWidth="1000" id="q9F-N9-Wci">
+                                                <tableColumn identifier="location" width="608.4015002730257" minWidth="40" maxWidth="1000" id="q9F-N9-Wci">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Location">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -345,7 +591,7 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="Xsm-nd-lED">
-                                                            <rect key="frame" x="1" y="1" width="606" height="17"/>
+                                                            <rect key="frame" x="1" y="1" width="609" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="puj-uT-Pgn">
@@ -378,7 +624,7 @@
                                     </subviews>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="rHg-6B-lYa">
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" doubleValue="0.33333333333333331" horizontal="YES" id="rHg-6B-lYa">
                                     <rect key="frame" x="1" y="119" width="223" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -428,7 +674,7 @@ Gw
                 </viewController>
                 <customObject id="KAn-Jc-q1X" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1415.5" y="975.5"/>
+            <point key="canvasLocation" x="1545.5" y="982.5"/>
         </scene>
         <!--Metadata View Controller-->
         <scene sceneID="knV-uN-vh8">
@@ -501,7 +747,7 @@ Gw
                 </viewController>
                 <customObject id="AeS-I3-ZT5" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1316.5" y="1549"/>
+            <point key="canvasLocation" x="1446.5" y="1622"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -609,7 +855,7 @@ Gw
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 </tableColumn>
-                                                <tableColumn identifier="date" width="397" minWidth="40" maxWidth="1000" id="l3q-HU-7Hn">
+                                                <tableColumn identifier="date" width="394.16569167720695" minWidth="40" maxWidth="1000" id="l3q-HU-7Hn">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Date">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -631,7 +877,7 @@ Gw
                                     </subviews>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="UH5-BA-f7p">
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="UH5-BA-f7p">
                                     <rect key="frame" x="1" y="119" width="223" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -743,22 +989,6 @@ Gw
                                     <datePickerElements key="datePickerElements" year="YES" month="YES" day="YES" hour="YES" minute="YES"/>
                                 </datePickerCell>
                             </datePicker>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aEq-IB-sBU">
-                                <rect key="frame" x="1103" y="123" width="102" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="TuQ-4i-kXo"/>
-                                    <constraint firstAttribute="width" constant="90" id="cEZ-o1-Gg4"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="dgO-kv-LbG"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="syy-fG-GNf"/>
-                                </constraints>
-                                <buttonCell key="cell" type="push" title="Report" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="D1J-N1-l1Z">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="reportButtonAction:" target="XfG-lQ-9wD" id="KFE-RT-fwF"/>
-                                </connections>
-                            </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Uyp-o4-vXJ">
                                 <rect key="frame" x="1103" y="156" width="102" height="32"/>
                                 <constraints>
@@ -805,9 +1035,7 @@ Gw
                             <constraint firstAttribute="trailing" secondItem="Uyp-o4-vXJ" secondAttribute="trailing" constant="20" id="ayb-WZ-qtm"/>
                             <constraint firstAttribute="trailing" secondItem="DVb-6f-wLL" secondAttribute="trailing" constant="20" id="fXV-e1-kEO"/>
                             <constraint firstItem="1CJ-kq-asz" firstAttribute="top" secondItem="ErZ-oO-y6h" secondAttribute="bottom" constant="12" id="jKZ-La-PQg"/>
-                            <constraint firstAttribute="trailing" secondItem="aEq-IB-sBU" secondAttribute="trailing" constant="20" id="lQb-Cz-qEy"/>
                             <constraint firstItem="ErZ-oO-y6h" firstAttribute="top" secondItem="UUO-LF-bmU" secondAttribute="bottom" constant="12" id="oOy-KR-etg"/>
-                            <constraint firstItem="aEq-IB-sBU" firstAttribute="top" secondItem="Uyp-o4-vXJ" secondAttribute="bottom" constant="12" id="sZJ-cC-FNv"/>
                             <constraint firstItem="ErZ-oO-y6h" firstAttribute="leading" secondItem="Rqt-ie-Z86" secondAttribute="trailing" constant="8" id="td3-AT-WPv"/>
                             <constraint firstItem="Rqt-ie-Z86" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="tpC-BO-BZG"/>
                             <constraint firstItem="1Ex-Rm-ng2" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="22" id="tyR-l2-WmP"/>
@@ -831,7 +1059,6 @@ Gw
                         <outlet property="writeGPSDateButton" destination="1CJ-kq-asz" id="WE8-Tx-Mov"/>
                         <segue destination="I7M-JD-7mk" kind="sheet" identifier="VWWSegueMainToReport" id="rz4-oa-Vyp"/>
                         <segue destination="WjB-Ec-Sbo" kind="popover" identifier="VWWSegueMainToMetadata" popoverBehavior="t" preferredEdge="maxY" id="fkK-JT-lec"/>
-                        <segue destination="uUv-YC-T0t" kind="modal" identifier="VWWSegueMainToMetadataReport" id="93P-ct-VGW"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -839,4 +1066,7 @@ Gw
             <point key="canvasLocation" x="195.5" y="1098"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="bzx-Ga-uSH"/>
+    </inferredMetricsTieBreakers>
 </document>

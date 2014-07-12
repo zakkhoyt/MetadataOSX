@@ -24,6 +24,10 @@ typedef void (^VWWMKLocalSearchResponseBlock)(MKLocalSearchResponse *response);
     // Do view setup here.
     [self.tableView setAction:@selector(tableViewAction:)];
 }
+-(void)viewWillAppear{
+    [super viewWillAppear];
+    self.view.window.title = @"Search for Location";
+}
 
 
 

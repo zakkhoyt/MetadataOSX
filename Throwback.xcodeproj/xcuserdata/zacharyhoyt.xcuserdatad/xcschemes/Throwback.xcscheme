@@ -15,20 +15,6 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C6A9FB60196CB3F9002F2767"
-               BuildableName = "MetadataOSX.app"
-               BlueprintName = "MetadataOSX"
-               ReferencedContainer = "container:MetadataOSX.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C6A9FB60196CB3F9002F2767"
                BuildableName = "Throwback.app"
                BlueprintName = "Throwback"
                ReferencedContainer = "container:Throwback.xcodeproj">
@@ -42,24 +28,14 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C6A9FB76196CB3F9002F2767"
-               BuildableName = "MetadataOSXTests.xctest"
-               BlueprintName = "MetadataOSXTests"
-               ReferencedContainer = "container:MetadataOSX.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C6A9FB60196CB3F9002F2767"
-            BuildableName = "MetadataOSX.app"
-            BlueprintName = "MetadataOSX"
-            ReferencedContainer = "container:MetadataOSX.xcodeproj">
+            BuildableName = "Throwback.app"
+            BlueprintName = "Throwback"
+            ReferencedContainer = "container:Throwback.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -76,9 +52,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C6A9FB60196CB3F9002F2767"
-            BuildableName = "MetadataOSX.app"
-            BlueprintName = "MetadataOSX"
-            ReferencedContainer = "container:MetadataOSX.xcodeproj">
+            BuildableName = "Throwback.app"
+            BlueprintName = "Throwback"
+            ReferencedContainer = "container:Throwback.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -94,9 +70,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C6A9FB60196CB3F9002F2767"
-            BuildableName = "MetadataOSX.app"
-            BlueprintName = "MetadataOSX"
-            ReferencedContainer = "container:MetadataOSX.xcodeproj">
+            BuildableName = "Throwback.app"
+            BlueprintName = "Throwback"
+            ReferencedContainer = "container:Throwback.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -23,7 +23,7 @@ typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
 static NSString *VWWSegueMainToMetadata = @"VWWSegueMainToMetadata";
 static NSString *VWWMainViewControllerInitialDirKey = @"initialDir";
 static NSString *VWWSegueMainToMetadataReport = @"VWWSegueMainToMetadataReport";
-
+static NSString *VWWSegueMainToSettings = @"VWWSegueMainToSettings";
 
 @interface VWWMainViewController () <MKMapViewDelegate, VWWLocationSearchViewControllerDelegate>
 @property (strong) NSMutableArray *contents;
