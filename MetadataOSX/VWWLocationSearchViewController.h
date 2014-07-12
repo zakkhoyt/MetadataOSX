@@ -16,5 +16,6 @@
 
 @interface VWWLocationSearchViewController : NSViewController
 @property (weak) id <VWWLocationSearchViewControllerDelegate> delegate;
-@property (strong) MKMapView *mapView;
+//@property (strong) MKMapView *mapView;
+@property MKCoordinateRegion region;
 @end

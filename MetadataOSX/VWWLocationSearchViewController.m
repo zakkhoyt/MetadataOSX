@@ -7,7 +7,7 @@
 //
 
 #import "VWWLocationSearchViewController.h"
-
+@import MapKit;
 
 typedef void (^VWWMKLocalSearchResponseBlock)(MKLocalSearchResponse *response);
 
@@ -15,6 +15,7 @@ typedef void (^VWWMKLocalSearchResponseBlock)(MKLocalSearchResponse *response);
 @property (weak) IBOutlet NSSearchField *searchBar;
 @property (weak) IBOutlet NSTableView *tableView;
 @property (strong) NSArray *places;
+@property (weak) IBOutlet MKMapView *mapView;
 @end
 
 @implementation VWWLocationSearchViewController
@@ -23,10 +24,16 @@ typedef void (^VWWMKLocalSearchResponseBlock)(MKLocalSearchResponse *response);
     [super viewDidLoad];
     // Do view setup here.
     [self.tableView setAction:@selector(tableViewAction:)];
+    [self.tableView setDoubleAction:@selector(tableViewDoubleAction:)];
 }
 -(void)viewWillAppear{
     [super viewWillAppear];
     self.view.window.title = @"Search for Location";
+    if(self.region.center.latitude == 0 && self.region.center.longitude == 0){
+        self.mapView.centerCoordinate = self.mapView.userLocation.coordinate;
+    } else {
+        self.mapView.region = self.region;
+    }
 }
 
 
@@ -62,12 +69,31 @@ typedef void (^VWWMKLocalSearchResponseBlock)(MKLocalSearchResponse *response);
     if(index != -1){
         MKMapItem *item = self.places[index];
         MKPlacemark *placemark = item.placemark;
+        //[self.mapView setCenterCoordinate:placemark.coordinate animated:YES];
+        [self.mapView setRegion:MKCoordinateRegionMake(placemark.coordinate, MKCoordinateSpanMake(0.05, 0.05)) animated:YES];
+        
+        // If user clicked with option key pressed, show details
+        NSUInteger flags = [[NSApp currentEvent] modifierFlags];
+        if ((flags & NSAlternateKeyMask)) {
+            NSAlert *alert = [[NSAlert alloc]init];
+            alert.messageText = placemark.description;
+            [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+            }];
+        }
+    }
+}
+
+
+-(void)tableViewDoubleAction:(id)sender{
+    NSInteger index = self.tableView.selectedRow;
+    if(index != -1){
+        MKMapItem *item = self.places[index];
+        MKPlacemark *placemark = item.placemark;
         [self.delegate reportVWWMainViewController:self coordinate:placemark.coordinate];
     }
     
     [self dismissViewController:self];
 }
-
 
 
 

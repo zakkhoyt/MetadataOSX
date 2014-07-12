@@ -10,6 +10,8 @@
 
 @interface VWWUserDefaults : NSObject
 
++(NSString*)allowedTypes;
++(void)setAllowedTypes:(NSString*)allowedTypes;
 
 +(NSString*)initialPath;
 +(void)setInitialPath:(NSString*)initialPath;

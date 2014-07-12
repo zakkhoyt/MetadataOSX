@@ -87,7 +87,7 @@ static NSString *VWWSegueMainToSettings = @"VWWSegueMainToSettings";
 - (void)prepareForSegue:(NSStoryboardSegue *)segue sender:(id)sender{
     if([segue.identifier isEqualToString:@"VWWSegueMainToReport"]){
         VWWLocationSearchViewController *vc = segue.destinationController;
-        vc.mapView = self.mapView;
+        vc.region = self.mapView.region;
         vc.delegate = self;
     } else if([segue.identifier isEqualToString:VWWSegueMainToMetadata]){
         VWWMetadataViewController *vc = segue.destinationController;

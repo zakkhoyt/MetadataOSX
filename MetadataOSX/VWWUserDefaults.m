@@ -10,8 +10,24 @@
 
 
 static NSString *VWWUserDefaultsInitialPathKey = @"initialPath";
-
+static NSString *VWWUserDefaultsAllowedTypesKey = @"allowedTypes";
 @implementation VWWUserDefaults
+
++(NSString*)allowedTypes{
+    NSString *allowedTypes = [[NSUserDefaults standardUserDefaults] objectForKey:VWWUserDefaultsAllowedTypesKey];
+    if(allowedTypes == nil){
+        allowedTypes = @"jpg | jpeg | bmp | gif | png";
+    }
+    return allowedTypes;
+}
++(void)setAllowedTypes:(NSString*)allowedTypes{
+    [[NSUserDefaults standardUserDefaults] setObject:allowedTypes forKey:VWWUserDefaultsAllowedTypesKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+
+
+
 +(NSString*)initialPath{
     NSString *path = [[NSUserDefaults standardUserDefaults] objectForKey:VWWUserDefaultsInitialPathKey];
     if(path == nil){

@@ -13,12 +13,14 @@
 
 @interface VWWReportViewController ()
 @property (unsafe_unretained) IBOutlet NSTextView *textView;
-@property (weak) IBOutlet NSPathControl *pathControl;
 @property (strong) NSMutableArray *files;
 @property (weak) IBOutlet NSTextField *currentPathLabel;
 @property (weak) IBOutlet NSButton *imageTypesCheckButton;
 @property (strong) NSArray *imageTypes;
 @property dispatch_queue_t reportQueue;
+@property (weak) IBOutlet NSProgressIndicator *progressIndicator;
+@property (weak) IBOutlet NSButton *startButton;
+
 @end
 
 @implementation VWWReportViewController
@@ -38,25 +40,32 @@
     [super viewWillAppear];
     self.files = [@[]mutableCopy];
     NSString *initialPath = [VWWUserDefaults initialPath];
-    self.pathControl.URL = [NSURL fileURLWithPath:initialPath];
-    self.currentPathLabel.stringValue = @"";
+    self.currentPathLabel.stringValue = @"See preferences to define file types and properties";
     self.view.window.title = initialPath;
+    self.progressIndicator.hidden = YES;
 }
 
 -(void)viewDidAppear{
     [super viewDidAppear];
+//    [self startButtonAction:nil];
 }
 
 
 - (IBAction)startButtonAction:(id)sender {
     [self.files removeAllObjects];
-
+    [self.progressIndicator startAnimation:self];
+    self.startButton.enabled = NO;
+    self.progressIndicator.hidden = NO;
+    
     // To simplify things we'll use a serial queue. We won't need to worry about critical sections.
     dispatch_async(self.reportQueue, ^{
-        [self findFiles:self.pathControl.URL.path];
+        [self findFiles:[VWWUserDefaults initialPath]];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.currentPathLabel.stringValue = [NSString stringWithFormat:@"Found %ld photos without GPS tags in %@", (long)self.files.count, self.pathControl.URL.path];
+            self.currentPathLabel.stringValue = [NSString stringWithFormat:@"Found %ld photos without GPS tags in %@", (long)self.files.count, [VWWUserDefaults initialPath]];
+            [self.progressIndicator stopAnimation:self];
+            self.startButton.enabled = YES;
+            self.progressIndicator.hidden = YES;
         });
     });
 }

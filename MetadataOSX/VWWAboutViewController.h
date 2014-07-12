@@ -1,5 +1,5 @@
 //
-//  VWWHelpViewController.h
+//  VWWAboutViewController.h
 //  Throwback
 //
 //  Created by Zakk Hoyt on 7/11/14.
@@ -8,6 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface VWWHelpViewController : NSViewController
+@interface VWWAboutViewController : NSViewController
 
 @end

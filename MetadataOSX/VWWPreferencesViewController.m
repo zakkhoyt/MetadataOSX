@@ -7,8 +7,10 @@
 //
 
 #import "VWWPreferencesViewController.h"
+#import "VWWUserDefaults.h"
 
 @interface VWWPreferencesViewController ()
+@property (weak) IBOutlet NSTextField *allowedTypesTextField;
 
 @end
 
@@ -16,7 +18,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do view setup here.
+
+    self.allowedTypesTextField.stringValue = [VWWUserDefaults allowedTypes];
 }
 
 @end

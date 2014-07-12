@@ -1,18 +1,18 @@
 //
-//  VWWHelpViewController.m
+//  VWWAboutViewController.m
 //  Throwback
 //
 //  Created by Zakk Hoyt on 7/11/14.
 //  Copyright (c) 2014 Zakk Hoyt. All rights reserved.
 //
 
-#import "VWWHelpViewController.h"
+#import "VWWAboutViewController.h"
 
-@interface VWWHelpViewController ()
+@interface VWWAboutViewController ()
 
 @end
 
-@implementation VWWHelpViewController
+@implementation VWWAboutViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
