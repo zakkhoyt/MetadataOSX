@@ -79,6 +79,39 @@
     [self.exifTableView reloadData];
 }
 
+- (IBAction)valueCellAction:(NSTextFieldCell *)sender {
+    NSInteger row = self.exifTableView.selectedRow;
+//    NSInteger col = self.exifTableView.selectedColumn;
+    
+    NSArray *array = [self arrayFromSelectedIndex];
+//    NSString *dictionaryKey = [self keyFromSelectedIndex];
+    NSDictionary *dictionary = array[row];
+    NSString *key = dictionary[@"key"];
+    NSLog(@"%s Edited %@", __PRETTY_FUNCTION__, key);
+    
+    dictionary[@"key"] = sender.stringValue;
+    
+//    id value = dictionary[key];
+//    if(value == nil){
+//        //displayValue = @"-";
+//    } else if([value isKindOfClass:[NSString class]]){
+////        displayValue = (NSString*)value;
+//    } else if([value isKindOfClass:[NSNumber class]]){
+////        displayValue = ((NSNumber*)value).stringValue;
+//    } else if([value isKindOfClass:[NSArray class]]){
+////        displayValue = @"n/a {array}";
+//    } else if([value isKindOfClass:[NSDictionary class]]){
+////        displayValue = @"n/a {dictionary}";
+//    } else if([value isKindOfClass:[NSData class]]){
+////        displayValue = @"n/a {data}";
+//    }
+//
+    
+        NSLog(@"%s Edited %@", __PRETTY_FUNCTION__, key);
+}
+- (IBAction)anotherAction:(NSTextField *)sender {
+        NSLog(@"%s", __PRETTY_FUNCTION__);
+}
 
 #pragma mark Implements NSTableViewDataSource
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
@@ -92,6 +125,9 @@
         NSString *key = dictionary[@"key"];
         cellView.textField.stringValue = key;
     } else if([tableColumn.identifier isEqualToString:@"value"]){
+        cellView = [tableView makeViewWithIdentifier:tableColumn.identifier owner:self];
+        [cellView.textField setEditable:YES]; // Make Cell Editable!
+        
         
         NSString *key = dictionary[@"key"];
         id value = metadataDictionary[key];

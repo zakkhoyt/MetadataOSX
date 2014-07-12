@@ -295,6 +295,23 @@ SourceCode (https://github.com/zakkhoyt/MetadataOSX)</string>
                         <rect key="frame" x="0.0" y="0.0" width="683" height="536"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
+                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="e7X-BX-eeL">
+                                <rect key="frame" x="18" y="17" width="648" height="26"/>
+                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="MnS-OX-1sM" id="Vwv-7a-JDU">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="menu"/>
+                                    <menu key="menu" id="cyo-VZ-CNg">
+                                        <items>
+                                            <menuItem title="Item 1" state="on" id="MnS-OX-1sM"/>
+                                            <menuItem title="Item 2" id="VbZ-C4-A8x"/>
+                                            <menuItem title="Item 3" id="gqv-lX-IXl"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <action selector="dictionaryPopupAction:" target="xfS-h0-DcT" id="JmZ-u1-oJV"/>
+                                </connections>
+                            </popUpButton>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LdE-Px-n5x">
                                 <rect key="frame" x="20" y="49" width="643" height="467"/>
                                 <clipView key="contentView" id="bxo-Rg-Rk5">
@@ -364,11 +381,14 @@ SourceCode (https://github.com/zakkhoyt/MetadataOSX)</string>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a6H-0j-WSd">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="292" height="17"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="17"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="Rqw-Bj-WQO">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                        <connections>
+                                                                            <action selector="valueCellAction:" target="xfS-h0-DcT" id="QTc-vl-6Kl"/>
+                                                                        </connections>
                                                                     </textFieldCell>
                                                                 </textField>
                                                             </subviews>
@@ -406,23 +426,6 @@ SourceCode (https://github.com/zakkhoyt/MetadataOSX)</string>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
-                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="e7X-BX-eeL">
-                                <rect key="frame" x="18" y="17" width="648" height="26"/>
-                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="MnS-OX-1sM" id="Vwv-7a-JDU">
-                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
-                                    <menu key="menu" id="cyo-VZ-CNg">
-                                        <items>
-                                            <menuItem title="Item 1" state="on" id="MnS-OX-1sM"/>
-                                            <menuItem title="Item 2" id="VbZ-C4-A8x"/>
-                                            <menuItem title="Item 3" id="gqv-lX-IXl"/>
-                                        </items>
-                                    </menu>
-                                </popUpButtonCell>
-                                <connections>
-                                    <action selector="dictionaryPopupAction:" target="xfS-h0-DcT" id="JmZ-u1-oJV"/>
-                                </connections>
-                            </popUpButton>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="e7X-BX-eeL" secondAttribute="bottom" constant="20" id="1eY-PZ-4Vu"/>

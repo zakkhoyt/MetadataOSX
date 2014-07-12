@@ -24,6 +24,7 @@
 		CF49E62C196E257E00DBD501 /* FileSystemItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CF49E62A196E257E00DBD501 /* FileSystemItem.m */; };
 		CF58C1AD196FB83C00C802C1 /* VWWMetadataController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF58C1AC196FB83C00C802C1 /* VWWMetadataController.m */; };
 		CF7B09D11971B6CE0007164C /* VWWExifViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7B09D01971B6CE0007164C /* VWWExifViewController.m */; };
+		CF7B09D61971EFC80007164C /* VWWEditableTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7B09D51971EFC80007164C /* VWWEditableTableCellView.m */; };
 		CFC4F212196F72E300EC0575 /* VWWMetadataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFC4F211196F72E300EC0575 /* VWWMetadataViewController.m */; };
 		CFC4F216196FA9BB00EC0575 /* VWWReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFC4F214196FA9BB00EC0575 /* VWWReportViewController.m */; };
 /* End PBXBuildFile section */
@@ -73,6 +74,8 @@
 		CF58C1AC196FB83C00C802C1 /* VWWMetadataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWMetadataController.m; sourceTree = "<group>"; };
 		CF7B09CF1971B6CE0007164C /* VWWExifViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWExifViewController.h; sourceTree = "<group>"; };
 		CF7B09D01971B6CE0007164C /* VWWExifViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWExifViewController.m; sourceTree = "<group>"; };
+		CF7B09D41971EFC80007164C /* VWWEditableTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWEditableTableCellView.h; sourceTree = "<group>"; };
+		CF7B09D51971EFC80007164C /* VWWEditableTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWEditableTableCellView.m; sourceTree = "<group>"; };
 		CFC4F210196F72E300EC0575 /* VWWMetadataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWMetadataViewController.h; sourceTree = "<group>"; };
 		CFC4F211196F72E300EC0575 /* VWWMetadataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWMetadataViewController.m; sourceTree = "<group>"; };
 		CFC4F213196FA9BB00EC0575 /* VWWReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWReportViewController.h; sourceTree = "<group>"; };
@@ -204,8 +207,7 @@
 				CF2D6FDE1970CA4100C6B9AE /* VWWPreferencesViewController.m */,
 				CF2D6FE01970CA4D00C6B9AE /* VWWAboutViewController.h */,
 				CF2D6FE11970CA4D00C6B9AE /* VWWAboutViewController.m */,
-				CF7B09CF1971B6CE0007164C /* VWWExifViewController.h */,
-				CF7B09D01971B6CE0007164C /* VWWExifViewController.m */,
+				CF7B09D21971EFA00007164C /* Exif */,
 			);
 			name = GUI;
 			sourceTree = "<group>";
@@ -244,6 +246,25 @@
 				C6A9FB70196CB3F9002F2767 /* Main.storyboard */,
 			);
 			name = UserInterface;
+			sourceTree = "<group>";
+		};
+		CF7B09D21971EFA00007164C /* Exif */ = {
+			isa = PBXGroup;
+			children = (
+				CF7B09D31971EFA80007164C /* Cell */,
+				CF7B09CF1971B6CE0007164C /* VWWExifViewController.h */,
+				CF7B09D01971B6CE0007164C /* VWWExifViewController.m */,
+			);
+			name = Exif;
+			sourceTree = "<group>";
+		};
+		CF7B09D31971EFA80007164C /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				CF7B09D41971EFC80007164C /* VWWEditableTableCellView.h */,
+				CF7B09D51971EFC80007164C /* VWWEditableTableCellView.m */,
+			);
+			name = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -357,6 +378,7 @@
 				C608542C196DEED000A05614 /* VWWLocationSearchViewController.m in Sources */,
 				CFC4F212196F72E300EC0575 /* VWWMetadataViewController.m in Sources */,
 				C6A9FB89196CB5BB002F2767 /* VWWContentItem.m in Sources */,
+				CF7B09D61971EFC80007164C /* VWWEditableTableCellView.m in Sources */,
 				C608542F196DF12700A05614 /* VWWBackgroundView.m in Sources */,
 				CF2D6FE81970D04100C6B9AE /* VWWUserDefaults.m in Sources */,
 				C6A9FB67196CB3F9002F2767 /* main.m in Sources */,
