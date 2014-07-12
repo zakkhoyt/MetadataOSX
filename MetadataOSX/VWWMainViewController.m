@@ -12,13 +12,16 @@
 #import "VWWLocationSearchViewController.h"
 #import "VWWMetadataViewController.h"
 #import "VWWBackgroundView.h"
+#import "VWWUserDefaults.h"
+#import "VWWMetadataController.h"
+
 @import MapKit;
 @import AVFoundation;
 @import ImageIO;
 
 typedef void (^VWWEmptyBlock)(void);
-typedef void (^VWWCLLocationCoordinate2DBlock)(CLLocationCoordinate2D coordinate);
-typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
+
+
 
 static NSString *VWWSegueMainToMetadata = @"VWWSegueMainToMetadata";
 static NSString *VWWMainViewControllerInitialDirKey = @"initialDir";
@@ -56,12 +59,7 @@ static NSString *VWWSegueMainToSettings = @"VWWSegueMainToSettings";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    NSString *initialDir = [[NSUserDefaults standardUserDefaults] objectForKey:VWWMainViewControllerInitialDirKey];
-    if(initialDir == nil){
-        initialDir = [NSString stringWithFormat:@"%@/%@", NSHomeDirectory(), @"Pictures"];
-    }
-    
-    self.pathControl.URL = [NSURL fileURLWithPath:initialDir];
+    self.pathControl.URL = [NSURL fileURLWithPath:[VWWUserDefaults initialPath]];
     
     [self.outlineView setAction:@selector(outlineViewAction:)];
     [self.outlineView setDoubleAction:@selector(outlineViewDoubleAction:)];
@@ -74,12 +72,7 @@ static NSString *VWWSegueMainToSettings = @"VWWSegueMainToSettings";
 
 
 -(void)viewWillAppear{
-    NSString *initialDir = [[NSUserDefaults standardUserDefaults] objectForKey:VWWMainViewControllerInitialDirKey];
-    if(initialDir == nil){
-        initialDir = [NSString stringWithFormat:@"%@/%@", NSHomeDirectory(), @"Pictures"];
-    }
-
-    self.view.window.title = initialDir;
+    self.view.window.title = [VWWUserDefaults initialPath];
 }
 
 - (void)setRepresentedObject:(id)representedObject {
@@ -114,7 +107,7 @@ static NSString *VWWSegueMainToSettings = @"VWWSegueMainToSettings";
     } else {
         // We will load the
         NSURL *url = [NSURL fileURLWithPath:item.fullPath];
-        NSDictionary *metadata = [self readMetadataFromURL:url];
+        NSDictionary *metadata = [VWWMetadataController readMetadataFromURL:url];
         [item setMetadata:[metadata mutableCopy]];
         return ([item numberOfChildren] != -1);
     }
@@ -131,7 +124,7 @@ static NSString *VWWSegueMainToSettings = @"VWWSegueMainToSettings";
         NSDictionary *gpsDictionary = [item.metadata valueForKeyPath:@"{GPS}"];
         if(gpsDictionary){
             __block NSString *coordinateName = nil;
-            [self extractLocationFromGPSDictionary:gpsDictionary completionBlock:^(CLLocationCoordinate2D coordinate) {
+            [VWWMetadataController extractLocationFromGPSDictionary:gpsDictionary completionBlock:^(CLLocationCoordinate2D coordinate) {
                 if(coordinate.latitude == 0 && coordinate.longitude == 0){
                     coordinateName = @"n/a";
                 } else {
@@ -236,8 +229,7 @@ static NSString *VWWSegueMainToSettings = @"VWWSegueMainToSettings";
     sender.URL = sender.clickedPathItem.URL;
     [self.outlineView reloadData];
     
-    [[NSUserDefaults standardUserDefaults] setObject:sender.URL.path forKey:VWWMainViewControllerInitialDirKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [VWWUserDefaults setInitialPath:sender.URL.path];
     
 }
 
@@ -326,119 +318,6 @@ static NSString *VWWSegueMainToSettings = @"VWWSegueMainToSettings";
 
 
 
--(void)writeMetadata:(NSDictionary*)metadata toURL:(NSURL*)url completionBlock:(VWWBoolDictionaryBlock)completionBlock{
-    
-    // Create source
-    CGImageSourceRef imageSource = CGImageSourceCreateWithURL((__bridge CFURLRef)url, NULL);
-    if (imageSource == NULL) {
-        NSLog(@"%s Could not create image source for %@", __PRETTY_FUNCTION__, url.path);
-        return completionBlock(NO, nil);
-    }
-    
-    // Create destination
-    CGImageDestinationRef imageDestination = CGImageDestinationCreateWithURL((__bridge CFURLRef)url, kUTTypeJPEG, 1, NULL);
-    if(imageDestination == NULL){
-        NSLog(@"%s Could not create image destination for %@", __PRETTY_FUNCTION__, url.path);
-        return completionBlock(NO, nil);
-    }
-    
-    // Configure destination and set properties
-    CGImageDestinationSetProperties(imageDestination, (__bridge CFDictionaryRef)(metadata));
-    CGImageDestinationAddImageFromSource(imageDestination, imageSource, 0, (__bridge CFDictionaryRef)(metadata));
-    
-    // Write the file to disk
-    bool success = CGImageDestinationFinalize(imageDestination);
-    
-    // Clean up
-    CFRelease(imageSource);
-    CFRelease(imageDestination);
-    
-    if(!success){
-        NSLog(@"%s Failed to create new image for %@", __PRETTY_FUNCTION__, url.path);
-    } else {
-        NSLog(@"%s Success", __PRETTY_FUNCTION__);
-    }
-    
-    // TODO: read back the dictionary from the actual file not just return what was passed in
-    return completionBlock(success, metadata);
-}
-
-
--(void)extractLocationFromGPSDictionary:(NSDictionary*)gpsDictionary completionBlock:(VWWCLLocationCoordinate2DBlock)completionBlock{
-    if(gpsDictionary){
-        NSNumber *latitude = [gpsDictionary valueForKeyPath:@"Latitude"];
-        NSNumber *longitude = [gpsDictionary valueForKeyPath:@"Longitude"];
-        NSString *latitudeRef = [gpsDictionary valueForKeyPath:@"LatitudeRef"];
-        NSString *longitudeRef = [gpsDictionary valueForKeyPath:@"LongitudeRef"];
-        NSString *latitudeString = nil;
-        if([latitudeRef isEqualToString:@"S"]){
-            latitudeString = [NSString stringWithFormat:@"-%f", latitude.floatValue];
-        } else {
-            latitudeString = [NSString stringWithFormat:@"%f", latitude.floatValue];
-        }
-        NSString *longitudeString = nil;
-        if([longitudeRef isEqualToString:@"W"]){
-            longitudeString = [NSString stringWithFormat:@"-%f", longitude.floatValue];
-        } else {
-            longitudeString = [NSString stringWithFormat:@"%f", longitude.floatValue];
-        }
-        
-        return completionBlock(CLLocationCoordinate2DMake(latitudeString.floatValue, longitudeString.floatValue));
-    }
-    return completionBlock(CLLocationCoordinate2DMake(0, 0));
-}
-
--(void)applyCoordinate:(CLLocationCoordinate2D)coordinate toGPSDictionary:(NSMutableDictionary*)gpsDictionary{
-    if(coordinate.latitude == 0 && coordinate.longitude == 0) return;
-    
-    NSNumber *latitudeNumber = nil;
-    NSString *latitudeRefString = nil;
-    if(coordinate.latitude < 0){
-        latitudeNumber = @(-coordinate.latitude);
-        latitudeRefString = @"S";
-    } else {
-        latitudeNumber = @(coordinate.latitude);
-        latitudeRefString = @"N";
-    }
-    
-    NSNumber *longitudeNumber = nil;
-    NSString *longitudeRefString = nil;
-    if(coordinate.longitude < 0){
-        longitudeNumber = @(-coordinate.longitude);
-        longitudeRefString = @"W";
-    } else {
-        longitudeNumber = @(coordinate.longitude);
-        longitudeRefString = @"E";
-    }
-    
-    
-    gpsDictionary[(NSString*)kCGImagePropertyGPSLatitude] = latitudeNumber;
-    gpsDictionary[(NSString*)kCGImagePropertyGPSLatitudeRef] = latitudeRefString;
-    gpsDictionary[(NSString*)kCGImagePropertyGPSLongitude] = longitudeNumber;
-    gpsDictionary[(NSString*)kCGImagePropertyGPSLongitudeRef] = longitudeRefString;
-}
-
-
-
-
-
--(NSDictionary*)readMetadataFromURL:(NSURL*)url{
-    CGImageSourceRef imageSource = CGImageSourceCreateWithURL((__bridge CFURLRef)url, NULL);
-    if (imageSource == NULL) {
-        NSLog(@"Could not read metadata for %@", url.path);
-        return nil;
-    }
-    
-    NSDictionary *options = @{(NSString *)kCGImageSourceShouldCache : [NSNumber numberWithBool:NO]};
-    CFDictionaryRef imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, (__bridge CFDictionaryRef)options);
-    NSDictionary *metadata = nil;
-    if (imageProperties) {
-        metadata = (__bridge NSDictionary *)(imageProperties);
-        CFRelease(imageProperties);
-    }
-    CFRelease(imageSource);
-    return metadata;
-}
 
 -(void)writeMetatdataGPS:(BOOL)gps date:(BOOL)date{
     
@@ -469,10 +348,10 @@ static NSString *VWWSegueMainToSettings = @"VWWSegueMainToSettings";
             if(gps){
                 // {GPS}
                 NSMutableDictionary *gpsDictionary = [@{}mutableCopy];
-                [self applyCoordinate:self.mapView.centerCoordinate toGPSDictionary:gpsDictionary];
+                [VWWMetadataController applyCoordinate:self.mapView.centerCoordinate toGPSDictionary:gpsDictionary];
                 item.metadata[(NSString*)kCGImagePropertyGPSDictionary] = gpsDictionary;
             }
-            [self writeMetadata:item.metadata toURL:[NSURL fileURLWithPath:item.fullPath] completionBlock:^(BOOL success, NSDictionary *dictionary) {
+            [VWWMetadataController writeMetadata:item.metadata toURL:[NSURL fileURLWithPath:item.fullPath] completionBlock:^(BOOL success, NSDictionary *dictionary) {
                 if(success){
                     item.metadata = [dictionary mutableCopy];
                 } else {
@@ -523,7 +402,7 @@ static NSString *VWWSegueMainToSettings = @"VWWSegueMainToSettings";
                 item.metadata[(NSString*)kCGImagePropertyExifDictionary] = exifDictionary;
             }
             
-            [self writeMetadata:item.metadata toURL:[NSURL fileURLWithPath:item.fullPath] completionBlock:^(BOOL success, NSDictionary *dictionary) {
+            [VWWMetadataController writeMetadata:item.metadata toURL:[NSURL fileURLWithPath:item.fullPath] completionBlock:^(BOOL success, NSDictionary *dictionary) {
                 if(success){
                     item.metadata = [dictionary mutableCopy];
                 } else {
@@ -539,14 +418,6 @@ static NSString *VWWSegueMainToSettings = @"VWWSegueMainToSettings";
         }];
     });
 }
-
-
-
-
-
-
-
-
 
 
 #pragma mark MKMapDelegate

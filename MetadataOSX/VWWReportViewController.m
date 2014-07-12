@@ -8,6 +8,7 @@
 
 
 #import "VWWReportViewController.h"
+#import "VWWUserDefaults.h"
 @import ImageIO;
 
 @interface VWWReportViewController ()
@@ -36,10 +37,10 @@
 -(void)viewWillAppear{
     [super viewWillAppear];
     self.files = [@[]mutableCopy];
-    NSString *initialDir = [[NSUserDefaults standardUserDefaults] objectForKey:@"initialDir"];
-    self.pathControl.URL = [NSURL fileURLWithPath:initialDir];
+    NSString *initialPath = [VWWUserDefaults initialPath];
+    self.pathControl.URL = [NSURL fileURLWithPath:initialPath];
     self.currentPathLabel.stringValue = @"";
-    self.view.window.title = initialDir;
+    self.view.window.title = initialPath;
 }
 
 -(void)viewDidAppear{

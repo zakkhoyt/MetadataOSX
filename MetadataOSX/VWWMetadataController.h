@@ -7,7 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+@import CoreLocation;
+
+
+typedef void (^VWWBoolDictionaryBlock)(BOOL success, NSDictionary *dictionary);
+typedef void (^VWWCLLocationCoordinate2DBlock)(CLLocationCoordinate2D coordinate);
 
 @interface VWWMetadataController : NSObject
++(NSDictionary*)readMetadataFromURL:(NSURL*)url;
++(void)writeMetadata:(NSDictionary*)metadata toURL:(NSURL*)url completionBlock:(VWWBoolDictionaryBlock)completionBlock;
 
++(void)extractLocationFromGPSDictionary:(NSDictionary*)gpsDictionary completionBlock:(VWWCLLocationCoordinate2DBlock)completionBlock;
++(void)applyCoordinate:(CLLocationCoordinate2D)coordinate toGPSDictionary:(NSMutableDictionary*)gpsDictionary;
 @end

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="6185.7" systemVersion="14A283o" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <deployment defaultVersion="101000" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6185.7"/>
         <plugIn identifier="com.apple.MapKitIBPlugin" version="6185.7"/>
     </dependencies>
@@ -299,25 +298,25 @@ CgoKA
                 </viewController>
                 <customObject id="SOl-g1-Qzg" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="707" y="-193"/>
+            <point key="canvasLocation" x="1445" y="-851"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="3ox-dC-MPR">
             <objects>
                 <viewController id="ngh-b9-wgt" sceneMemberID="viewController">
                     <view key="view" id="Zgc-mC-Meo">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="692"/>
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="578"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pVt-Ly-YRv">
-                                <rect key="frame" x="17" y="655" width="415" height="20"/>
+                                <rect key="frame" x="17" y="541" width="415" height="20"/>
                                 <buttonCell key="cell" type="check" title="Filter by type (separated by | )" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="p27-sD-Mdn">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
                             </button>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MIy-Xx-agW">
-                                <rect key="frame" x="20" y="631" width="410" height="19"/>
+                                <rect key="frame" x="20" y="517" width="410" height="19"/>
                                 <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="jpg | jpeg | bmp | gif | png | jif | jfif | tif | tiff | raw | ppm | pmg | pbm | pnm" drawsBackground="YES" id="bpX-Vv-0VQ">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -325,7 +324,7 @@ CgoKA
                                 </textFieldCell>
                             </textField>
                             <box autoresizesSubviews="NO" fixedFrame="YES" title="EXIF" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Hhd-01-zwH">
-                                <rect key="frame" x="17" y="522" width="416" height="101"/>
+                                <rect key="frame" x="17" y="408" width="416" height="101"/>
                                 <view key="contentView">
                                     <rect key="frame" x="1" y="1" width="414" height="85"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -374,7 +373,7 @@ CgoKA
                                 <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </box>
                             <box autoresizesSubviews="NO" fixedFrame="YES" title="GPS" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="f1i-bG-cxF">
-                                <rect key="frame" x="17" y="417" width="416" height="101"/>
+                                <rect key="frame" x="17" y="303" width="416" height="101"/>
                                 <view key="contentView">
                                     <rect key="frame" x="1" y="1" width="414" height="85"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -426,12 +425,42 @@ CgoKA
                                 <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                 <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </box>
+                            <tabView fixedFrame="YES" type="bottomTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="PYg-ZE-fR5">
+                                <rect key="frame" x="13" y="14" width="424" height="289"/>
+                                <font key="font" metaFont="system"/>
+                                <tabViewItems>
+                                    <tabViewItem label="Tab" identifier="1" id="y62-45-JQ3">
+                                        <view key="view" id="h9c-ea-ys9">
+                                            <rect key="frame" x="10" y="33" width="404" height="249"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="th9-re-uSB">
+                                                    <rect key="frame" x="15" y="227" width="374" height="21"/>
+                                                    <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="fJW-ph-N6X"/>
+                                                </slider>
+                                            </subviews>
+                                        </view>
+                                    </tabViewItem>
+                                    <tabViewItem label="View" identifier="2" id="V8C-Je-kvQ">
+                                        <view key="view" ambiguous="YES" id="UyS-bW-ue7">
+                                            <rect key="frame" x="10" y="7" width="404" height="251"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ctj-Xa-iKL">
+                                                    <rect key="frame" x="192" y="16" width="21" height="234"/>
+                                                    <sliderCell key="cell" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="right" sliderType="linear" id="erI-2N-03w"/>
+                                                </slider>
+                                            </subviews>
+                                        </view>
+                                    </tabViewItem>
+                                </tabViewItems>
+                            </tabView>
                         </subviews>
                     </view>
                 </viewController>
                 <customObject id="RNi-S2-AD0" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1445" y="277"/>
+            <point key="canvasLocation" x="1445" y="220"/>
         </scene>
         <!--Report View Controller-->
         <scene sceneID="MLG-DT-7sn">
@@ -624,7 +653,7 @@ CgoKA
                                     </subviews>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" verticalHuggingPriority="750" doubleValue="0.33333333333333331" horizontal="YES" id="rHg-6B-lYa">
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" doubleValue="0.5" horizontal="YES" id="rHg-6B-lYa">
                                     <rect key="frame" x="1" y="119" width="223" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -707,7 +736,7 @@ Gw
                                     <rect key="frame" x="1" y="1" width="223" height="133"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textView importsGraphics="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="VCg-1o-eN7">
+                                        <textView editable="NO" importsGraphics="NO" findStyle="panel" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="VCg-1o-eN7">
                                             <rect key="frame" x="0.0" y="0.0" width="223" height="393"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -855,7 +884,7 @@ Gw
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 </tableColumn>
-                                                <tableColumn identifier="date" width="394.16569167720695" minWidth="40" maxWidth="1000" id="l3q-HU-7Hn">
+                                                <tableColumn identifier="date" width="397.38808226093562" minWidth="40" maxWidth="1000" id="l3q-HU-7Hn">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Date">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -877,7 +906,7 @@ Gw
                                     </subviews>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="UH5-BA-f7p">
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="UH5-BA-f7p">
                                     <rect key="frame" x="1" y="119" width="223" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -1058,7 +1087,7 @@ Gw
                         <outlet property="writeGPSButton" destination="UUO-LF-bmU" id="fVM-aT-Hvv"/>
                         <outlet property="writeGPSDateButton" destination="1CJ-kq-asz" id="WE8-Tx-Mov"/>
                         <segue destination="I7M-JD-7mk" kind="sheet" identifier="VWWSegueMainToReport" id="rz4-oa-Vyp"/>
-                        <segue destination="WjB-Ec-Sbo" kind="popover" identifier="VWWSegueMainToMetadata" popoverBehavior="t" preferredEdge="maxY" id="fkK-JT-lec"/>
+                        <segue destination="WjB-Ec-Sbo" kind="modal" identifier="VWWSegueMainToMetadata" id="fkK-JT-lec"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

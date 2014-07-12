@@ -133,6 +133,11 @@
     
 }
 
+-(void)viewWillAppear{
+    [super viewWillAppear];
+    self.view.window.title = @"Metadata Viewer";
+}
+
 - (IBAction)metadataPopupAction:(NSPopUpButton *)sender {
     NSString *key = sender.selectedItem.title;
     NSLog(@"Key: %@", key);
