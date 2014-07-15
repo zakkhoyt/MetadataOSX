@@ -205,7 +205,7 @@
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="142" y="975" width="480" height="302"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
                         <value key="minSize" type="size" width="1000" height="840"/>
                         <view key="contentView" id="O92-4t-NeX">
                             <rect key="frame" x="0.0" y="0.0" width="480" height="302"/>
@@ -319,7 +319,6 @@ SourceCode (https://github.com/zakkhoyt/MetadataOSX)</string>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="FkU-t1-aa3" viewBased="YES" id="d99-Nf-fxQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="238" height="117"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -485,8 +484,11 @@ SourceCode (https://github.com/zakkhoyt/MetadataOSX)</string>
                                                     </buttonCell>
                                                 </column>
                                             </cells>
+                                            <connections>
+                                                <action selector="gpsMatrixAction:" target="ngh-b9-wgt" id="YDf-ad-Lga"/>
+                                            </connections>
                                         </matrix>
-                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ROE-vs-p8q">
+                                        <textField hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ROE-vs-p8q">
                                             <rect key="frame" x="300" y="55" width="96" height="19"/>
                                             <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="zJ8-3j-Dvb">
                                                 <font key="font" metaFont="smallSystem"/>
@@ -494,7 +496,7 @@ SourceCode (https://github.com/zakkhoyt/MetadataOSX)</string>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cyB-oO-Ero">
+                                        <textField hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cyB-oO-Ero">
                                             <rect key="frame" x="300" y="32" width="96" height="19"/>
                                             <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="2kc-tj-Eey">
                                                 <font key="font" metaFont="smallSystem"/>
@@ -521,6 +523,9 @@ SourceCode (https://github.com/zakkhoyt/MetadataOSX)</string>
                                             <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" controlSize="small" inset="2" id="Vul-xe-RRO">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="smallSystem"/>
+                                                <connections>
+                                                    <action selector="fileButtonAction:" target="ngh-b9-wgt" id="VrO-vX-EPp"/>
+                                                </connections>
                                             </buttonCell>
                                             <cells>
                                                 <column>
@@ -534,6 +539,9 @@ SourceCode (https://github.com/zakkhoyt/MetadataOSX)</string>
                                                     </buttonCell>
                                                 </column>
                                             </cells>
+                                            <connections>
+                                                <action selector="fileMatrixAction:" target="ngh-b9-wgt" id="1Y2-XG-lcJ"/>
+                                            </connections>
                                         </matrix>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MIy-Xx-agW">
                                             <rect key="frame" x="18" y="24" width="378" height="19"/>
@@ -542,6 +550,9 @@ SourceCode (https://github.com/zakkhoyt/MetadataOSX)</string>
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <connections>
+                                                <action selector="allowedTypesTextFieldAction:" target="ngh-b9-wgt" id="dEl-5L-7is"/>
+                                            </connections>
                                         </textField>
                                     </subviews>
                                 </view>
@@ -579,8 +590,11 @@ SourceCode (https://github.com/zakkhoyt/MetadataOSX)</string>
                                                     </buttonCell>
                                                 </column>
                                             </cells>
+                                            <connections>
+                                                <action selector="exifMatrixAction:" target="ngh-b9-wgt" id="dUQ-Z1-hwM"/>
+                                            </connections>
                                         </matrix>
-                                        <datePicker verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U1v-4v-lsD">
+                                        <datePicker hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U1v-4v-lsD">
                                             <rect key="frame" x="167" y="55" width="231" height="22"/>
                                             <datePickerCell key="cell" controlSize="small" borderStyle="bezel" alignment="left" datePickerMode="range" id="GQi-V7-XwW">
                                                 <font key="font" metaFont="smallSystem"/>
@@ -601,6 +615,9 @@ SourceCode (https://github.com/zakkhoyt/MetadataOSX)</string>
                     </view>
                     <connections>
                         <outlet property="allowedTypesTextField" destination="MIy-Xx-agW" id="kBV-Xm-p5P"/>
+                        <outlet property="exifMatrix" destination="CaA-Pe-PoF" id="nhr-ER-JN3"/>
+                        <outlet property="fileTypesMatrix" destination="bZQ-nr-brg" id="HSH-7f-H9x"/>
+                        <outlet property="gpsMatrix" destination="AzH-8S-Tgo" id="hO9-nt-96Q"/>
                     </connections>
                 </viewController>
                 <customObject id="RNi-S2-AD0" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -768,7 +785,7 @@ SourceCode (https://github.com/zakkhoyt/MetadataOSX)</string>
                                     </subviews>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" verticalHuggingPriority="750" doubleValue="0.0068259385665529011" horizontal="YES" id="rHg-6B-lYa">
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="rHg-6B-lYa">
                                     <rect key="frame" x="1" y="119" width="223" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -821,7 +838,7 @@ Gw
 </string>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="cancelButtonAction:" target="I7M-JD-7mk" id="qcE-xD-K3u"/>
+                                    <action selector="okayButtonAction:" target="I7M-JD-7mk" id="jag-Bk-9Bg"/>
                                 </connections>
                             </button>
                             <searchField wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pba-UT-PG0">
@@ -1246,6 +1263,7 @@ Gw
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="advancedButton" destination="thC-6s-xvp" id="nV6-c4-Bg7"/>
                         <outlet property="datePicker" destination="7DO-9o-unU" id="vXb-X6-496"/>
                         <outlet property="eraseDateButton" destination="DVb-6f-wLL" id="fMh-5U-8Sd"/>
                         <outlet property="eraseGPSButton" destination="2zO-HT-Xro" id="AVO-FQ-N0j"/>

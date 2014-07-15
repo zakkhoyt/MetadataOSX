@@ -59,6 +59,9 @@ typedef void (^VWWMKLocalSearchResponseBlock)(MKLocalSearchResponse *response);
         }
     }];
 }
+- (IBAction)okayButtonAction:(id)sender {
+    [self forwardCoordinate];
+}
 
 - (IBAction)cancelButtonAction:(id)sender {
     [self dismissViewController:self];
@@ -85,6 +88,10 @@ typedef void (^VWWMKLocalSearchResponseBlock)(MKLocalSearchResponse *response);
 
 
 -(void)tableViewDoubleAction:(id)sender{
+    [self forwardCoordinate];
+}
+
+-(void)forwardCoordinate{
     NSInteger index = self.tableView.selectedRow;
     if(index != -1){
         MKMapItem *item = self.places[index];
@@ -93,9 +100,8 @@ typedef void (^VWWMKLocalSearchResponseBlock)(MKLocalSearchResponse *response);
     }
     
     [self dismissViewController:self];
+
 }
-
-
 
 #pragma mark Implements NSTableViewDataSource
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {

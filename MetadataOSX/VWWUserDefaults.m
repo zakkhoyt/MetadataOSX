@@ -12,8 +12,44 @@
 static NSString *VWWUserDefaultsInitialPathKey = @"initialPath";
 static NSString *VWWUserDefaultsAllowedTypesKey = @"allowedTypes";
 static NSString *VWWUserDefaultsRecentLocationsKey = @"recentLocations";
+static NSString *VWWUserDefaultsFileTypesRadioKey = @"fileTypesRadio";
+static NSString *VWWUserDefaultsGPSRadioKey = @"GPSRadio";
+static NSString *VWWUserDefaultsEXIFRadioKey = @"EXIFRadio";
 
 @implementation VWWUserDefaults
+
+
+
++(NSUInteger)GPSRadio{
+    NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:VWWUserDefaultsGPSRadioKey];
+    return number ? number.unsignedIntegerValue : 2;
+}
++(void)setGPSRadio:(NSUInteger)GPSRadio{
+    [[NSUserDefaults standardUserDefaults] setObject:@(GPSRadio) forKey:VWWUserDefaultsGPSRadioKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++(NSUInteger)EXIFRadio{
+    NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:VWWUserDefaultsEXIFRadioKey];
+    return number ? number.unsignedIntegerValue : 2;
+}
++(void)setEXIFRadio:(NSUInteger)EXIFRadio{
+    [[NSUserDefaults standardUserDefaults] setObject:@(EXIFRadio) forKey:VWWUserDefaultsEXIFRadioKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+
+
++(NSUInteger)fileTypesRadio{
+    NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:VWWUserDefaultsFileTypesRadioKey];
+    return number ? number.unsignedIntegerValue : 1;
+}
++(void)setFileTypesRadio:(NSUInteger)fileTypesRadio{
+    [[NSUserDefaults standardUserDefaults] setObject:@(fileTypesRadio) forKey:VWWUserDefaultsFileTypesRadioKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+
 
 
 +(NSArray*)recentLocations{

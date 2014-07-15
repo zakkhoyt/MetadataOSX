@@ -89,7 +89,7 @@
     NSString *key = dictionary[@"key"];
     NSLog(@"%s Edited %@", __PRETTY_FUNCTION__, key);
     
-    dictionary[@"key"] = sender.stringValue;
+//    dictionary[@"key"] = sender.stringValue;
     
 //    id value = dictionary[key];
 //    if(value == nil){

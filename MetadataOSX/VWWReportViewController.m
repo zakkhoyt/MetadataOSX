@@ -16,7 +16,7 @@
 @property (strong) NSMutableArray *files;
 @property (weak) IBOutlet NSTextField *currentPathLabel;
 @property (weak) IBOutlet NSButton *imageTypesCheckButton;
-@property (strong) NSArray *imageTypes;
+@property (strong) NSSet *imageTypes;
 @property dispatch_queue_t reportQueue;
 @property (weak) IBOutlet NSProgressIndicator *progressIndicator;
 @property (weak) IBOutlet NSButton *startButton;
@@ -27,13 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.reportQueue = dispatch_queue_create("com.vaporwarewolf.throwback.report", DISPATCH_QUEUE_SERIAL);
-    [self setupImageTypes];
-    
-    
-    
-    
 }
 
 -(void)viewWillAppear{
@@ -52,6 +46,8 @@
 
 
 - (IBAction)startButtonAction:(id)sender {
+    [self setupImageTypes];
+    
     [self.files removeAllObjects];
     [self.progressIndicator startAnimation:self];
     self.startButton.enabled = NO;
@@ -113,11 +109,11 @@
             }
         } else {
             BOOL shouldInspectMetadata = NO;
-            if(self.imageTypesCheckButton.state == NSOnState){
+//            if(self.imageTypesCheckButton.state == NSOnState){
                 shouldInspectMetadata = [self urlIsImageType:url];
-            } else {
-                shouldInspectMetadata = YES;
-            }
+//            } else {
+//                shouldInspectMetadata = YES;
+//            }
             
             if(shouldInspectMetadata){
                 NSDictionary *metadata = [self readMetadataFromURL:url];
@@ -139,41 +135,26 @@
 
 
 -(void)setupImageTypes{
-    self.imageTypes = @[
-                        @"jpg",
-                        @"jpeg",
-                        @"jif",
-                        @"jfif",
-                        @"tif",
-                        @"tiff",
-                        @"exif",
-                        @"raw",
-                        @"gif",
-                        @"bmp",
-                        @"png",
-                        @"ppm",
-                        @"pmg",
-                        @"pbm",
-                        @"pnm",
-                        @"webp",
-                        @"jp2",
-                        @"jpx",
-                        @"j2k",
-                        @"j2c",
-                        @"fpx",
-                        @"pdc",
-                        @"pdf"
-                        ];
+    NSString *allowedTypes = [VWWUserDefaults allowedTypes];
+    NSArray *types = [allowedTypes componentsSeparatedByString:@"|"];
+    NSMutableArray *cleanTypes = [[NSMutableArray alloc]initWithCapacity:types.count];
+    for(NSString *type in types){
+        NSString *cleanType = [type stringByReplacingOccurrencesOfString:@" " withString:@""];
+        [cleanTypes addObject:cleanType];
+    }
+    self.imageTypes =  [NSSet setWithArray:cleanTypes];
 }
 
 -(BOOL)urlIsImageType:(NSURL*)url{
     NSString *extension = [url.path pathExtension];
 
-    for(NSString *imageType in self.imageTypes){
-        if([extension compare:imageType options:NSCaseInsensitiveSearch] == NSOrderedSame) return YES;
-    }
     
-    return NO;
+    return [self.imageTypes containsObject:extension];
+//    for(NSString *imageType in self.imageTypes){
+//        if([extension compare:imageType options:NSCaseInsensitiveSearch] == NSOrderedSame) return YES;
+//    }
+//    
+//    return NO;
 }
 
 -(NSDictionary*)readMetadataFromURL:(NSURL*)url{

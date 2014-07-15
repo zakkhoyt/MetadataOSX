@@ -10,6 +10,17 @@
 
 @interface VWWUserDefaults : NSObject
 
++(NSUInteger)GPSRadio;
++(void)setGPSRadio:(NSUInteger)GPSRadio;
+
++(NSUInteger)EXIFRadio;
++(void)setEXIFRadio:(NSUInteger)EXIFRadio;
+
+
++(NSUInteger)fileTypesRadio;
++(void)setFileTypesRadio:(NSUInteger)fileTypesRadio;
+
+
 +(NSArray*)recentLocations;
 +(void)setRecentLocations:(NSArray*)recentLocations;
 

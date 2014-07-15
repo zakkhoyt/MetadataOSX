@@ -43,6 +43,7 @@ static NSString *VWWSegueMainToAdvanced = @"VWWSegueMainToAdvanced";
 @property (weak) IBOutlet NSButton *eraseGPSButton;
 @property (weak) IBOutlet NSButton *eraseDateButton;
 @property (weak) IBOutlet NSButton *eraseGPSDateButton;
+@property (weak) IBOutlet NSButton *advancedButton;
 
 
 
@@ -70,6 +71,8 @@ static NSString *VWWSegueMainToAdvanced = @"VWWSegueMainToAdvanced";
     
     self.datePicker.dateValue = [NSDate date];
     self.imageBackgroundView.backgroundColor = [NSColor darkGrayColor];
+    
+    [self outlineViewAction:nil];
 }
 
 
@@ -246,6 +249,31 @@ static NSString *VWWSegueMainToAdvanced = @"VWWSegueMainToAdvanced";
     
 }
 
+-(void)showMetaControls{
+    self.writeGPSButton.hidden = NO;
+    self.writeDateButton.hidden = NO;
+    self.writeGPSDateButton.hidden = NO;
+    self.eraseGPSButton.hidden = NO;
+    self.eraseDateButton.hidden = NO;
+    self.eraseGPSDateButton.hidden = NO;
+    self.advancedButton.hidden = NO;
+
+
+}
+
+-(void)hideMetaControls{
+    self.writeGPSButton.hidden = YES;
+    self.writeDateButton.hidden = YES;
+    self.writeGPSDateButton.hidden = YES;
+    self.eraseGPSButton.hidden = YES;
+    self.eraseDateButton.hidden = YES;
+    self.eraseGPSDateButton.hidden = YES;
+    self.advancedButton.hidden = YES;
+    
+}
+
+
+
 -(void)outlineViewAction:(NSOutlineView*)sender {
     
     
@@ -255,24 +283,19 @@ static NSString *VWWSegueMainToAdvanced = @"VWWSegueMainToAdvanced";
         FileSystemItem *item = [self.outlineView itemAtRow:selectedRow];
         
         if(item.metadata){
-            self.writeGPSButton.hidden = NO;
-            self.writeDateButton.hidden = NO;
-            self.writeGPSDateButton.hidden = NO;
-            self.eraseGPSButton.hidden = NO;
-            self.eraseDateButton.hidden = NO;
-            self.eraseGPSDateButton.hidden = NO;
+            [self showMetaControls];
         } else {
-            self.writeGPSButton.hidden = YES;
-            self.writeDateButton.hidden = YES;
-            self.writeGPSDateButton.hidden = YES;
-            self.eraseGPSButton.hidden = YES;
-            self.eraseDateButton.hidden = YES;
-            self.eraseGPSDateButton.hidden = YES;
-
+            [self hideMetaControls];
         }
 
         // Image
-        self.imageView.image = [[NSImage alloc]initWithContentsOfURL:[NSURL fileURLWithPath:item.fullPath]];
+        NSImage *image = [[NSImage alloc]initWithContentsOfURL:[NSURL fileURLWithPath:item.fullPath]];
+        if(image) {
+            self.imageView.image = image;
+        } else {
+            self.imageView.image = [NSImage imageNamed:@"throwback_320"];
+        }
+        
         
         // Coords
         for(id<MKAnnotation> annotation in self.mapView.annotations){
@@ -313,6 +336,8 @@ static NSString *VWWSegueMainToAdvanced = @"VWWSegueMainToAdvanced";
             
             
         }
+    } else {
+        [self hideMetaControls];
     }
 }
 

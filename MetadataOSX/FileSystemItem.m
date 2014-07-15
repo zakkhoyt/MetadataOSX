@@ -48,6 +48,7 @@ static FileSystemItem *rootItem = nil;
                 NSInteger cnt, numChildren = [array count];
                 children = [[NSMutableArray alloc] initWithCapacity:numChildren];
                 for (cnt = 0; cnt < numChildren; cnt++) {
+                    
                     FileSystemItem *item = [[FileSystemItem alloc] initWithPath:[array objectAtIndex:cnt] parent:self];
                     [children addObject:item];
                 }
